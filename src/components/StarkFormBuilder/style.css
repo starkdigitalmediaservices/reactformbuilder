@@ -1,0 +1,19 @@
+.btn-width {
+    width: auto;
+    min-width: auto;
+}
+.mr-5 {
+    margin-right: 5px;
+}
+
+.stark-form-img {
+    width: 70px;
+    height: 70px;
+    margin-right: 2px;
+}
+.container1 {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin-bottom: 5px;
+    padding: 5px;
+}

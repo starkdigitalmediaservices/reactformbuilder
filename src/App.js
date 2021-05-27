@@ -1,24 +1,79 @@
-import logo from './logo.svg';
-import './App.css';
+/* eslint-disable */
+import React, { useState, useEffect } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Card } from 'react-bootstrap';
+import FormBuilder from './components/StarkFormBuilder';
+import FormSections from './components/StarkFormBuilder/sample.json';
 
 function App() {
+  // Variable declarations
+  const [defaultValues, updateDefaultValues] = useState({});
+  const [options, updateOptions] = useState({});
+  const [currentUser, updateCurrentUser] = useState(0);
+
+  // Get user role
+  const getUserRole = async () => {
+    const roleId = await localStorage.getItem('role');
+    updateCurrentUser(Number(roleId));
+  };
+
+  useEffect(() => {
+    getUserRole();
+  }, []);
+
+  // Submit Form
+  const submitForm = async (formValues) => {
+    // console.log(formValues);
+
+    // const { data } = await AuthApi.postDataToServer(Api.addStudent, formValues);
+    // if (!data) {
+    //   // show error
+    //   return;
+    // }
+    // // Perform success actions
+
+  };
+
+  const getClasses = async () => {
+    // const { data } = await AuthApi.getDataFromServer(Api.classesUrl);
+    // if (!data) {
+    //   // show error
+    //   return;
+    // }
+
+    // const dpOptions = [];
+    // data.data.map((op) => {
+    //   // Change appropriate keys
+    //   dpOptions.push({ label: op.name, value: op.id });
+    //   return op;
+    // });
+    // const allOptions = {
+    //   ...options,
+    //   classes: dpOptions
+    // };
+    // updateOptions(allOptions);
+  }
+
+  useEffect(() => {
+    getClasses();
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Card className="App">
+      <Card.Body>
+        <FormBuilder
+          containerClass=''
+          formHeaderClass=''
+          formSections={FormSections}
+          formHeading="Registration"
+          onFormSubmit={(formValues) => { submitForm(formValues); }}
+          options={options}
+          callbacks={{}}
+          defaultFormValues={defaultValues}
+          currentUser={currentUser}
+        />
+      </Card.Body>
+    </Card>
   );
 }
 
