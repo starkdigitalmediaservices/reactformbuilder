@@ -11,7 +11,7 @@ Create form using JSON schema
 Install react form builder
 
 ```
-npm i --save reactformbuilder
+npm i --save stark-form-builder
 ```
 
 ## Dependencies
