@@ -1,70 +1,180 @@
-# Getting Started with Create React App
+# React Form Builder
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**Form builder**
 
-## Available Scripts
 
-In the project directory, you can run:
+Create form using JSON schema
 
-### `yarn start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Installation
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Install react form builder
 
-### `yarn test`
+```
+npm i --save reactformbuilder
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Dependencies
 
-### `yarn build`
+Install dependent libraries
+* bootstratp
+* react-bootstrap
+* react-select
+* react-datepicker
+* simple-react-validator
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```
+npm i --save bootstrap react-bootstrap react-select react-datepicker simple-react-validator 
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Usage
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Import this in your screen/component.
 
-### `yarn eject`
+```
+import FormBuilder from 'reactformbuilder';
+import FormSchema from './formschema.json';
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Use this in render / return
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```
+// some code
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+render() {
+    return (
+        <FormBuilder
+            containerClass=''
+            formHeaderClass=''
+            formHeading="Registration"
+            formSections={FormSchema}
+            onFormSubmit={(formValues) => { console.log(formValues); }}
+            options={options}
+            callbacks={{}}
+            defaultFormValues={defaultValues}
+            currentUser={currentUser}
+        />
+    );
+}
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```
 
-### Code Splitting
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### Configurable props
 
-### Analyzing the Bundle Size
+* containerClass - Class for form container
+* formHeaderClass - Class for form heading
+* formHeading - Heading for form
+* formSections - JSON form schema for form
+* onFormSubmit - Callback for form submission, gives all form filled values
+* options - Pass options dynamically to Select box and Checkboxes
+  ```
+  options: {{
+      subjects: [{value: 'maths', label: 'Maths'}, {value: 'chem', label: 'Chemistry'}],
+  }}
+  ```
+  NOTE: Key must be same as input value, then only it'll patch the values
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+* callbacks - On change callbacks for input type select change
+  ```
+  callbacks: {{
+      callback1: (value) => { console.log(value); }
+  }}
+  ```
+* defaultFormValues - This will be used to set default values to form.
+  ```
+  defaultFormValues: {{
+      name: 'Sample Name',
+      email: 'sample@example.com'
+  }}
+  ```
+  NOTE: Key must be same as input value, then only it'll patch values
+* currentUser - Current users role id, it'll be used to restrict users to fill particular fields.
 
-### Making a Progressive Web App
+### JSON Schema
+```
+[
+    {
+        "sectionTitle": "User info",
+        "containerClass": "user-section",
+        "displaySection": true,
+        "displaySectionTitle": true,
+        "fields": [
+            {
+                "name": "name",
+                "type": "text",
+                "label": "Name",
+                "id": "",
+                "placeholder": "",
+                "inputClass": "",
+                "containerClass": "",
+                "validations": [
+                    {
+                        "type": "required",
+                        "applyWhen": [],
+                        "applyWhenRelation": "OR"
+                    }
+                ],
+                "displayWhen": {
+                    "conditions": [
+                        {
+                            "name": "gender",
+                            "value": "female",
+                            "condition": "=="
+                        }
+                    ],
+                    "displayWhenRelation": "AND"
+                },
+                "disabled": false,
+                "allowedUsers": []
+            }
+        ]
+    }
+]
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+You can have multiple sections in schema.
 
-### Advanced Configuration
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### Configurable JSON schema
 
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+* sectionTitle - Title of section
+* containerClass - Class for section container
+* displaySection - (Boolean value) whether to display section or not
+* displaySectionTitle - (Boolean value) whether to display section title or not
+* sectionLayout - Layout of sections. Allowed types '1column', '2column', '3column', '4column'.
+* fields - Array of objects
+  * id - Field identifier
+  * name - Input name
+  * type - Input type. Available type text, email, number, select, date, textarea, radio, checkbox, addmore
+  * label - Label for input field
+  * containerClass - Class for input container
+  * placeholder - Placeholder for input type
+  * inputClass - Input element class
+  * validations - Validations for input element. Its array of objects
+    * type - Type from react-simple-validator npm
+    * applyWhen - Array of objects, conditions to apply validations
+      * name - Input name
+      * value - That input value
+      * condition - Condition for name and value. Supported conditions are '==', '!=', '<=', '>=', '<', '>', 'empty', '!empty'
+    * applyWhenRelation - 'AND'|'OR'. Relation for applyWhen conditions.
+  * options - Array of objects. Options for 'radio','select','checkbox'.
+    ```
+    [{label: 'Option 1', value: 'option1'}, {label: 'Option 2', value: 'option2'}]
+    ```
+  * displayWhen - Object. This will be used for hide/show form element for particular conditions
+    * conditions - Array of objects, conditions to apply validations
+      * name - Input name
+      * value - That input value
+      * condition - Condition for name and value. Supported conditions are '==', '!=', '<=', '>=', '<', '>', 'empty', '!empty'
+    * displayWhenRelation - 'AND'|'OR'. Relation for conditions.
+  * disabled - To disable input field.
+  * maxDateSelector - Form element name. If current type is date and to set maximum date this will be used
+  * minDateSelector - Form element name. If current type is date and to set minimum date this will be used
+  * callback - callback key. This will be called onchange of element
+  * fields - If type is selected as "addmore" then to add fields under that input this options will be used.
+  * fieldLayout - If type is selected as "addmore" then to set layout of add more section. Allowed types '1column', '2column', '3column', '4column'.
+  * sectionClass - If type is selected as "addmore" then to add class for that section
