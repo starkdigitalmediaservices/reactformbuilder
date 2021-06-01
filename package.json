@@ -5,10 +5,12 @@
   "author": "stark",
   "keywords": [
     "react",
-    "form components",
-    "form ui",
-    "Dynamic Form Builder",
-    "Form Builder"
+    "form-components",
+    "form-ui",
+    "dynamic-form-builder",
+    "form-builder",
+    "react-form-builder",
+    "react-form-schema"
   ],
   "main": "dist/index.js",
   "module": "dist/index.js",
