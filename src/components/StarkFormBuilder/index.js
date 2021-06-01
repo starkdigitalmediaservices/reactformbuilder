@@ -4,7 +4,7 @@ import FormRenderer from './formRenderer';
 import './style.css';
 
 export default function StarkFormBuilder(props) {
-  const { containerClass, formHeaderClass, formInputs, formSections, formHeading, onFormSubmit, callbacks, options, defaultFormValues, currentUser } = props;
+  const { containerClass, formHeaderClass, formInputs, formSections, formHeading, onFormSubmit, callbacks, options, defaultFormValues, currentUser, submitBtnText, resetBtnText, showResetBtn, onFormReset, btnContainerClass } = props;
   return (
     <>
       <Container>
@@ -21,6 +21,11 @@ export default function StarkFormBuilder(props) {
             options={options}
             defaultFormValues={defaultFormValues}
             currentUser={currentUser}
+            submitBtnText={submitBtnText}
+            resetBtnText={resetBtnText}
+            showResetBtn={showResetBtn}
+            onFormReset={onFormReset}
+            btnContainerClass={btnContainerClass}
           />
         </div>
       </Container>

@@ -7,7 +7,7 @@ import CustomFunctions from './helper/customFunctions';
 
 export default function FormRenderer(props) {
   const simpleValidator = useRef(new SimpleReactValidator());
-  const { sections, onFormSubmit, callbacks, options, defaultFormValues, currentUser } = props;
+  const { sections, onFormSubmit, callbacks, options, defaultFormValues, currentUser, submitBtnText, resetBtnText, showResetBtn, onFormReset, btnContainerClass } = props;
   const [formValues, setFormValues] = useState({});
   const [allFormFields, setAllFormFields] = useState([]);
   const [allFormSections, setAllFormSections] = useState([]);
@@ -15,7 +15,7 @@ export default function FormRenderer(props) {
   const [submitCount, updateSubmitCount] = useState(0);
   const [displayedFields, updateDisplayedFields] = useState({});
 
-  const setDefaultFormValues = () => {
+  const setDefaultFormValues = (resetForm = false) => {
     let allFields = [];
     const addMoreFields = {};
     sections.map((section) => {
@@ -24,12 +24,21 @@ export default function FormRenderer(props) {
     });
     const allFormValues = {};
     allFields.map((field) => {
-      allFormValues[field.name] = (defaultFormValues && defaultFormValues[field.name]) ? defaultFormValues[field.name] : field.value;
+      if (!resetForm) {
+        allFormValues[field.name] = (defaultFormValues && defaultFormValues[field.name]) ? defaultFormValues[field.name] : field.value;
+      } else {
+        allFormValues[field.name] = '';
+      }
       if (field.type === 'addmore') {
-        allFormValues[field.name] = (typeof allFormValues[field.name] === 'object') ? allFormValues[field.name] : [];
-        const amFields = allFormValues[field.name] && (typeof allFormValues[field.name] === 'object') ? allFormValues[field.name] : [];
-        // addMoreFields[field.name] = [field.fields];
-        addMoreFields[field.name] = Array(amFields.length || 1).fill(field.fields);
+        if (!resetForm) {
+          allFormValues[field.name] = (typeof allFormValues[field.name] === 'object') ? allFormValues[field.name] : [];
+          const amFields = allFormValues[field.name] && (typeof allFormValues[field.name] === 'object') ? allFormValues[field.name] : [];
+          // addMoreFields[field.name] = [field.fields];
+          addMoreFields[field.name] = Array(amFields.length || 1).fill(field.fields);
+        } else {
+          allFormValues[field.name] = [];
+          addMoreFields[field.name] = Array(1).fill(field.fields);
+        }
       }
       return field;
     });
@@ -422,10 +431,17 @@ export default function FormRenderer(props) {
     updateSubmitCount(submitCount + 1);
   };
 
+  const resetForm = (e) => {
+    e.preventDefault();
+    console.log('resetForm');
+    setDefaultFormValues(true);
+    if (onFormReset) onFormReset();
+  };
+
   simpleValidator.current.purgeFields();
   return (
     <>
-      <Form onSubmit={submitForm}>
+      <Form onSubmit={submitForm} onReset={resetForm}>
         {
           allFormSections && allFormSections.map((section) => {
             return (
@@ -433,7 +449,14 @@ export default function FormRenderer(props) {
             )
           })
         }
-        <Button className="btn btn-primary mt-5" type="submit">Submit</Button>
+        <div className={`btn-group mt-5 ${btnContainerClass}`}>
+          <Button className="btn btn-primary mr-5" type="submit">{`${submitBtnText || 'Submit'}`}</Button>
+          {
+            showResetBtn && (
+              <Button className="btn btn-secondary" type="reset">{`${resetBtnText || 'Reset'}`}</Button>
+            )
+          }
+        </div>
       </Form>
     </>
   );

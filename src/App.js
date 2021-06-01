@@ -71,6 +71,13 @@ function App() {
           callbacks={{}}
           defaultFormValues={defaultValues}
           currentUser={currentUser}
+          submitBtnText=""
+          showResetBtn
+          resetBtnText="Clear"
+          btnContainerClass="form-submit-buttons"
+          onFormReset={() => {
+            console.log('form reset callback')
+          }}
         />
       </Card.Body>
     </Card>
