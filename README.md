@@ -1,9 +1,6 @@
 # React Form Builder
 
-**Form builder**
-
-
-Create form using JSON schema
+Package to create form using JSON schema
 
 
 ## Installation
