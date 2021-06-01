@@ -53,6 +53,11 @@ render() {
             callbacks={{}}
             defaultFormValues={defaultValues}
             currentUser={currentUser}
+            submitBtnText="Submit"
+            showResetBtn
+            resetBtnText="Clear"
+            btnContainerClass=""
+            onFormReset={() => { console.log('form reset callback); }}
         />
     );
 }
