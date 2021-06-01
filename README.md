@@ -93,6 +93,11 @@ render() {
   ```
   NOTE: Key must be same as input value, then only it'll patch values
 * currentUser - Current users role id, it'll be used to restrict users to fill particular fields.
+* submitBtnText - To change submit button text
+* showResetBtn - Boolean value to show form reset button
+* resetBtnText - To change reset button text
+* btnContainerClass - Submit and reset buttons container class to add custom styling
+* onFormReset - Callback on reset form
 
 ### JSON Schema
 ```
