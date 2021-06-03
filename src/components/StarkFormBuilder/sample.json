@@ -7,7 +7,7 @@
     "fields": [
       {
         "name": "name",
-        "type": "text",
+        "type": "password",
         "label": "Name",
         "id": "",
         "placeholder": "",

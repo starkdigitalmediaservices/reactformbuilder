@@ -8,6 +8,7 @@ export default function FormElementRenderer(props) {
   const renderInput = (input) => {
     switch (String(input.type).toLowerCase()) {
       case 'text':
+      case 'password':
       case 'email':
       case 'number':
         return <TextInput {...input} />;
