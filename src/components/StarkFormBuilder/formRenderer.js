@@ -423,6 +423,7 @@ export default function FormRenderer(props) {
   };
 
   useEffect(() => {
+    if (!submitCount) return;
     validateAndSubmitForm();
   }, [submitCount]);
 

@@ -23,7 +23,7 @@ function App() {
 
   // Submit Form
   const submitForm = async (formValues) => {
-    // console.log(formValues);
+    console.log('formValues 123', formValues);
 
     // const { data } = await AuthApi.postDataToServer(Api.addStudent, formValues);
     // if (!data) {
@@ -66,7 +66,7 @@ function App() {
           formHeaderClass=''
           formSections={FormSections}
           formHeading="Registration"
-          onFormSubmit={(formValues) => { submitForm(formValues); }}
+          onFormSubmit={(formValues) => { console.log('234234'); submitForm(formValues); }}
           options={options}
           callbacks={{}}
           defaultFormValues={defaultValues}
