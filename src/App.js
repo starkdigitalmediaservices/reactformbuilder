@@ -10,7 +10,9 @@ function App() {
   const [defaultValues, updateDefaultValues] = useState({});
   const [options, updateOptions] = useState({});
   const [currentUser, updateCurrentUser] = useState(0);
+  const step = [{
 
+  }]
   // Get user role
   const getUserRole = async () => {
     const roleId = await localStorage.getItem('role');
@@ -78,6 +80,19 @@ function App() {
           onFormReset={() => {
             console.log('form reset callback')
           }}
+          isStepForm
+          stepFormProps={{
+                      steps : [{
+                        label:'first',
+                        image:'https://via.placeholder.com/30',
+                      },
+                      {
+                        label:'second',
+                        image:'https://via.placeholder.com/10',
+                      }
+                      ],
+                      containerClass:''
+                    }} 
         />
       </Card.Body>
     </Card>

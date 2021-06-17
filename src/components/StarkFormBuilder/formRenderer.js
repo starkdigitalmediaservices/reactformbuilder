@@ -1,21 +1,26 @@
 /* eslint-disable */
 import React, { useState, useCallback, useEffect, useRef } from 'react';
 import { Form, Button, Row, Col } from 'react-bootstrap';
-import StepWizard from "react-step-wizard";
 import FormElementRenderer from './formElementRenderer';
 import SimpleReactValidator from 'simple-react-validator';
 import CustomFunctions from './helper/customFunctions';
+import Stepper from 'react-stepper-horizontal';
 
 export default function FormRenderer(props) {
   const simpleValidator = useRef(new SimpleReactValidator());
-  const { sections, onFormSubmit, callbacks, options, defaultFormValues, currentUser, submitBtnText, resetBtnText, showResetBtn, onFormReset, btnContainerClass } = props;
+  const { sections, onFormSubmit, callbacks, options, defaultFormValues, currentUser, submitBtnText, resetBtnText, showResetBtn, onFormReset, btnContainerClass, stepFormProps } = props;
+  console.log('props',props);
   const [formValues, setFormValues] = useState({});
   const [allFormFields, setAllFormFields] = useState([]);
   const [allFormSections, setAllFormSections] = useState([]);
   const [allAddMoreFields, setAddMoreFields] = useState({});
   const [submitCount, updateSubmitCount] = useState(0);
   const [displayedFields, updateDisplayedFields] = useState({});
-  const [stepInstance, setStepInstance] = useState(null);
+  const [stepCounter, updateStepCounter] = useState(0);
+  const [currentStepIndex, updateStepIndex] = useState(0);
+  const [isClickedNext, updateIsClickedNext] = useState(false);
+  const isStepForm = true;
+  const buttonStyle = { background: '#E0E0E0', width: 200, padding: 16, textAlign: 'center', margin: '0 auto', marginTop: 32 };
 
   const setDefaultFormValues = (resetForm = false) => {
     let allFields = [];
@@ -441,56 +446,107 @@ export default function FormRenderer(props) {
     if (onFormReset) onFormReset();
   };
 
-  simpleValidator.current.purgeFields();
-  console.log('props', props);
-  const Nav = (p) => {
-    console.log('p', p);
-    return (
-      <>
-        steps
-      </>
-    );
+  const getStepLabels = (allSections) => {
+    console.log('allSections',allSections);
+    if (CustomFunctions.checkIfEmpty(allSections, 'A')) return [];
+    const steps = allSections.map(section => {return {title:section.sectionTitle, icon:'https://via.placeholder.com/30'}});
+    return steps;
   };
+
+  const nextPrevCallback = (next = true) => {
+    updateIsClickedNext(next);
+    updateStepCounter(stepCounter + 1);
+  };
+
+  const changeStep = (next = true) => {
+    if (next) {
+      if (!simpleValidator.current.allValid()) {
+        simpleValidator.current.showMessages();
+        setFormValues({ ...formValues });
+        return;
+      }
+      if (currentStepIndex + 1 > allFormSections.length - 1) return;
+      updateStepIndex(currentStepIndex + 1);
+    } else {
+      if (currentStepIndex - 1 < 0) return;
+      updateStepIndex(currentStepIndex - 1);
+    }
+  };
+
+  useEffect(() => {
+    if (!stepCounter) return;
+    changeStep(isClickedNext);
+  }, [stepCounter]);
+
+  simpleValidator.current.purgeFields();
   return (
     <>
       <Form onSubmit={submitForm} onReset={resetForm}>
-        <StepWizard
-          onStepChange={(e) => { console.log('e', e); }}
-          nav={<Nav />}
-          instance={(e) => {
-            console.log('rrre', e);
-            setStepInstance(e);
-          }}
-        >
-          {
-            allFormSections && allFormSections.map((section) => {
-              return (
-                <RenderSection section={section} />
-              )
-            })
-          }
-        </StepWizard>
-        {
-          stepInstance && (
-            <div>
-              <h2>Step {stepInstance.currentStep}</h2>
-              <p>Total Steps: {stepInstance.totalSteps}</p>
-              <p>Is Active: {stepInstance.isActive}</p>
-              <p><button onClick={stepInstance.previousStep}>Previous Step</button></p>
-              <p><button onClick={stepInstance.nextStep}>Next Step</button></p>
-              <p><button onClick={() => stepInstance.props.goToStep(2)}>Step 2</button></p>
-              <p><button onClick={stepInstance.props.firstStep}>First Step</button></p>
-              <p><button onClick={stepInstance.props.lastStep}>Last Step</button></p>
-            </div>
-          )
-        }
-        <div className={`btn-group mt-5 ${btnContainerClass}`}>
-          <Button className="btn btn-primary mr-5" type="submit">{`${submitBtnText || 'Submit'}`}</Button>
-          {
-            showResetBtn && (
-              <Button className="btn btn-secondary" type="reset">{`${resetBtnText || 'Reset'}`}</Button>
+        <Stepper steps={getStepLabels(allFormSections)} activeStep={ currentStepIndex } />        
+         {
+          allFormSections && allFormSections.map((section, secIndex) => {
+            return (
+              <React.Fragment key={secIndex}>
+                {
+                  (secIndex === currentStepIndex) && (
+                    <RenderSection section={section} />
+                  )
+                }
+              </React.Fragment>
             )
-          }
+          })
+        }
+        
+        <div className={`btn-group mt-5 ${btnContainerClass}`}>
+        {
+          isStepForm ? (
+            <>
+             <Button
+               light
+               className="btn btn-primary mr-5"
+               onClick={() => {
+                 nextPrevCallback(false);
+               }}
+             >
+              Prev
+            </Button>
+            <Button
+              primary
+              onClick={() => {
+                if (currentStepIndex < allFormSections.length - 1)
+                  nextPrevCallback(true);
+                else
+                  submitForm();
+              }}
+            >
+              {
+                currentStepIndex < allFormSections.length - 1 ? 'Next' : 'Submit'
+              }
+            </Button>
+                </>
+              ) : (
+                <>
+                  <Button
+                    primary
+                    className="btn btn-primary mr-5"
+                    onClick={() => { submitForm(); }}
+                  >
+                    'Submit'
+                  </Button>
+                  {
+                    showResetBtn && (
+                      <Button
+                        light
+                        style={resetBtnStyle}
+                        onPress={() => { resetForm(); }}
+                      >
+                        Reset
+                      </Button>
+                    )
+                  }
+                </>
+              )
+            }
         </div>
       </Form>
     </>
