@@ -1,6 +1,7 @@
 /* eslint-disable */
 import React, { useState, useCallback, useEffect, useRef } from 'react';
 import { Form, Button, Row, Col } from 'react-bootstrap';
+import StepWizard from "react-step-wizard";
 import FormElementRenderer from './formElementRenderer';
 import SimpleReactValidator from 'simple-react-validator';
 import CustomFunctions from './helper/customFunctions';
@@ -14,6 +15,7 @@ export default function FormRenderer(props) {
   const [allAddMoreFields, setAddMoreFields] = useState({});
   const [submitCount, updateSubmitCount] = useState(0);
   const [displayedFields, updateDisplayedFields] = useState({});
+  const [stepInstance, setStepInstance] = useState(null);
 
   const setDefaultFormValues = (resetForm = false) => {
     let allFields = [];
@@ -440,15 +442,47 @@ export default function FormRenderer(props) {
   };
 
   simpleValidator.current.purgeFields();
+  console.log('props', props);
+  const Nav = (p) => {
+    console.log('p', p);
+    return (
+      <>
+        steps
+      </>
+    );
+  };
   return (
     <>
       <Form onSubmit={submitForm} onReset={resetForm}>
+        <StepWizard
+          onStepChange={(e) => { console.log('e', e); }}
+          nav={<Nav />}
+          instance={(e) => {
+            console.log('rrre', e);
+            setStepInstance(e);
+          }}
+        >
+          {
+            allFormSections && allFormSections.map((section) => {
+              return (
+                <RenderSection section={section} />
+              )
+            })
+          }
+        </StepWizard>
         {
-          allFormSections && allFormSections.map((section) => {
-            return (
-              <RenderSection section={section} />
-            )
-          })
+          stepInstance && (
+            <div>
+              <h2>Step {stepInstance.currentStep}</h2>
+              <p>Total Steps: {stepInstance.totalSteps}</p>
+              <p>Is Active: {stepInstance.isActive}</p>
+              <p><button onClick={stepInstance.previousStep}>Previous Step</button></p>
+              <p><button onClick={stepInstance.nextStep}>Next Step</button></p>
+              <p><button onClick={() => stepInstance.props.goToStep(2)}>Step 2</button></p>
+              <p><button onClick={stepInstance.props.firstStep}>First Step</button></p>
+              <p><button onClick={stepInstance.props.lastStep}>Last Step</button></p>
+            </div>
+          )
         }
         <div className={`btn-group mt-5 ${btnContainerClass}`}>
           <Button className="btn btn-primary mr-5" type="submit">{`${submitBtnText || 'Submit'}`}</Button>
