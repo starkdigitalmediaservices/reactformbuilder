@@ -82,17 +82,18 @@ function App() {
           }}
           isStepForm
           stepFormProps={{
-                      steps : [{
-                        label:'first',
-                        image:'https://via.placeholder.com/30',
-                      },
-                      {
-                        label:'second',
-                        image:'https://via.placeholder.com/10',
-                      }
-                      ],
-                      containerClass:''
-                    }} 
+            steps: {
+              userinfo: {
+                label: 'first'
+              },
+              userdetails: {
+                label: 'sectond'
+              }
+            },
+            containerClass: 'stark-stepper-container',
+            nextBtnText: '',
+            prevBtnText: ''
+          }}
         />
       </Card.Body>
     </Card>

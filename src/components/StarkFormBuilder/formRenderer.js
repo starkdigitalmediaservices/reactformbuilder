@@ -8,8 +8,8 @@ import Stepper from 'react-stepper-horizontal';
 
 export default function FormRenderer(props) {
   const simpleValidator = useRef(new SimpleReactValidator());
-  const { sections, onFormSubmit, callbacks, options, defaultFormValues, currentUser, submitBtnText, resetBtnText, showResetBtn, onFormReset, btnContainerClass, stepFormProps } = props;
-  console.log('props',props);
+  const { sections, onFormSubmit, callbacks, options, defaultFormValues, currentUser, submitBtnText, resetBtnText, showResetBtn, onFormReset, btnContainerClass, stepFormProps, isStepForm } = props;
+  const stepperProps = stepFormProps || {};
   const [formValues, setFormValues] = useState({});
   const [allFormFields, setAllFormFields] = useState([]);
   const [allFormSections, setAllFormSections] = useState([]);
@@ -19,7 +19,6 @@ export default function FormRenderer(props) {
   const [stepCounter, updateStepCounter] = useState(0);
   const [currentStepIndex, updateStepIndex] = useState(0);
   const [isClickedNext, updateIsClickedNext] = useState(false);
-  const isStepForm = true;
   const buttonStyle = { background: '#E0E0E0', width: 200, padding: 16, textAlign: 'center', margin: '0 auto', marginTop: 32 };
 
   const setDefaultFormValues = (resetForm = false) => {
@@ -441,15 +440,21 @@ export default function FormRenderer(props) {
 
   const resetForm = (e) => {
     e.preventDefault();
-    console.log('resetForm');
     setDefaultFormValues(true);
     if (onFormReset) onFormReset();
   };
 
   const getStepLabels = (allSections) => {
-    console.log('allSections',allSections);
     if (CustomFunctions.checkIfEmpty(allSections, 'A')) return [];
-    const steps = allSections.map(section => {return {title:section.sectionTitle, icon:'https://via.placeholder.com/30'}});
+    const stepProps = stepperProps.steps || {};
+    const steps = allSections.map(section => {
+      const label = stepProps[section.sectionName] && stepProps[section.sectionName].label ? stepProps[section.sectionName].label : section.sectionTitle;
+      const image = stepProps[section.sectionName] && stepProps[section.sectionName].image ? stepProps[section.sectionName].image : null;
+      return {
+        title: label,
+        icon: image
+      };
+    });
     return steps;
   };
 
@@ -465,6 +470,7 @@ export default function FormRenderer(props) {
         setFormValues({ ...formValues });
         return;
       }
+      simpleValidator.current.hideMessages();
       if (currentStepIndex + 1 > allFormSections.length - 1) return;
       updateStepIndex(currentStepIndex + 1);
     } else {
@@ -482,13 +488,19 @@ export default function FormRenderer(props) {
   return (
     <>
       <Form onSubmit={submitForm} onReset={resetForm}>
-        <Stepper steps={getStepLabels(allFormSections)} activeStep={ currentStepIndex } />        
-         {
+        {
+          isStepForm && (
+            <div className={stepperProps.containerClass}>
+              <Stepper steps={getStepLabels(allFormSections)} activeStep={currentStepIndex} />
+            </div>
+          )
+        }
+        {
           allFormSections && allFormSections.map((section, secIndex) => {
             return (
               <React.Fragment key={secIndex}>
                 {
-                  (secIndex === currentStepIndex) && (
+                  ((isStepForm && secIndex === currentStepIndex) || !isStepForm) && (
                     <RenderSection section={section} />
                   )
                 }
@@ -496,57 +508,44 @@ export default function FormRenderer(props) {
             )
           })
         }
-        
         <div className={`btn-group mt-5 ${btnContainerClass}`}>
-        {
-          isStepForm ? (
-            <>
-             <Button
-               light
-               className="btn btn-primary mr-5"
-               onClick={() => {
-                 nextPrevCallback(false);
-               }}
-             >
-              Prev
-            </Button>
-            <Button
-              primary
-              onClick={() => {
-                if (currentStepIndex < allFormSections.length - 1)
-                  nextPrevCallback(true);
-                else
-                  submitForm();
-              }}
-            >
-              {
-                currentStepIndex < allFormSections.length - 1 ? 'Next' : 'Submit'
-              }
-            </Button>
-                </>
-              ) : (
-                <>
-                  <Button
-                    primary
-                    className="btn btn-primary mr-5"
-                    onClick={() => { submitForm(); }}
-                  >
-                    'Submit'
-                  </Button>
+          {
+            isStepForm ? (
+              <>
+                <Button
+                  className="btn btn-secondary mr-5 prev-btn"
+                  onClick={() => {
+                    nextPrevCallback(false);
+                  }}
+                >
+                  {`${stepperProps.prevBtnText || 'Prev'}`}
+                </Button>
+                <Button
+                  primary
+                  className="btn btn-primary next-btn"
+                  onClick={(e) => {
+                    if (currentStepIndex < allFormSections.length - 1)
+                      nextPrevCallback(true);
+                    else
+                      submitForm(e);
+                  }}
+                >
                   {
-                    showResetBtn && (
-                      <Button
-                        light
-                        style={resetBtnStyle}
-                        onPress={() => { resetForm(); }}
-                      >
-                        Reset
-                      </Button>
-                    )
+                    currentStepIndex < allFormSections.length - 1 ? `${stepperProps.nextBtnText || 'Next'}` : `${submitBtnText || 'Submit'}`
                   }
-                </>
-              )
-            }
+                </Button>
+              </>
+            ) : (
+              <>
+                <Button className="btn btn-primary mr-5" type="submit">{`${submitBtnText || 'Submit'}`}</Button>
+                {
+                  showResetBtn && (
+                    <Button className="btn btn-secondary" type="reset">{`${resetBtnText || 'Reset'}`}</Button>
+                  )
+                }
+              </>
+            )
+          }
         </div>
       </Form>
     </>

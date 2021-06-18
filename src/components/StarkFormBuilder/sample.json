@@ -1,5 +1,6 @@
 [
   {
+    "sectionName": "userinfo",
     "sectionTitle": "User info",
     "containerClass": "user-section",
     "displaySection": true,
@@ -219,6 +220,7 @@
     "sectionLayout": "2column"
   },
   {
+    "sectionName": "userdetails",
     "sectionTitle": "User details",
     "containerClass": "user-section",
     "displaySection": true,

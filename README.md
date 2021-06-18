@@ -100,6 +100,33 @@ render() {
 * resetBtnText - To change reset button text
 * btnContainerClass - Submit and reset buttons container class to add custom styling
 * onFormReset - Callback on reset form
+* isStepForm - To load it as step form
+* stepFormProps - Configurations props for step form
+  * containerClass - Container class for steps
+  * nextBtnText - Next button text
+  * prevBtnText - Previous button text
+  * steps - Configuration for steps label and image
+    * label - Label for step
+    * image - Image url for step image
+
+  ```
+    stepFormProps={{
+      steps: {
+        userinfo: {
+          label: 'first',
+          image: 'https://via.placeholder.com/20',
+        },
+        userdetails: {
+          label: 'sectond',
+          image: 'https://via.placeholder.com/30',
+        }
+      },
+      containerClass: 'stark-stepper-container',
+      nextBtnText: '',
+      prevBtnText: ''
+    }}
+  ```
+  NOTE : steps object keys should match **sectionName** key from formschema
 
 ### JSON Schema
 ```
