@@ -8,7 +8,7 @@
     "fields": [
       {
         "name": "name",
-        "type": "password",
+        "type": "text",
         "label": "User Name",
         "id": "",
         "placeholder": "",
@@ -48,101 +48,6 @@
         "disabled": false
       },
       {
-        "id": "mobile",
-        "name": "mobile",
-        "label": "Form Mobile",
-        "containerClass": "stark-frmmobile",
-        "type": "text",
-        "placeholder": "Enter Mobile Number",
-        "inputClass": "",
-        "inputVarible": "+91",
-        "validations": [
-          {
-            "type": "required",
-            "applyWhen": [],
-            "applyWhenRelation": "OR"
-          },
-          {
-            "type": "phone",
-            "applyWhen": [],
-            "applyWhenRelation": "OR"
-          }
-        ],
-        "disabled": false
-      },
-      {
-        "id": "description",
-        "name": "description",
-        "label": "Form Description",
-        "containerClass": "stark-frmmobile",
-        "type": "textarea",
-        "placeholder": "Enter description",
-        "inputClass": "",
-        "validations": [
-          {
-            "type": "required",
-            "applyWhen": [],
-            "applyWhenRelation": "OR"
-          }
-        ],
-        "disabled": false
-      },
-      {
-        "id": "profile",
-        "name": "profileimage",
-        "label": "Profile image",
-        "containerClass": "stark-frmmobile",
-        "type": "file",
-        "placeholder": "Enter description",
-        "inputClass": "",
-        "validations": [
-          {
-            "type": "required",
-            "applyWhen": [],
-            "applyWhenRelation": "OR"
-          }
-        ],
-        "multiple": false,
-        "accept": "image/*",
-        "disabled": false
-      },
-      {
-        "id": "startdate",
-        "name": "startdate",
-        "label": "Start date",
-        "containerClass": "stark-frmmobile",
-        "type": "date",
-        "placeholder": "Enter description",
-        "inputClass": "",
-        "validations": [
-          {
-            "type": "required",
-            "applyWhen": [],
-            "applyWhenRelation": "OR"
-          }
-        ],
-        "disabled": false,
-        "maxDateSelector": "enddate"
-      },
-      {
-        "id": "enddate",
-        "name": "enddate",
-        "label": "End date",
-        "containerClass": "stark-frmmobile",
-        "type": "date",
-        "placeholder": "",
-        "inputClass": "",
-        "validations": [
-          {
-            "type": "required",
-            "applyWhen": [],
-            "applyWhenRelation": "OR"
-          }
-        ],
-        "disabled": false,
-        "minDateSelector": "startdate"
-      },
-      {
         "id": "gender",
         "name": "gender",
         "label": "Gender",
@@ -158,8 +63,14 @@
           }
         ],
         "options": [
-          {"value": "female", "label": "Female"},
-          {"value": "male", "label": "Male"}
+          {
+            "value": "female",
+            "label": "Female"
+          },
+          {
+            "value": "male",
+            "label": "Male"
+          }
         ],
         "disabled": false
       },
@@ -179,8 +90,14 @@
           }
         ],
         "options": [
-          {"value": "fb", "label": "Facebook"},
-          {"value": "insta", "label": "Instagram"}
+          {
+            "value": "fb",
+            "label": "Facebook"
+          },
+          {
+            "value": "insta",
+            "label": "Instagram"
+          }
         ],
         "displayWhen": {
           "conditions": [
@@ -210,150 +127,23 @@
           }
         ],
         "options": [
-          {"value": "IN", "label": "India"},
-          {"value": "US", "label": "US"}
-        ],
-        "isMulti": true,
-        "disabled": false
-      }
-    ],
-    "sectionLayout": "2column"
-  },
-  {
-    "sectionName": "userdetails",
-    "sectionTitle": "User details",
-    "containerClass": "user-section",
-    "displaySection": true,
-    "displaySectionTitle": true,
-    "fields": [
-      {
-        "id": "description1",
-        "name": "userdescription",
-        "label": "User Description",
-        "containerClass": "stark-frmmobile",
-        "type": "textarea",
-        "placeholder": "Enter description",
-        "inputClass": "",
-        "validations": [
           {
-            "type": "required",
-            "applyWhen": [],
-            "applyWhenRelation": "OR"
+            "value": "IN",
+            "label": "India"
+          },
+          {
+            "value": "US",
+            "label": "US"
           }
         ],
-        "disabled": false
-      },
-      {
-        "id": "profile1",
-        "name": "User profileimage",
-        "label": "Profile image",
-        "containerClass": "stark-frmmobile",
-        "type": "file",
-        "placeholder": "Enter description",
-        "inputClass": "",
-        "validations": [
-          {
-            "type": "required",
-            "applyWhen": [],
-            "applyWhenRelation": "OR"
-          }
-        ],
-        "multiple": false,
-        "accept": "image/*",
-        "disabled": false
-      },
-      {
-        "id": "startdate1",
-        "name": "userstartdate",
-        "label": "Start date",
-        "containerClass": "stark-frmmobile",
-        "type": "date",
-        "placeholder": "Enter description",
-        "inputClass": "",
-        "validations": [
-          {
-            "type": "required",
-            "applyWhen": [],
-            "applyWhenRelation": "OR"
-          }
-        ],
+        "isMulti": false,
         "disabled": false,
-        "maxDateSelector": "enddate"
+        "callback": "onCountryChange"
       },
       {
-        "id": "enddate1",
-        "name": "userenddate",
-        "label": "End date",
-        "containerClass": "stark-frmmobile",
-        "type": "date",
-        "placeholder": "",
-        "inputClass": "",
-        "validations": [
-          {
-            "type": "required",
-            "applyWhen": [],
-            "applyWhenRelation": "OR"
-          }
-        ],
-        "disabled": false,
-        "minDateSelector": "startdate"
-      },
-      {
-        "id": "gender1",
-        "name": "usergender",
-        "label": "Gender",
-        "containerClass": "stark-frmmobile",
-        "type": "radio",
-        "placeholder": "",
-        "inputClass": "",
-        "validations": [
-          {
-            "type": "required",
-            "applyWhen": [],
-            "applyWhenRelation": "OR"
-          }
-        ],
-        "options": [
-          {"value": "female", "label": "Female"},
-          {"value": "male", "label": "Male"}
-        ],
-        "disabled": false
-      },
-      {
-        "id": "choices1",
-        "name": "userchoices",
-        "label": "Choices",
-        "containerClass": "stark-frmmobile",
-        "type": "checkbox",
-        "placeholder": "",
-        "inputClass": "",
-        "validations": [
-          {
-            "type": "required",
-            "applyWhen": [],
-            "applyWhenRelation": "OR"
-          }
-        ],
-        "options": [
-          {"value": "fb", "label": "Facebook"},
-          {"value": "insta", "label": "Instagram"}
-        ],
-        "displayWhen": {
-          "conditions": [
-            {
-              "name": "usergender",
-              "value": "female",
-              "condition": "=="
-            }
-          ],
-          "displayWhenRelation": "AND"
-        },
-        "disabled": false
-      },
-      {
-        "id": "country1",
-        "name": "usercountry",
-        "label": "Country",
+        "id": "state",
+        "name": "state",
+        "label": "State",
         "containerClass": "stark-frmmobile",
         "type": "select",
         "placeholder": "",
@@ -365,11 +155,8 @@
             "applyWhenRelation": "OR"
           }
         ],
-        "options": [
-          {"value": "IN", "label": "India"},
-          {"value": "US", "label": "US"}
-        ],
-        "isMulti": true,
+        "options": [],
+        "isMulti": false,
         "disabled": false
       }
     ],

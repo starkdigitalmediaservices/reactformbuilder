@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Card } from 'react-bootstrap';
@@ -56,6 +55,14 @@ function App() {
     // updateOptions(allOptions);
   }
 
+  const getStates = (val) => {
+    const allOptions = {
+      ...options,
+      state: [{ label: 'MH', value: 1 }, { label: 'TN', value: 2 }, { label: 'GJ', value: 3 }]
+    };
+    updateOptions(allOptions);
+  };
+
   useEffect(() => {
     getClasses();
   }, []);
@@ -70,7 +77,9 @@ function App() {
           formHeading="Registration"
           onFormSubmit={(formValues) => { console.log('234234'); submitForm(formValues); }}
           options={options}
-          callbacks={{}}
+          callbacks={{
+            onCountryChange: (val) => { console.log('val', val); getStates(val); }
+          }}
           defaultFormValues={defaultValues}
           currentUser={currentUser}
           submitBtnText=""
