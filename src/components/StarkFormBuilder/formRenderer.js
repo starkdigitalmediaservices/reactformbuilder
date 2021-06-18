@@ -19,7 +19,6 @@ export default function FormRenderer(props) {
   const [stepCounter, updateStepCounter] = useState(0);
   const [currentStepIndex, updateStepIndex] = useState(0);
   const [isClickedNext, updateIsClickedNext] = useState(false);
-  const buttonStyle = { background: '#E0E0E0', width: 200, padding: 16, textAlign: 'center', margin: '0 auto', marginTop: 32 };
 
   const setDefaultFormValues = (resetForm = false) => {
     let allFields = [];
@@ -31,13 +30,21 @@ export default function FormRenderer(props) {
     const allFormValues = {};
     allFields.map((field) => {
       if (!resetForm) {
-        allFormValues[field.name] = (defaultFormValues && defaultFormValues[field.name]) ? defaultFormValues[field.name] : field.value;
+        if (formValues[field.name]) {
+          allFormValues[field.name] = formValues[field.name];
+        } else {
+          allFormValues[field.name] = (defaultFormValues && defaultFormValues[field.name]) ? defaultFormValues[field.name] : field.value;
+        }
       } else {
         allFormValues[field.name] = '';
       }
       if (field.type === 'addmore') {
         if (!resetForm) {
-          allFormValues[field.name] = (typeof allFormValues[field.name] === 'object') ? allFormValues[field.name] : [];
+          if (formValues[field.name]) {
+            allFormValues[field.name] = formValues[field.name];
+          } else {
+            allFormValues[field.name] = (typeof allFormValues[field.name] === 'object') ? allFormValues[field.name] : [];
+          }
           const amFields = allFormValues[field.name] && (typeof allFormValues[field.name] === 'object') ? allFormValues[field.name] : [];
           // addMoreFields[field.name] = [field.fields];
           addMoreFields[field.name] = Array(amFields.length || 1).fill(field.fields);
@@ -75,6 +82,12 @@ export default function FormRenderer(props) {
       allValues[field.name] = fieldValues;
     } else {
       allValues[field.name] = field.type === 'date' ? e ? new Date(e) : null : e;
+    }
+    if (!CustomFunctions.checkIfEmpty(field.fieldsToReset, 'A')) {
+      field.fieldsToReset.map((f) => {
+        allValues[f] = null;
+        return f;
+      });
     }
     const forceUpdateFields = ['date', 'select', 'radio', 'checkbox'];
     setFormValues(forceUpdateFields.includes(aField.type || field.type) ? { ...allValues } : allValues);

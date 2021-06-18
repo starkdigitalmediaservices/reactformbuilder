@@ -1,8 +1,11 @@
+/* eslint-disable */
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Card } from 'react-bootstrap';
 import FormBuilder from './components/StarkFormBuilder';
 import FormSections from './components/StarkFormBuilder/sample.json';
+import axios from 'axios';
+let formOptions = {}
 
 function App() {
   // Variable declarations
@@ -35,32 +38,95 @@ function App() {
 
   };
 
-  const getClasses = async () => {
-    // const { data } = await AuthApi.getDataFromServer(Api.classesUrl);
-    // if (!data) {
-    //   // show error
-    //   return;
-    // }
+  const getStocks = async () => {
+    axios.get('https://jsonplaceholder.typicode.com/users/').then(res => {
+      console.log('res', res);
+      const data = res.data;
+      const dpOptions = [];
+      data.map((op) => {
+        // Change appropriate keys
+        dpOptions.push({ label: op.name, value: op.id });
+        return op;
+      });
+      const allOptions = {
+        ...formOptions,
+        ...options,
+        stock: dpOptions
+      };
+      formOptions = { ...allOptions };
+      updateOptions(allOptions);
+    })
+  }
 
-    // const dpOptions = [];
-    // data.data.map((op) => {
-    //   // Change appropriate keys
-    //   dpOptions.push({ label: op.name, value: op.id });
-    //   return op;
-    // });
-    // const allOptions = {
-    //   ...options,
-    //   classes: dpOptions
-    // };
-    // updateOptions(allOptions);
+  useEffect(() => {
+    getStocks();
+  }, []);
+
+  const getUsers = async () => {
+    axios.get('https://jsonplaceholder.typicode.com/users/').then(res => {
+      console.log('res', res);
+      const data = res.data;
+      const dpOptions = [];
+      data.map((op) => {
+        // Change appropriate keys
+        dpOptions.push({ label: op.name, value: op.id });
+        return op;
+      });
+      const allOptions = {
+        ...formOptions,
+        ...options,
+        users: dpOptions
+      };
+      formOptions = { ...allOptions };
+      updateOptions(allOptions);
+    })
+  }
+
+  useEffect(() => {
+    getUsers();
+  }, []);
+
+  const getClasses = async () => {
+    axios.get('https://jsonplaceholder.typicode.com/users/').then(res => {
+      console.log('res', res);
+      const data = res.data;
+      const dpOptions = [];
+      data.map((op) => {
+        // Change appropriate keys
+        dpOptions.push({ label: op.name, value: op.id });
+        return op;
+      });
+      const allOptions = {
+        ...formOptions,
+        ...options,
+        country: dpOptions
+      };
+      formOptions = { ...allOptions };
+      updateOptions(allOptions);
+    })
   }
 
   const getStates = (val) => {
-    const allOptions = {
-      ...options,
-      state: [{ label: 'MH', value: 1 }, { label: 'TN', value: 2 }, { label: 'GJ', value: 3 }]
-    };
-    updateOptions(allOptions);
+    axios.get('https://jsonplaceholder.typicode.com/users/').then(res => {
+      console.log('res', res);
+      const data = res.data;
+      const dpOptions = [];
+      data.map((op) => {
+        // Change appropriate keys
+        dpOptions.push({ label: op.name, value: op.id });
+        return op;
+      });
+      const allOptions = {
+        ...formOptions,
+        ...options,
+        state: dpOptions
+      };
+      formOptions = { ...allOptions };
+      updateOptions(allOptions);
+      updateDefaultValues({
+        state: null
+      })
+    })
   };
 
   useEffect(() => {
@@ -89,7 +155,7 @@ function App() {
           onFormReset={() => {
             console.log('form reset callback')
           }}
-          isStepForm
+          // isStepForm
           stepFormProps={{
             steps: {
               userinfo: {

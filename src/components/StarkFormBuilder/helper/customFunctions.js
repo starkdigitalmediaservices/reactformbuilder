@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { Component } from 'react'; // eslint-disable-line
 
 class CustomFunctions extends Component {

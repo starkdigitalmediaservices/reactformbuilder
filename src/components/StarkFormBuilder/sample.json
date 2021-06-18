@@ -10,7 +10,7 @@
         "name": "name",
         "type": "text",
         "label": "User Name",
-        "id": "",
+        "id": "asd",
         "placeholder": "",
         "inputClass": "",
         "containerClass": "",
@@ -112,6 +112,44 @@
         "disabled": false
       },
       {
+        "id": "stock",
+        "name": "stock",
+        "label": "Stock",
+        "containerClass": "stark-frmmobile",
+        "type": "select",
+        "placeholder": "",
+        "inputClass": "",
+        "validations": [
+          {
+            "type": "required",
+            "applyWhen": [],
+            "applyWhenRelation": "OR"
+          }
+        ],
+        "options": [],
+        "isMulti": false,
+        "disabled": false
+      },
+      {
+        "id": "users",
+        "name": "users",
+        "label": "Users",
+        "containerClass": "stark-frmmobile",
+        "type": "select",
+        "placeholder": "",
+        "inputClass": "",
+        "validations": [
+          {
+            "type": "required",
+            "applyWhen": [],
+            "applyWhenRelation": "OR"
+          }
+        ],
+        "options": [],
+        "isMulti": false,
+        "disabled": false
+      },
+      {
         "id": "country",
         "name": "country",
         "label": "Country",
@@ -126,19 +164,14 @@
             "applyWhenRelation": "OR"
           }
         ],
-        "options": [
-          {
-            "value": "IN",
-            "label": "India"
-          },
-          {
-            "value": "US",
-            "label": "US"
-          }
-        ],
+        "options": [],
         "isMulti": false,
         "disabled": false,
-        "callback": "onCountryChange"
+        "callback": "onCountryChange",
+        "fieldsToReset": [
+          "users",
+          "state"
+        ]
       },
       {
         "id": "state",
