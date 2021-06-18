@@ -19,9 +19,10 @@ Install dependent libraries
 * react-select
 * react-datepicker
 * simple-react-validator
+* react-stepper-horizontal
 
 ```
-npm i --save bootstrap react-bootstrap react-select react-datepicker simple-react-validator 
+npm i --save bootstrap react-bootstrap react-select react-datepicker simple-react-validator react-stepper-horizontal
 ```
 
 ## Usage
