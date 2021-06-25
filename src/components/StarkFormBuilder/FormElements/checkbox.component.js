@@ -13,7 +13,8 @@ export default function CheckboxComponent(props) {
     label,
     inline,
     errorMessage,
-    name
+    name,
+    showAsterisk
   } = props;
 
   const [selectedValues, setSelectedValues] = useState([]);
@@ -25,8 +26,8 @@ export default function CheckboxComponent(props) {
 
   return (
     <>
-      <Form.Group className={containerClass}>
-        <Form.Label>{label}</Form.Label>
+      <Form.Group className={containerClass}>      
+      <Form.Label>{label}{ showAsterisk && (<sup className="text-danger stark-label-astrisk">*</sup>)}</Form.Label>
         <div>
           {options &&
             options.map((op, opi) => (

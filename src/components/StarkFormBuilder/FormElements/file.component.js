@@ -14,7 +14,8 @@ export default function FileComponent(props) {
     accept,
     errorMessage,
     multiple,
-    value
+    value,
+    showAsterisk
   } = props;
 
   const [inputFiles, setInputFiles] = useState('');
@@ -37,8 +38,8 @@ export default function FileComponent(props) {
 
   return (
     <>
-      <Form.Group className={containerClass}>
-        <Form.Label>{label}</Form.Label>
+      <Form.Group className={containerClass}>      
+        <Form.Label>{label}{ showAsterisk && (<sup className="text-danger stark-label-astrisk">*</sup>)}</Form.Label>
         <Form.File
           id={id}
           className={`form-control ${inputClass}`}

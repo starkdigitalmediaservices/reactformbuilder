@@ -12,7 +12,8 @@ export default function SelectDropdown(props) {
     onChange,
     options,
     containerClass,
-    errorMessage
+    errorMessage,
+    showAsterisk
   } = props;
 
   const [inputValue, setInputValue] = useState(null);
@@ -24,7 +25,7 @@ export default function SelectDropdown(props) {
   return (
     <>
       <Form.Group className={containerClass}>
-        <Form.Label>{label}</Form.Label>
+        <Form.Label>{label}{ showAsterisk && (<sup className="text-danger stark-label-astrisk">*</sup>)}</Form.Label>
         <Select
           value={inputValue}
           onChange={(e) => {

@@ -13,7 +13,8 @@ export default function RadioComponent(props) {
     containerClass,
     label,
     inline,
-    errorMessage
+    errorMessage,
+    showAsterisk
   } = props;
 
   const [inputValue, setInputValue] = useState('');
@@ -24,8 +25,8 @@ export default function RadioComponent(props) {
 
   return (
     <>
-      <Form.Group className={containerClass}>
-        <Form.Label>{label}</Form.Label>
+      <Form.Group className={containerClass}>      
+        <Form.Label>{label}{ showAsterisk && (<sup className="text-danger stark-label-astrisk">*</sup>)}</Form.Label>
         <div>
           {options &&
             options.map((op, opi) => (

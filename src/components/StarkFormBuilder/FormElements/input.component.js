@@ -17,6 +17,7 @@ export default function InputComponent(props) {
     inputVarible,
     errorMessage,
     disabled,
+    showAsterisk
   } = props;
 
   const [inputValue, setInputValue] = useState('');
@@ -48,7 +49,7 @@ export default function InputComponent(props) {
   return (
     <>
       <Form.Group className={containerClass}>
-        {label && <Form.Label> {label} </Form.Label>}
+        {label && <Form.Label> {label} { showAsterisk && (<sup className="text-danger stark-label-astrisk">*</sup>)} </Form.Label>}
         {inputIcon && <>{inputIcon}</>}
         {inputVarible ? (
           <InputGroup>

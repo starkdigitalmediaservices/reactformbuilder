@@ -5,6 +5,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { Form } from 'react-bootstrap';
 
 export default function DateTimePicker(props) {
+  console.log('props=====>',props);
   const {
     containerClass,
     label,
@@ -35,7 +36,8 @@ export default function DateTimePicker(props) {
     withPortal,
     inline,
     placeholder,
-    errorMessage
+    errorMessage,
+    showAsterisk
   } = props;
 
   const [selectedDate, setSelectedDate] = useState(null);
@@ -61,7 +63,8 @@ export default function DateTimePicker(props) {
 
   return (
     <Form.Group className={containerClass}>
-      <Form.Label>{label}</Form.Label>
+
+      <Form.Label>{label}{ showAsterisk && (<sup className="text-danger stark-label-astrisk">*</sup>)}</Form.Label>
       <div>
         <DatePicker
           selected={selectedDate}
