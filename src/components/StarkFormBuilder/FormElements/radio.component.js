@@ -28,10 +28,11 @@ export default function RadioComponent(props) {
         <Form.Label>{label}</Form.Label>
         <div>
           {options &&
-            options.map((op) => (
+            options.map((op, opi) => (
               <Form.Check
                 type={type}
                 name={name}
+                id={`${name}-${op.value}-${opi}`}
                 value={op.value}
                 onChange={(e) => {
                   setInputValue(e.target.value);

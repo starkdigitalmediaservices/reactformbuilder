@@ -12,7 +12,8 @@ export default function CheckboxComponent(props) {
     containerClass,
     label,
     inline,
-    errorMessage
+    errorMessage,
+    name
   } = props;
 
   const [selectedValues, setSelectedValues] = useState([]);
@@ -28,9 +29,11 @@ export default function CheckboxComponent(props) {
         <Form.Label>{label}</Form.Label>
         <div>
           {options &&
-            options.map((op) => (
+            options.map((op, opi) => (
               <Form.Check
                 type={type}
+                name={name}
+                id={`${name}-${op.value}-${opi}`}
                 value={op.value}
                 onChange={(e) => {
                   const allValues = [...selectedValues];

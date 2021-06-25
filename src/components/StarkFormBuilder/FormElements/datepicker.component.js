@@ -34,6 +34,7 @@ export default function DateTimePicker(props) {
     selectsEnd,
     withPortal,
     inline,
+    placeholder,
     errorMessage
   } = props;
 
@@ -92,6 +93,7 @@ export default function DateTimePicker(props) {
           selectsEnd={selectsEnd}
           withPortal={withPortal}
           inline={inline}
+          placeholderText={placeholder}
           {...propValue}
         />
       </div>

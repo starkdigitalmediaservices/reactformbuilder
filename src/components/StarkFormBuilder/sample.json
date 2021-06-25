@@ -191,6 +191,25 @@
         "options": [],
         "isMulti": false,
         "disabled": false
+      },
+      {
+        "id": "startdate",
+        "name": "startdate",
+        "label": "Start date",
+        "containerClass": "stark-frmmobile",
+        "type": "date",
+        "placeholder": "YYYY-MM-DD",
+        "inputClass": "",
+        "validations": [
+          {
+            "type": "required",
+            "applyWhen": [],
+            "applyWhenRelation": "OR"
+          }
+        ],
+        "options": [],
+        "isMulti": false,
+        "disabled": false
       }
     ],
     "sectionLayout": "2column"
