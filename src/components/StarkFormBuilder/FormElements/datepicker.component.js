@@ -5,7 +5,6 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { Form } from 'react-bootstrap';
 
 export default function DateTimePicker(props) {
-  console.log('props=====>',props);
   const {
     containerClass,
     label,

@@ -11,7 +11,7 @@ export default function FormElementRenderer(props) {
   if(!formInput ||  CustomFunctions.checkIfEmpty(formInput.validations)) return;
   const result = formInput.validations.filter(form => form.type === 'required');
   setAsteriskToggle(result.length > 0);
-  },[]);
+  },[formInput]);
 
   const renderInput = (input) => {
     switch (String(input.type).toLowerCase()) {
