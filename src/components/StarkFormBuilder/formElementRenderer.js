@@ -5,13 +5,13 @@ import CustomFunctions from './helper/customFunctions';
 
 export default function FormElementRenderer(props) {
   const { formInput } = props;
-  const [ asteriskToggle, setAsteriskToggle] = useState(false);
+  const [asteriskToggle, setAsteriskToggle] = useState(false);
 
   useEffect(() => {
-  if(!formInput ||  CustomFunctions.checkIfEmpty(formInput.validations)) return;
-  const result = formInput.validations.filter(form => form.type === 'required');
-  setAsteriskToggle(result.length > 0);
-  },[formInput]);
+    if (!formInput || CustomFunctions.checkIfEmpty(formInput.validations)) return;
+    const result = formInput.validations.filter(form => form.type === 'required');
+    setAsteriskToggle(result.length > 0);
+  }, [formInput]);
 
   const renderInput = (input) => {
     switch (String(input.type).toLowerCase()) {
@@ -19,25 +19,25 @@ export default function FormElementRenderer(props) {
       case 'password':
       case 'email':
       case 'number':
-        return <TextInput showAsterisk={asteriskToggle} {...input}/>;
+        return <TextInput showAsterisk={asteriskToggle} {...input} />;
 
       case 'textarea':
-        return <TextAreaInput showAsterisk={asteriskToggle} {...input}/>;
+        return <TextAreaInput showAsterisk={asteriskToggle} {...input} />;
 
       case 'file':
-        return <FileInput showAsterisk={asteriskToggle} {...input}/>;
+        return <FileInput showAsterisk={asteriskToggle} {...input} />;
 
       case 'radio':
-        return <RadioInput showAsterisk={asteriskToggle} {...input}/>;
+        return <RadioInput showAsterisk={asteriskToggle} {...input} />;
 
       case 'checkbox':
-        return <CheckboxInput showAsterisk={asteriskToggle} {...input}/>;
+        return <CheckboxInput showAsterisk={asteriskToggle} {...input} />;
 
       case 'select':
-        return <DropdownInput showAsterisk={asteriskToggle} {...input}/>;
+        return <DropdownInput showAsterisk={asteriskToggle} {...input} />;
 
       case 'date':
-        return <DateTimePicker showAsterisk={asteriskToggle} {...input}/>;
+        return <DateTimePicker showAsterisk={asteriskToggle} {...input} />;
 
       case 'switch':
         return (
