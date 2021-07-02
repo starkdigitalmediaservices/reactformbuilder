@@ -13,7 +13,11 @@ export default function SelectDropdown(props) {
     options,
     containerClass,
     errorMessage,
-    showAsterisk
+    showAsterisk,
+    classNamePrefix,
+    disabled,
+    isSearchable,
+    placeholder
   } = props;
 
   const [inputValue, setInputValue] = useState(null);
@@ -25,7 +29,7 @@ export default function SelectDropdown(props) {
   return (
     <>
       <Form.Group className={containerClass}>
-        <Form.Label>{label}{ showAsterisk && (<sup className="text-danger stark-label-astrisk">*</sup>)}</Form.Label>
+        <Form.Label>{label}{showAsterisk && (<sup className="text-danger stark-label-astrisk">*</sup>)}</Form.Label>
         <Select
           value={inputValue}
           onChange={(e) => {
@@ -36,6 +40,10 @@ export default function SelectDropdown(props) {
           className={inputClass}
           options={options}
           isMulti={isMulti}
+          classNamePrefix={classNamePrefix}
+          isDisabled={disabled}
+          isSearchable={isSearchable}
+          placeholder={placeholder}
         />
         <Form.Text className="text-danger">{errorMessage}</Form.Text>
       </Form.Group>

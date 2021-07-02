@@ -155,7 +155,7 @@
         "label": "Country",
         "containerClass": "stark-frmmobile",
         "type": "select",
-        "placeholder": "",
+        "placeholder": "Select country",
         "inputClass": "",
         "validations": [
           {
@@ -167,6 +167,7 @@
         "options": [],
         "isMulti": false,
         "disabled": false,
+        "isSearchable": false,
         "callback": "onCountryChange",
         "fieldsToReset": [
           "users",
