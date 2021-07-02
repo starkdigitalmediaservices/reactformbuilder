@@ -26,8 +26,8 @@ export default function CheckboxComponent(props) {
 
   return (
     <>
-      <Form.Group className={containerClass}>      
-      <Form.Label>{label}{ showAsterisk && (<sup className="text-danger stark-label-astrisk">*</sup>)}</Form.Label>
+      <Form.Group className={containerClass}>
+        {label && (<Form.Label>{label}{showAsterisk && (<sup className="text-danger stark-label-astrisk">*</sup>)}</Form.Label>)}
         <div>
           {options &&
             options.map((op, opi) => (

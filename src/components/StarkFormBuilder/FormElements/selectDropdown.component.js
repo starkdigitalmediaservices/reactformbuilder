@@ -29,7 +29,7 @@ export default function SelectDropdown(props) {
   return (
     <>
       <Form.Group className={containerClass}>
-        <Form.Label>{label}{showAsterisk && (<sup className="text-danger stark-label-astrisk">*</sup>)}</Form.Label>
+        {label && (<Form.Label>{label}{showAsterisk && (<sup className="text-danger stark-label-astrisk">*</sup>)}</Form.Label>)}
         <Select
           value={inputValue}
           onChange={(e) => {

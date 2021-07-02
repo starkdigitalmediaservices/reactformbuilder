@@ -63,7 +63,7 @@ export default function DateTimePicker(props) {
   return (
     <Form.Group className={containerClass}>
 
-      <Form.Label>{label}{ showAsterisk && (<sup className="text-danger stark-label-astrisk">*</sup>)}</Form.Label>
+      {label && (<Form.Label>{label}{showAsterisk && (<sup className="text-danger stark-label-astrisk">*</sup>)}</Form.Label>)}
       <div>
         <DatePicker
           selected={selectedDate}
