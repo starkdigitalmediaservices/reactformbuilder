@@ -526,7 +526,8 @@ export default function FormRenderer(props) {
             isStepForm ? (
               <>
                 <Button
-                  className="btn btn-secondary mr-5 prev-btn"
+                  variant="secondary"
+                  className="mr-5 prev-btn"
                   onClick={() => {
                     nextPrevCallback(false);
                   }}
@@ -534,8 +535,8 @@ export default function FormRenderer(props) {
                   {`${stepperProps.prevBtnText || 'Prev'}`}
                 </Button>
                 <Button
-                  primary
-                  className="btn btn-primary next-btn"
+                  variant="primary"
+                  className="next-btn"
                   onClick={(e) => {
                     if (currentStepIndex < allFormSections.length - 1)
                       nextPrevCallback(true);
@@ -550,10 +551,10 @@ export default function FormRenderer(props) {
               </>
             ) : (
               <>
-                <Button className="btn btn-primary mr-5" type="submit">{`${submitBtnText || 'Submit'}`}</Button>
+                <Button variant="primary" className="mr-5" type="submit">{`${submitBtnText || 'Submit'}`}</Button>
                 {
                   showResetBtn && (
-                    <Button className="btn btn-secondary" type="reset">{`${resetBtnText || 'Reset'}`}</Button>
+                    <Button variant="secondary" type="reset">{`${resetBtnText || 'Reset'}`}</Button>
                   )
                 }
               </>
