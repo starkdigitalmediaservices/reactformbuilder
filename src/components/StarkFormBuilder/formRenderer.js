@@ -453,6 +453,7 @@ export default function FormRenderer(props) {
 
   const resetForm = (e) => {
     e.preventDefault();
+    if (simpleValidator && simpleValidator.current) simpleValidator.current.hideMessages();
     setDefaultFormValues(true);
     if (onFormReset) onFormReset();
   };
