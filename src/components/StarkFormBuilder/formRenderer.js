@@ -122,11 +122,12 @@ export default function FormRenderer(props) {
           console.log('condition.condition', condition.condition);
           console.log('condition.value', condition.value);
           console.log('formValues', formValues);
+          console.log('formValues', formValues[condition.name]);
           console.log('fieldType', fieldType);
           console.log('formValues[condition.name]', formValues[condition.name]);
           console.log('condition.value', condition.value);
           console.log('formValues[condition.value]', formValues[condition.value]);
-          console.log('conditionResults', formValues[condition.name] === condition.value);
+          console.log('conditionResults', formValues[condition.name] === formValues[condition.value]);
 
           conditionResults = formValues[condition.name] === condition.value;
           break;
