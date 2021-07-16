@@ -117,6 +117,20 @@ export default function FormRenderer(props) {
     switch (condition.condition) {
       case '===':
       case '==':
+        if (fieldType.type === 'text') {
+          console.log('condition', condition);
+          console.log('condition.condition', condition.condition);
+          console.log('condition.value', condition.value);
+          console.log('formValues', formValues);
+          console.log('fieldType', fieldType);
+          console.log('formValues[condition.name]', formValues[condition.name]);
+          console.log('condition.value', condition.value);
+          console.log('formValues[condition.value]', formValues[condition.value]);
+          console.log('conditionResults', formValues[condition.name] === condition.value);
+
+          conditionResults = formValues[condition.name] === condition.value;
+          break;
+        }
         if (fieldType.type === 'checkbox') {
           conditionResults = checkboxValue.includes(condition.value);
           break;
@@ -191,6 +205,7 @@ export default function FormRenderer(props) {
   }
 
   const getFieldValidation = (field, isAddMore = false, fieldIndex = 0, parentField = {}) => {
+    console.log('field', field);
     if (CustomFunctions.checkIfEmpty(field.validations, 'A')) return '';
     let validations = '';
     field.validations.map((item) => {
