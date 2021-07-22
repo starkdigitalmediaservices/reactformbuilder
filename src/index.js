@@ -3,6 +3,9 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import './index.css';
+import Interceptor from './components/StarkFormBuilder/services/Interceptor';
+
+Interceptor.setupInterceptors();
 
 ReactDOM.render(
   <React.StrictMode>

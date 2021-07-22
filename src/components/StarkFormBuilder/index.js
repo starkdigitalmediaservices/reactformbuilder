@@ -5,6 +5,7 @@ import './style.css';
 
 export default function StarkFormBuilder(props) {
   const { containerClass, formHeaderClass, formInputs, formSections, formHeading, onFormSubmit, callbacks, options, defaultFormValues, currentUser, submitBtnText, resetBtnText, showResetBtn, onFormReset, btnContainerClass, isStepForm, stepFormProps, refreshCounter } = props;
+  console.log('refreshCounter', refreshCounter);
   return (
     <>
       <Container>

@@ -1,0 +1,179 @@
+[{
+	"sectionTitle": "Add Institute",
+	"layout": {
+		"label": "1 Column",
+		"value": "1column"
+	},
+	"containerClass": "form-group",
+	"displaySection": true,
+	"displaySectionTitle": false,
+	"fields": [{
+		"name": "name",
+		"type": "text",
+		"label": "Institute Name",
+		"id": "",
+		"placeholder": "",
+		"inputClass": "",
+		"containerClass": "col-sm-6",
+		"validations": [{
+			"type": "required",
+			"applyWhen": [],
+			"applyWhenRelation": "OR"
+		}],
+		"displayWhen": {},
+		"haveValidations": "true",
+		"haveDisplayOptions": "false",
+		"callback": "",
+		"callbackUrl": "",
+		"inputToChange": "",
+		"minDateSelector": "",
+		"maxDateSelector": "",
+		"disabled": false,
+		"isMulti": false,
+		"allowedUsers": [],
+		"fieldLayout": {
+			"label": "1 Column",
+			"value": "1column"
+		},
+		"fields": [],
+		"options": []
+	}],
+	"allowedUsers": [],
+	"sectionLayout": "1column"
+}, {
+	"sectionTitle": "Branch Location",
+	"layout": {
+		"label": "1 Column",
+		"value": "1column"
+	},
+	"containerClass": "",
+	"displaySection": true,
+	"displaySectionTitle": true,
+	"fields": [{
+		"name": "branch_name",
+		"type": "text",
+		"label": "Branch Name",
+		"id": "",
+		"placeholder": "",
+		"inputClass": "",
+		"containerClass": "col-sm-6",
+		"validations": [{
+			"type": "required",
+			"applyWhen": [],
+			"applyWhenRelation": "OR"
+		}],
+		"displayWhen": {},
+		"haveValidations": "true",
+		"haveDisplayOptions": "false",
+		"callback": "",
+		"callbackUrl": "",
+		"inputToChange": "",
+		"minDateSelector": "",
+		"maxDateSelector": "",
+		"disabled": false,
+		"isMulti": false,
+		"allowedUsers": [],
+		"fieldLayout": {
+			"label": "1 Column",
+			"value": "1column"
+		},
+		"fields": [],
+		"options": []
+	}, {
+		"name": "state_id",
+		"type": "select",
+		"label": "State",
+		"id": "",
+		"placeholder": "",
+		"inputClass": "",
+		"containerClass": "col-sm-6",
+		"validations": [{
+			"type": "required",
+			"applyWhen": [],
+			"applyWhenRelation": "OR"
+		}],
+		"displayWhen": {},
+		"haveValidations": "true",
+		"haveDisplayOptions": "false",
+		"callback": "",
+		"callbackUrl": "",
+		"inputToChange": "",
+		"minDateSelector": "",
+		"maxDateSelector": "",
+		"disabled": false,
+		"isMulti": false,
+		"allowedUsers": [],
+		"fieldLayout": {
+			"label": "1 Column",
+			"value": "1column"
+		},
+		"fields": [],
+		"optionCallback": "getAllStates",
+		"optionsCallbackUrl": "getAllStates",
+		"options": []
+	}, {
+		"name": "city_id",
+		"type": "select",
+		"label": "City",
+		"id": "",
+		"placeholder": "",
+		"inputClass": "",
+		"containerClass": "col-sm-6",
+		"validations": [{
+			"type": "required",
+			"applyWhen": [],
+			"applyWhenRelation": "OR"
+		}],
+		"displayWhen": {},
+		"haveValidations": "true",
+		"haveDisplayOptions": "false",
+		"callback": "",
+		"callbackUrl": "",
+		"inputToChange": "",
+		"minDateSelector": "",
+		"maxDateSelector": "",
+		"disabled": false,
+		"isMulti": false,
+		"allowedUsers": [],
+		"fieldLayout": {
+			"label": "1 Column",
+			"value": "1column"
+		},
+		"fields": [],
+		"optionCallback": "getAllCities",
+		"optionsCallbackUrl": "getAllCities",
+		"options": []
+	}, {
+		"name": "location",
+		"type": "text",
+		"label": "Location",
+		"id": "",
+		"placeholder": "",
+		"inputClass": "",
+		"containerClass": "col-sm-6",
+		"validations": [{
+			"type": "required",
+			"applyWhen": [],
+			"applyWhenRelation": "OR"
+		}],
+		"displayWhen": {},
+		"haveValidations": "true",
+		"haveDisplayOptions": "false",
+		"callback": "",
+		"callbackUrl": "",
+		"inputToChange": "",
+		"minDateSelector": "",
+		"maxDateSelector": "",
+		"disabled": false,
+		"isMulti": false,
+		"allowedUsers": [],
+		"fieldLayout": {
+			"label": "1 Column",
+			"value": "1column"
+		},
+		"fields": [],
+		"options": []
+	}],
+	"allowedUsers": [],
+	"sectionLayout": "1column"
+}]
