@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import CustomTable from 'stark-custom-datatable';
 import swal from 'sweetalert';
+import StarkFormBuilder from '../components/StarkFormBuilder';
+import FormSections from './addinstituteformschema.json';
 import { Card, Button, Image } from 'react-bootstrap';
 import AuthApi from '../components/StarkFormBuilder/helper/authApi';
 import Api from '../components/StarkFormBuilder/helper/api';
@@ -23,6 +25,15 @@ const InstituteComponent = () => {
     { to: '/institute/list', label: 'All Institute' },
   ];
   console.log('instituteId', instituteId);
+
+  const [defaultValues, updateDefaultValues] = useState({});
+  const options = {};
+  const [currentUser, updateCurrentUser] = useState(0);
+  const [taskModalShow, setTaskModalShow] = useState(false);
+  const [disableButton, setDisableButton] = useState(false);
+  const [instaId, setInstaId] = useState(null);
+  const [count, forceUpdate] = useState(0);
+
   const getParentsData = async () => {
     getRowData(1);
   };
@@ -37,6 +48,7 @@ const InstituteComponent = () => {
             e.preventDefault();
             e.stopPropagation();
             setInstituteId(row.id);
+            forceUpdate(count+1);
             setModalShow(true);
           }}
         >
@@ -151,7 +163,74 @@ const InstituteComponent = () => {
       });
     }
   };
+  // ----
 
+  const getUserRole = async () => {
+    const roleId = await localStorage.getItem('role');
+    updateCurrentUser(Number(roleId));
+  };
+
+  useEffect(() => {
+    getUserRole();
+  }, []);
+
+  useEffect(() => {
+    setInstaId(instituteId);
+    forceUpdate(count+1);
+  }, [instituteId]);
+
+  console.log('instituteId', instituteId);
+
+  // Submit Form
+  const submitForm = async (formValues) => {
+    const payload = {
+      name: formValues.name,
+    }
+    if (instaId) payload.id = instaId;
+    const callback = instaId ? AuthApi.putDataToServer : AuthApi.postDataToServer;
+    const endPoint = instaId ? Api.updateInstitute : Api.addInstitute;
+
+    const { data } = await callback(endPoint, payload);
+
+    if (!data) {
+      swal(data.data.message, '', 'error')
+    }
+
+    swal(data.data.message, '', 'success').then(async (result) => {
+      if (result) {
+        setDisableButton(false);
+        await setInstaId(null);
+        forceUpdate(count + 1);
+      }
+    });
+  };
+
+  const onTaskCancel = async () => {
+    await setInstaId(null);
+    setTaskModalShow(false);
+    if (disableButton) return;
+    setDisableButton(true);
+  };
+
+  // Get data for form
+  const getData = async () => {
+    await updateDefaultValues({});
+    const { data } = await AuthApi.getDataFromServer(`${Api.getInstituteById}?id=${instaId}`);
+    if (!data) {
+      // show error
+      return;
+    }
+    console.log('data--',data);
+    updateDefaultValues(JSON.parse(JSON.stringify({...data.data})));
+    forceUpdate(count + 1);
+  };
+
+  // Call get data method on load
+  useEffect(() => {
+    getData();
+  }, [instaId]);
+
+console.log('---defaultValues',defaultValues);
   return (
     <>
       <div className="page-header">
@@ -162,14 +241,28 @@ const InstituteComponent = () => {
       </div>
       <Card className="mt-1">
         <Card.Header>
-          <Button
-            className="right"
-            onClick={() => {
-              setModalShow(true);
-              setInstituteId(null);
-            }}>
-            Add Institute
-          </Button>
+              <StarkFormBuilder
+                containerClass='addInstitute'
+                formHeaderClass=''
+                formSections={FormSections}
+                formHeading='Add Institute'
+                onFormSubmit={(formValues) => {
+                  submitForm(formValues);
+                }}
+                options={options}
+                callbacks={{}}
+                refreshCounter={count}
+                defaultFormValues={{...defaultValues}}
+                currentUser={currentUser}
+                submitBtnText='Submit'
+                showResetBtn={false}
+                resetBtnText='Clear'
+                btnContainerClass='form-submit-buttons'
+                isStepForm={false}
+                onFormReset={() => {
+                  console.log('form reset callback');
+                }}
+              />
         </Card.Header>
         <Card.Body>
           <CustomTable
@@ -191,18 +284,8 @@ const InstituteComponent = () => {
           />
         </Card.Body>
       </Card>
-      {
-        modalShow && (
-          <AddNewInstitutecomponent
-            show={modalShow}
-            instituteId={instituteId ? instituteId : null} //eslint-disable-line
-            handleModalCLose={(e) => setModalShow(e)}
-            onChanges={() => {
-              getParentsData();
-            }}
-          />
-        )
-      }
+         
+      
     </>
   );
 };

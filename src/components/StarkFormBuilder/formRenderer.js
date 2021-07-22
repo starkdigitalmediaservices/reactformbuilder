@@ -20,7 +20,9 @@ export default function FormRenderer(props) {
   const [currentStepIndex, updateStepIndex] = useState(0);
   const [isClickedNext, updateIsClickedNext] = useState(false);
 
+  console.log('defaultFormValues initial---',defaultFormValues);
   const setDefaultFormValues = (resetForm = false) => {
+    console.log('defaultFormValues',defaultFormValues);
     let allFields = [];
     const addMoreFields = {};
     sections.map((section) => {
@@ -55,7 +57,8 @@ export default function FormRenderer(props) {
       }
       return field;
     });
-    setFormValues(allFormValues);
+    console.log('allFormValues',allFormValues);
+    setFormValues(JSON.parse(JSON.stringify({...allFormValues})));
     setAllFormSections(sections);
     setAddMoreFields(addMoreFields);
     setAllFormFields([...allFields]);
@@ -63,11 +66,12 @@ export default function FormRenderer(props) {
 
   useEffect(() => {
     setDefaultFormValues();
-  }, []);
+  }, [props]);
 
   useEffect(() => {
     setDefaultFormValues();
-  }, [JSON.stringify(defaultFormValues),refreshCounter]);
+    console.log('refreshCounter',refreshCounter);
+  }, [defaultFormValues,refreshCounter]);
 
   const updateFormValues = (e, field, fieldIndex = 0, aField = {}) => {
     if (!CustomFunctions.checkIfEmpty(callbacks, 'O')) {
@@ -206,7 +210,6 @@ export default function FormRenderer(props) {
   }
 
   const getFieldValidation = (field, isAddMore = false, fieldIndex = 0, parentField = {}) => {
-    console.log('field', field);
     if (CustomFunctions.checkIfEmpty(field.validations, 'A')) return '';
     let validations = '';
     field.validations.map((item) => {

@@ -93,14 +93,7 @@ const AddNewInstitutecomponent = (props) => {
     <>
       <Card>
         <Card.Body>
-          <ModalInput
-            size="md"
-            centered
-            onHide={onTaskCancel}
-            show={taskModalShow}
-            label={instaId ? 'Edit Institute' : 'Add Institute'}
-            id="contained-modal-title-vcenter"
-            modalBody={
+       
               <StarkFormBuilder
                 containerClass='addInstitute'
                 formHeaderClass=''
@@ -123,8 +116,6 @@ const AddNewInstitutecomponent = (props) => {
                   console.log('form reset callback');
                 }}
               />
-            }
-          />
         </Card.Body>
       </Card>
     </>
