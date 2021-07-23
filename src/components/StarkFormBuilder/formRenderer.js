@@ -5,6 +5,7 @@ import FormElementRenderer from './formElementRenderer';
 import SimpleReactValidator from 'simple-react-validator';
 import CustomFunctions from './helper/customFunctions';
 import Stepper from 'react-stepper-horizontal';
+import swal from 'sweetalert';
 
 export default function FormRenderer(props) {
   const simpleValidator = useRef(new SimpleReactValidator());
@@ -309,17 +310,27 @@ export default function FormRenderer(props) {
     });
   };
 
-  const removeField = (field, fieldIndex) => {
-    const fields = allAddMoreFields[field.name];
-    fields.splice(fieldIndex, 1);
-    const allVals = formValues;
-    const fVal = CustomFunctions.checkIfEmpty(allVals[field.name], 'A') ? [] : allVals[field.name];
-    if (fVal.length) fVal.splice(fieldIndex, 1);
-    allVals[field.name] = fVal;
-    setFormValues(allVals);
-    setAddMoreFields({
-      ...allAddMoreFields,
-      [field.name]: fields
+   const removeField = (field, fieldIndex) => {
+     swal({
+        title: 'Are you sure?',
+        text: 'Are you sure that you want to remove field?',
+        icon: 'warning',
+        dangerMode: true,
+        buttons: true,
+        closeOnClickOutside: false,
+        allowOutsideClick: false,
+      }).then(async (result) => {
+      const fields = allAddMoreFields[field.name];
+      fields.splice(fieldIndex, 1);
+      const allVals = formValues;
+      const fVal = CustomFunctions.checkIfEmpty(allVals[field.name], 'A') ? [] : allVals[field.name];
+      if (fVal.length) fVal.splice(fieldIndex, 1);
+      allVals[field.name] = fVal;
+      setFormValues(allVals);
+      setAddMoreFields({
+        ...allAddMoreFields,
+        [field.name]: fields
+      });
     });
   };
 
@@ -367,10 +378,12 @@ export default function FormRenderer(props) {
                               className="btn btn-primary btn-width mr-5"
                               onClick={() => addField(field)}
                             >+</Button>
+                             { (fieldIndex >0) && (
                             <Button
                               className="btn btn-secondary btn-width"
                               onClick={() => removeField(field, fieldIndex)}
                             >-</Button>
+                          )}
                           </div>
                         </Col>
                       </>
