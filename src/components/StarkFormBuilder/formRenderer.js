@@ -313,7 +313,7 @@ export default function FormRenderer(props) {
    const removeField = (field, fieldIndex) => {
      swal({
         title: 'Are you sure?',
-        text: 'Are you sure that you want to remove field?',
+        text: 'Are you sure you want to remove field?',
         icon: 'warning',
         dangerMode: true,
         buttons: true,
@@ -378,7 +378,7 @@ export default function FormRenderer(props) {
                               className="btn btn-primary btn-width mr-5"
                               onClick={() => addField(field)}
                             >+</Button>
-                             { (fieldIndex >0) && (
+                             { (fieldIndex > 0) && (
                             <Button
                               className="btn btn-secondary btn-width"
                               onClick={() => removeField(field, fieldIndex)}
