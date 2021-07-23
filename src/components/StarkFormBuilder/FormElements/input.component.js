@@ -20,8 +20,6 @@ export default function InputComponent(props) {
     showAsterisk
   } = props;
 
-  console.log('errorMessage', errorMessage);
-
   const [inputValue, setInputValue] = useState('');
 
   useEffect(() => {

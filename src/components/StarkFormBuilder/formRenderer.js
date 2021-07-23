@@ -5,6 +5,7 @@ import FormElementRenderer from './formElementRenderer';
 import SimpleReactValidator from 'simple-react-validator';
 import CustomFunctions from './helper/customFunctions';
 import Stepper from 'react-stepper-horizontal';
+import swal from 'sweetalert';
 
 export default function FormRenderer(props) {
   const simpleValidator = useRef(new SimpleReactValidator());
@@ -122,18 +123,12 @@ export default function FormRenderer(props) {
       case '===':
       case '==':
         if (fieldType.type === 'text') {
-          console.log('condition', condition);
-          console.log('condition.condition', condition.condition);
-          console.log('condition.value', condition.value);
-          console.log('formValues', formValues);
-          console.log('formValues', formValues[condition.name]);
-          console.log('fieldType', fieldType);
-          console.log('formValues[condition.name]', formValues[condition.name]);
-          console.log('condition.value', condition.value);
-          console.log('formValues[condition.value]', formValues[condition.value]);
-          console.log('conditionResults', formValues[condition.name] === formValues[condition.value]);
-
           conditionResults = formValues[condition.name] === condition.value;
+          break;
+        }
+        if (fieldType.type === 'password') {
+          let valuesArr = Object.values(formValues);
+          conditionResults = formValues[condition.name] === valuesArr[valuesArr.length - 1];
           break;
         }
         if (fieldType.type === 'checkbox') {
@@ -211,6 +206,7 @@ export default function FormRenderer(props) {
 
   const getFieldValidation = (field, isAddMore = false, fieldIndex = 0, parentField = {}) => {
     if (CustomFunctions.checkIfEmpty(field.validations, 'A')) return '';
+      console.log('field.validations',field.validations);
     let validations = '';
     field.validations.map((item) => {
       // If applywhen condition is empty
@@ -329,16 +325,26 @@ export default function FormRenderer(props) {
   };
 
   const removeField = (field, fieldIndex) => {
-    const fields = allAddMoreFields[field.name];
-    fields.splice(fieldIndex, 1);
-    const allVals = formValues;
-    const fVal = CustomFunctions.checkIfEmpty(allVals[field.name], 'A') ? [] : allVals[field.name];
-    if (fVal.length) fVal.splice(fieldIndex, 1);
-    allVals[field.name] = fVal;
-    setFormValues(allVals);
-    setAddMoreFields({
-      ...allAddMoreFields,
-      [field.name]: fields
+     swal({
+        title: 'Are you sure?',
+        text: 'Are you sure that you want to remove field?',
+        icon: 'warning',
+        dangerMode: true,
+        buttons: true,
+        closeOnClickOutside: false,
+        allowOutsideClick: false,
+      }).then(async (result) => {
+      const fields = allAddMoreFields[field.name];
+      fields.splice(fieldIndex, 1);
+      const allVals = formValues;
+      const fVal = CustomFunctions.checkIfEmpty(allVals[field.name], 'A') ? [] : allVals[field.name];
+      if (fVal.length) fVal.splice(fieldIndex, 1);
+      allVals[field.name] = fVal;
+      setFormValues(allVals);
+      setAddMoreFields({
+        ...allAddMoreFields,
+        [field.name]: fields
+      });
     });
   };
 
@@ -362,6 +368,7 @@ export default function FormRenderer(props) {
                 <Form.Label>{field.label}</Form.Label>
                 {
                   addMoreFields.map((aField, fieldIndex) => {
+                    console.log('fieldIndex',fieldIndex);
                     return (
                       <>
                         {
@@ -386,10 +393,12 @@ export default function FormRenderer(props) {
                               className="btn btn-primary btn-width mr-5"
                               onClick={() => addField(field)}
                             >+</Button>
+                            { (fieldIndex >0) && (
                             <Button
                               className="btn btn-secondary btn-width"
                               onClick={() => removeField(field, fieldIndex)}
                             >-</Button>
+                          )}
                           </div>
                         </Col>
                       </>
