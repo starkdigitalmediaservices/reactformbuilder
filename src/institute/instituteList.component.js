@@ -90,7 +90,7 @@ const InstituteComponent = () => {
     const endPoint = `${Api.getAllInstitute}`;
     const filterList = filterData && !customFunctions.checkIfEmpty(filterData, 'O') ? customFunctions.jsonParse(filterData) : {};
     const params = {
-      offset: page - 1,
+      page: page - 1,
       limit: itemsPerPage,
       ...filterList
     };

@@ -21,9 +21,7 @@ export default function FormRenderer(props) {
   const [currentStepIndex, updateStepIndex] = useState(0);
   const [isClickedNext, updateIsClickedNext] = useState(false);
 
-  console.log('defaultFormValues initial---',defaultFormValues);
   const setDefaultFormValues = (resetForm = false) => {
-    console.log('defaultFormValues',defaultFormValues);
     let allFields = [];
     const addMoreFields = {};
     sections.map((section) => {
@@ -31,11 +29,16 @@ export default function FormRenderer(props) {
       return section;
     });
     const allFormValues = {};
+      console.log('allFields--',allFields);
     allFields.map((field) => {
+          console.log('defaultFormValues[field.name]',defaultFormValues[field.name],field.name);
+      console.log('formValues--',formValues);
       if (!resetForm) {
         if (formValues[field.name]) {
           allFormValues[field.name] = formValues[field.name];
-        } else {
+        } else if(defaultFormValues[field.name]) {
+          allFormValues[field.name] = (defaultFormValues && defaultFormValues[field.name]) ? defaultFormValues[field.name] : field.value;
+        }else {
           allFormValues[field.name] = (defaultFormValues && defaultFormValues[field.name]) ? defaultFormValues[field.name] : field.value;
         }
       } else {
@@ -58,7 +61,6 @@ export default function FormRenderer(props) {
       }
       return field;
     });
-    console.log('allFormValues',allFormValues);
     setFormValues(JSON.parse(JSON.stringify({...allFormValues})));
     setAllFormSections(sections);
     setAddMoreFields(addMoreFields);
@@ -71,8 +73,8 @@ export default function FormRenderer(props) {
 
   useEffect(() => {
     setDefaultFormValues();
-    console.log('refreshCounter',refreshCounter);
-  }, [defaultFormValues,refreshCounter]);
+    setFormValues({...defaultFormValues});
+  }, [defaultFormValues, refreshCounter]);
 
   const updateFormValues = (e, field, fieldIndex = 0, aField = {}) => {
     if (!CustomFunctions.checkIfEmpty(callbacks, 'O')) {

@@ -8,7 +8,7 @@ export default {
         const requestConfig = config;
         requestConfig.headers['Content-Type'] = 'application/json';
         requestConfig.headers.Accept = 'application/json';
-        requestConfig.headers['x-access-token'] = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvYmoiOnsiVXNlckFjY291bnRJRCI6MSwicm9sZWlkIjoxLCJlbWFpbF9pZCI6InMuYWthc2hAc3RhcmtkaWdpdGFsLm5ldCJ9LCJpYXQiOjE2MjY4NzQ1NTV9.Hm5_cloIlyttxt203poW4GllnK6LTYh4y8MXAvCzDM0'; // eslint-disable-line
+        requestConfig.headers['x-access-token'] = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvYmoiOnsiVXNlckFjY291bnRJRCI6MSwicm9sZXMiOlsxLDIsMiwyXSwiZW1haWxfaWQiOiJzLmFrYXNoQHN0YXJrZGlnaXRhbC5uZXQifSwiaWF0IjoxNjI3Mjk0MzMzfQ.CThEGObOzzHQ1wM5I9iHVi520LM7joAF1bm3nAJ8cXw'; // eslint-disable-line
         return requestConfig;
       },
       (error) => {

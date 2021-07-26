@@ -9,7 +9,7 @@ export default function FormElementRenderer(props) {
 
   useEffect(() => {
     if (!formInput || CustomFunctions.checkIfEmpty(formInput.validations)) return;
-    const result = formInput.validations.filter(form => form.type === 'required');
+    const result = formInput.validations.filter(form => form.type.split('|').includes('required'));
     setAsteriskToggle(result.length > 0);
   }, [formInput]);
 

@@ -12,7 +12,7 @@ function App() {
       <Router>
         <div className="container">
           <Switch>
-            <Route path="/" exact component={ChangePasswordComponent}></Route>
+            <Route path="/" exact component={InstituteComponent}></Route>
             <Route path="/institute" exact component={InstituteComponent}></Route>
             <Route path="/institute" component={InstituteComponent}></Route>
           </Switch>

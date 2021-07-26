@@ -1,82 +1,147 @@
 import { Component } from 'react';
 
 export default class Api extends Component {
-  static s3url = 'https://peepal-tree.s3.ap-south-1.amazonaws.com/';
-
   static baseUrl = Api.getBaseUrl();
 
-  static loginUrl = `${Api.baseUrl}login/`;
+  // /2021-06-12_08-48-46_WarehouseStock.xlsx
+  static loginUrl = `${Api.baseUrl}users/login`;
 
-  static forgotPasswordUrl = `${Api.baseUrl}forget-password/`;
+  static forgetPasswordUrl = `${Api.baseUrl}users/forgotPassword`;
 
-  static resetPasswordUrl = `${Api.baseUrl}reset-password/`;
+  static changePassword = `${Api.baseUrl}users/createNewPassword`;
 
-  static tokenVerifyUrl = `${Api.baseUrl}password/find/`;
+  static getAdminProfile = `${Api.baseUrl}admin/getAdmin`;
 
-  static subjectUrl = `${Api.baseUrl}subjects/`;
+  static updateAdminProfile = `${Api.baseUrl}admin/updateAdmin`;
 
-  static schoolYearUrl = `${Api.baseUrl}class/`;
+  static getAllProducts = `${Api.baseUrl}product/getAllProducts`;
 
-  static locationUrl = `${Api.baseUrl}locations/`;
+  static addNewProducts = `${Api.baseUrl}product/addProductName`;
 
-  static tutorUrl = `${Api.baseUrl}tutor/`;
+  static getAllSizes = `${Api.baseUrl}size/getAllSizes`;
 
-  static studentUrl = `${Api.baseUrl}student/`;
+  static addNewProductSize = `${Api.baseUrl}size/addProductSize`;
 
-  static getProfileByIdUrl = `${Api.baseUrl}profile/`;
+  static getSizeById = `${Api.baseUrl}size/getSizeById`;
 
-  static getBulkStatus = `${Api.baseUrl}study-material-bulk-delete/`;
+  static updateSizeById = `${Api.baseUrl}size/updateSizeById`;
 
-  static changePasswordUrl = `${Api.baseUrl}change-password/`;
+  static deleteSize = `${Api.baseUrl}size/deleteSize`;
 
-  static getManageStudyMaterialByUrl = `${Api.baseUrl}study-material/`;
+  static getAllColors = `${Api.baseUrl}color/getAllColours`;
 
-  static studentRegistrationUrl = `${Api.baseUrl}registration/`;
+  static getColourById = `${Api.baseUrl}color/getColourById`;
 
-  static studentTutorSubjectUrl = `${Api.baseUrl}student-tutor-subjects/`;
+  static updateColourById = `${Api.baseUrl}color/updateColourById`;
 
-  static studentBulkStatus = `${Api.baseUrl}bulk-status/`;
+  static addNewProductColor = `${Api.baseUrl}color/addColour`;
 
-  static getManageHomeworkByUrl = `${Api.baseUrl}homework/`;
+  static deleteColors = `${Api.baseUrl}color/deleteColors`;
 
-  static getTutorHomeworkStudentByTutorIdUrl = `${Api.baseUrl}tutor-homework-student/`;
+  static adminProfile = `${Api.baseUrl}admin/getAdmin`;
 
-  static verifyEmailUrl = `${Api.baseUrl}user-verify-email/`;
+  static updateAdminProfile = `${Api.baseUrl}admin/updateAdmin`;
 
-  static getTutorClassSubjectByUrl = `${Api.baseUrl}tutor-class-subjects/`;
+  static getAllOutlets = `${Api.baseUrl}warehouse/getAllOutlets`;
 
-  static getStudentTutorSubjectUrl = `${Api.baseUrl}student-tutor-subjects/`;
+  static getOutletsById = `${Api.baseUrl}warehouse/getOutletById`;
 
-  static getHomeworkThreadByRefId = `${Api.baseUrl}homework-thread/`;
+  static getAllStates = `${Api.baseUrl}state/getAllStates`;
 
-  static getVirtualClassByUrl = `${Api.baseUrl}virtual-class/`;
+  static getAllCities = `${Api.baseUrl}city/getCityById`;
 
-  static studentActivateUrl = `${Api.baseUrl}student-change-status/`;
+  static getAllLocations = `${Api.baseUrl}address/getAllAreas`;
 
-  static virtualClassUrl = `${Api.baseUrl}virtual-class/`;
+  static getAllProducts = `${Api.baseUrl}product/getAllProducts`;
 
-  static timeZoneUrl = `${Api.baseUrl}vs-timezones/`;
+  static addInstitute = `${Api.baseUrl}institute/addInstitute`;
 
-  static deleteVirtualClassUrl = `${Api.baseUrl}virtual-class/`;
+  static getAllInstitute = `${Api.baseUrl}institute/findAllInstitutes`;
 
-  static virtualClassStudentUrl = `${Api.baseUrl}virtual-class-students/`;
+  static getInstituteById = `${Api.baseUrl}institute/findInstituteById`;
 
-  static languagesUrl = `${Api.baseUrl}vs-languages/`;
+  static updateInstitute = `${Api.baseUrl}institute/updateInstituteById`;
 
-  static graphApiHomework = `${Api.baseUrl}homework-student-count/`;
+  static deleteInstitute = `${Api.baseUrl}institute/deleteInstitute`;
 
-  static graphApiVirtualClass = `${Api.baseUrl}virtual-student-count/`;
+  static getAllBranch = `${Api.baseUrl}branch/findAllInstituteAndBranch`;
 
-  // masquerade user
-  static userImpersonateUrl = `${Api.baseUrl}user-impersonate/`;
+  static updateInstituteBranchById = `${Api.baseUrl}branch/updateInstituteBranchById`;
 
-  static classAttendanceUrl = `${Api.baseUrl}class-aattendance/`;
+  static addNewInstituteAndBranch = `${Api.baseUrl}institute/addInstituteAndBranch`;
 
-  static adminDashboardUrl = `${Api.baseUrl}admin-dashboard/`;
+  static getBranchByInstitute = `${Api.baseUrl}institute/findBranchByInstituteId`;
 
-  static dashboardUrl = `${Api.baseUrl}dashboard/`;
-  
-  static calenderUrl = `${Api.baseUrl}calender/`;
+  static addNewBranch = `${Api.baseUrl}branch/addBranch`;
+
+  static findBranchById = `${Api.baseUrl}branch/findBranchById`;
+
+  static allocateStockToOutlet = `${Api.baseUrl}warehouse/allocateStockToOutlet`;
+
+  static getWarehouseStockHistory = `${Api.baseUrl}warehouse/getWareHouseStockHistory`;
+
+  static addNewStockToWarehouse = `${Api.baseUrl}warehouse/addStockToWarehouse`;
+
+  static addProductName = `${Api.baseUrl}product/addProductName`;
+
+  static addProductColour = `${Api.baseUrl}product/addColour`;
+
+  static getWarehouseStock = `${Api.baseUrl}warehouse/getWarehouseStock`;
+
+  static outletProfile = `${Api.baseUrl}outlet/getOutletDetails`;
+
+  static updateOutletDetails = `${Api.baseUrl}outlet/updateOutletDetails`;
+
+  static addOutlet = `${Api.baseUrl}warehouse/addOutletByAdmin`;
+
+  static getAllGstTypes = `${Api.baseUrl}warehouse/getAllGsttypes`;
+
+  static getAllocatedStockByOutletid = `${Api.baseUrl}warehouse/getAllocatedStockByOutletid`;
+
+  static getSoldProductHistory = `${Api.baseUrl}outlet/getSoldProductHistory`;
+
+  static getOutletIncomingStock = `${Api.baseUrl}outlet/getOutletIncomingStock`;
+
+  static getOutletOverallStock = `${Api.baseUrl}outlet/getOutletOverallStock`;
+
+  static updateQuantitySoldAndSalePrice = `${Api.baseUrl}outlet/updateQuantitySoldAndSalePrice`;
+
+  static getTodaysAllocation = `${Api.baseUrl}warehouse/todaysStockAllocation`;
+
+  static getAllBrandsList = `${Api.baseUrl}brand/getAllBrand`;
+
+  static getBrandById = `${Api.baseUrl}brand/getBrandById`;
+
+  static addNewBrand = `${Api.baseUrl}brand/addBrand`;
+
+  static updateBrand = `${Api.baseUrl}brand/updateBrandDetailsById`;
+
+  static deleteBrand = `${Api.baseUrl}brand/deleteBrand`;
+
+  static getAllCategories = `${Api.baseUrl}category/getAllCategory`;
+
+  static getCategoryById = `${Api.baseUrl}category/getCategoryById`;
+
+  static addNewCategory = `${Api.baseUrl}category/addCategory`;
+
+  static updateCategory = `${Api.baseUrl}category/updateCategoryDetailsById`;
+
+  static deleteCategory = `${Api.baseUrl}category/deleteCategory`;
+
+  static getAllGender = `${Api.baseUrl}gender/getAllGender`;
+
+  // csv 
+  static getWarehouseStockCSV = `${Api.baseUrl}warehouse/warehouseStockCSV`;
+
+  static getWarehouseStockHistoryCSV = `${Api.baseUrl}warehouse/warehouseStockHistoryCSV`;
+
+  static getOutletOverallStockCSV = `${Api.baseUrl}outlet/getOutletOverallStockCSV`;
+
+  static getSoldProductHistoryCSV = `${Api.baseUrl}outlet/getSoldProductHistoryCSV`;
+
+  static getIncomingStockHistoryCSV = `${Api.baseUrl}outlet/getIncomingStockHistoryCSV`;
+
+  static getIndividualOutletOverallStockCSV = `${Api.baseUrl}warehouse/getIndividualOutletOverallStockCSV`;
 
   // Get base URL of APIs
   static getBaseUrl() {
@@ -87,10 +152,8 @@ export default class Api extends Component {
         url = '';
         break;
       // Default: development server
-      // https://w5bkyj7v1b.execute-api.ap-south-1.amazonaws.com/dev/api/v1/
       default:
-        url =
-          'https://iblypkr3ef.execute-api.eu-west-2.amazonaws.com/staging/api/v1/';
+        url = 'https://gwsjhmvf96.execute-api.ap-south-1.amazonaws.com/dev/';
         break;
     }
     return url;
