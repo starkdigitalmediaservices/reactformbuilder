@@ -64,7 +64,7 @@ export default function FileComponent(props) {
                   (bucketType === 'internal') ?
                     <img src={getImageUrl(file)} className="stark-form-img" alt="sample" title={getImageUrl(file)} />
                   :
-                    <a href={file} target="_blank">Preview</a>
+                    <a href={file} target="blank">Preview</a>
                 ))
               }
             </div>
