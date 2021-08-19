@@ -15,7 +15,8 @@ export default function FileComponent(props) {
     errorMessage,
     multiple,
     value,
-    showAsterisk
+    showAsterisk,
+    bucketType
   } = props;
 
   const [inputFiles, setInputFiles] = useState('');
@@ -60,7 +61,10 @@ export default function FileComponent(props) {
             <div className="mt-1">
               {
                 inputFiles.map((file) => (
-                  <img src={getImageUrl(file)} className="stark-form-img" alt="sample" title={getImageUrl(file)} />
+                  (bucketType === 'internal') ?
+                    <img src={getImageUrl(file)} className="stark-form-img" alt="sample" title={getImageUrl(file)} />
+                  :
+                    <a href={file} target="_blank">Preview</a>
                 ))
               }
             </div>
