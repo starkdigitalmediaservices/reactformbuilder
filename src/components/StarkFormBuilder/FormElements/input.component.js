@@ -17,7 +17,8 @@ export default function InputComponent(props) {
     inputVarible,
     errorMessage,
     disabled,
-    showAsterisk
+    showAsterisk,
+    maxLength
   } = props;
 
   const [inputValue, setInputValue] = useState('');
@@ -40,6 +41,7 @@ export default function InputComponent(props) {
           type={type}
           placeholder={placeholder}
           className={inputClass}
+          maxLength={maxLength}
           disabled={disabled}
         />
       </>
