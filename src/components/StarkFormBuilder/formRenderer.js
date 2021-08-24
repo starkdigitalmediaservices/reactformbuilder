@@ -9,7 +9,7 @@ import swal from 'sweetalert';
 
 export default function FormRenderer(props) {
   const simpleValidator = useRef(new SimpleReactValidator());
-  const { sections, onFormSubmit, callbacks, options, defaultFormValues, currentUser, submitBtnText, resetBtnText, showResetBtn, onFormReset, btnContainerClass, stepFormProps, isStepForm } = props;
+  const { sections, onFormSubmit, callbacks, options, defaultFormValues, currentUser, submitBtnText, resetBtnText, showResetBtn, onFormReset, btnContainerClass, stepFormProps, isStepForm, refreshCounter } = props;
   const stepperProps = stepFormProps || {};
   const [formValues, setFormValues] = useState({});
   const [allFormFields, setAllFormFields] = useState([]);
@@ -68,7 +68,8 @@ export default function FormRenderer(props) {
 
   useEffect(() => {
     setDefaultFormValues();
-  }, [defaultFormValues]);
+    setFormValues({...defaultFormValues});
+  }, [defaultFormValues, refreshCounter]);  
 
   const updateFormValues = (e, field, fieldIndex = 0, aField = {}) => {
     if (!CustomFunctions.checkIfEmpty(callbacks, 'O')) {
