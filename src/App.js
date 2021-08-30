@@ -155,13 +155,29 @@ function App() {
           onFormReset={() => {
             console.log('form reset callback')
           }}
+          isStepForm={false}
           // isStepForm
           stepFormProps={{
             steps: {
               userinfo: {
                 label: 'first'
               },
-              userdetails: {
+              userinfo: {
+                label: 'sectond'
+              }
+            },
+            containerClass: 'stark-stepper-container',
+            nextBtnText: '',
+            prevBtnText: ''
+          }}
+          isTabForm={true}
+          // isStepForm
+          tabFormProps={{
+            steps: {
+              userinfo: {
+                label: 'first'
+              },
+              userinfo: {
                 label: 'sectond'
               }
             },

@@ -5,11 +5,13 @@ import FormElementRenderer from './formElementRenderer';
 import SimpleReactValidator from 'simple-react-validator';
 import CustomFunctions from './helper/customFunctions';
 import Stepper from 'react-stepper-horizontal';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import 'react-tabs/style/react-tabs.css';
 import swal from 'sweetalert';
 
 export default function FormRenderer(props) {
   const simpleValidator = useRef(new SimpleReactValidator());
-  const { sections, onFormSubmit, callbacks, options, defaultFormValues, currentUser, submitBtnText, resetBtnText, showResetBtn, onFormReset, btnContainerClass, stepFormProps, isStepForm, refreshCounter } = props;
+  const { sections, onFormSubmit, callbacks, options, defaultFormValues, currentUser, submitBtnText, resetBtnText, showResetBtn, onFormReset, btnContainerClass, stepFormProps, isStepForm, refreshCounter, tabFormProps, isTabForm, } = props;
   const stepperProps = stepFormProps || {};
   const [formValues, setFormValues] = useState({});
   const [allFormFields, setAllFormFields] = useState([]);
@@ -20,6 +22,8 @@ export default function FormRenderer(props) {
   const [stepCounter, updateStepCounter] = useState(0);
   const [currentStepIndex, updateStepIndex] = useState(0);
   const [isClickedNext, updateIsClickedNext] = useState(false);
+  const tabsProps = tabFormProps || {};
+  const [tabIndex, setTabIndex] = useState(0);
 
   const setDefaultFormValues = (resetForm = false) => {
     let allFields = [];
@@ -486,6 +490,20 @@ export default function FormRenderer(props) {
     return steps;
   };
 
+  const getTabsLabels = (allSections) => {
+    if (CustomFunctions.checkIfEmpty(allSections, 'A')) return [];
+    const tabProps = tabsProps.steps || {};
+    const steps = allSections.map(section => {
+      const label = tabProps[section.sectionName] && tabProps[section.sectionName].label ? stepProps[section.sectionName].label : section.sectionTitle;
+      // const image = tabProps[section.sectionName] && tabProps[section.sectionName].image ? stepProps[section.sectionName].image : null;
+      return {
+        title: label
+        // icon: image
+      };
+    });
+    return steps;
+  };
+
   const nextPrevCallback = (next = true) => {
     updateIsClickedNext(next);
     updateStepCounter(stepCounter + 1);
@@ -510,11 +528,20 @@ export default function FormRenderer(props) {
   useEffect(() => {
     if (!stepCounter) return;
     changeStep(isClickedNext);
-  }, [stepCounter]);
+  }, [stepCounter]);  
+
+   const getTabIndex = (index)=>{
+     setTabIndex(index)
+   }
+  useEffect(() => {
+    if (!tabIndex) return;
+    getTabIndex();
+  }, [tabIndex]);
 
   simpleValidator.current.purgeFields();
   return (
     <>
+    {console.log('currentStepIndex',currentStepIndex),console.log('allFormSections',allFormSections)}
       <Form onSubmit={submitForm} onReset={resetForm}>
         {
           isStepForm && (
@@ -565,6 +592,54 @@ export default function FormRenderer(props) {
                 </Button>
               </>
             ) : (
+              <>
+                <Button variant="primary" className="mr-5" type="submit">{`${submitBtnText || 'Submit'}`}</Button>
+                {
+                  showResetBtn && (
+                    <Button variant="secondary" type="reset">{`${resetBtnText || 'Reset'}`}</Button>
+                  )
+                }
+              </>
+            )
+          }
+        </div>
+      </Form>
+       <Form onSubmit={submitForm} onReset={resetForm}>
+        {
+          isTabForm && (
+            <div className={tabsProps.containerClass}>
+             <>
+             <Tabs onSelect={index => getTabIndex(index)}>
+              <TabList>
+            { getTabsLabels(allFormSections).map((tabLabel)=>(
+                <Tab>{tabLabel.title}</Tab>
+              ))
+            }
+              </TabList>
+          <TabPanel>
+        { allFormSections && allFormSections.map((section, secIndex) => {
+                  return (
+                    <React.Fragment key={secIndex}>
+      {console.log('----',secIndex,tabIndex,secIndex === tabIndex )}
+                      {
+                        ((isTabForm && secIndex === tabIndex  || !isTabForm)) && (
+                          <RenderSection section={section} />
+                        )
+                      }
+                    </React.Fragment>
+                  )
+                })
+        }
+          </TabPanel>
+             </Tabs>
+
+        </>
+            </div>
+          )
+        }
+        <div className={`btn-group mt-5 ${btnContainerClass}`}>
+         {
+            isTabForm && (
               <>
                 <Button variant="primary" className="mr-5" type="submit">{`${submitBtnText || 'Submit'}`}</Button>
                 {
