@@ -7,61 +7,38 @@
     "displaySectionTitle": true,
     "fields": [
       {
-        "name": "name",
+        "name": "username",
         "type": "text",
         "label": "User Name",
         "id": "asd",
         "placeholder": "",
         "inputClass": "",
         "containerClass": "",
-        "validations": [
-          {
-            "type": "required",
-            "applyWhen": [],
-            "applyWhenRelation": "OR"
-          }
-        ],
+        "validations": [],
         "displayWhen": {},
         "disabled": false,
         "allowedUsers": []
       },
       {
-        "name": "email",
+        "name": "useremail",
         "type": "email",
         "label": "Email",
         "id": "",
         "placeholder": "",
         "inputClass": "",
         "containerClass": "",
-        "validations": [
-          {
-            "type": "required",
-            "applyWhen": [],
-            "applyWhenRelation": "OR"
-          },
-          {
-            "type": "email",
-            "applyWhen": [],
-            "applyWhenRelation": "OR"
-          }
-        ],
+        "validations": [],
         "disabled": false
       },
       {
-        "id": "gender",
+        "id": "usergender",
         "name": "gender",
         "label": "Gender",
         "containerClass": "stark-frmmobile",
         "type": "radio",
         "placeholder": "",
         "inputClass": "",
-        "validations": [
-          {
-            "type": "required",
-            "applyWhen": [],
-            "applyWhenRelation": "OR"
-          }
-        ],
+        "validations": [],
         "options": [
           {
             "value": "female",
@@ -72,144 +49,6 @@
             "label": "Male"
           }
         ],
-        "disabled": false
-      },
-      {
-        "id": "choices",
-        "name": "choices",
-        "label": "Choices",
-        "containerClass": "stark-frmmobile",
-        "type": "checkbox",
-        "placeholder": "",
-        "inputClass": "",
-        "validations": [
-          {
-            "type": "required",
-            "applyWhen": [],
-            "applyWhenRelation": "OR"
-          }
-        ],
-        "options": [
-          {
-            "value": "fb",
-            "label": "Facebook"
-          },
-          {
-            "value": "insta",
-            "label": "Instagram"
-          }
-        ],
-        "displayWhen": {
-          "conditions": [
-            {
-              "name": "gender",
-              "value": "female",
-              "condition": "=="
-            }
-          ],
-          "displayWhenRelation": "AND"
-        },
-        "disabled": false
-      },
-      {
-        "id": "stock",
-        "name": "stock",
-        "label": "Stock",
-        "containerClass": "stark-frmmobile",
-        "type": "select",
-        "placeholder": "",
-        "inputClass": "",
-        "validations": [
-          {
-            "type": "required",
-            "applyWhen": [],
-            "applyWhenRelation": "OR"
-          }
-        ],
-        "options": [],
-        "isMulti": false,
-        "disabled": false
-      },
-      {
-        "id": "users",
-        "name": "users",
-        "label": "Users",
-        "containerClass": "stark-frmmobile",
-        "type": "select",
-        "placeholder": "",
-        "inputClass": "",
-        "validations": [
-          {
-            "type": "required",
-            "applyWhen": [],
-            "applyWhenRelation": "OR"
-          }
-        ],
-        "options": [],
-        "isMulti": false,
-        "disabled": false
-      },
-      {
-        "id": "country",
-        "name": "country",
-        "label": "Country",
-        "containerClass": "stark-frmmobile",
-        "type": "select",
-        "placeholder": "Select country",
-        "inputClass": "",
-        "validations": [
-          {
-            "type": "required",
-            "applyWhen": [],
-            "applyWhenRelation": "OR"
-          }
-        ],
-        "options": [],
-        "isMulti": false,
-        "disabled": false,
-        "isSearchable": false,
-        "callback": "onCountryChange",
-        "fieldsToReset": [
-          "users",
-          "state"
-        ]
-      },
-      {
-        "id": "state",
-        "name": "state",
-        "label": "State",
-        "containerClass": "stark-frmmobile",
-        "type": "select",
-        "placeholder": "",
-        "inputClass": "",
-        "validations": [
-          {
-            "type": "required",
-            "applyWhen": [],
-            "applyWhenRelation": "OR"
-          }
-        ],
-        "options": [],
-        "isMulti": false,
-        "disabled": false
-      },
-      {
-        "id": "startdate",
-        "name": "startdate",
-        "label": "Start date",
-        "containerClass": "stark-frmmobile",
-        "type": "date",
-        "placeholder": "YYYY-MM-DD",
-        "inputClass": "",
-        "validations": [
-          {
-            "type": "required",
-            "applyWhen": [],
-            "applyWhenRelation": "OR"
-          }
-        ],
-        "options": [],
-        "isMulti": false,
         "disabled": false
       }
     ],
@@ -230,13 +69,7 @@
         "placeholder": "",
         "inputClass": "",
         "containerClass": "",
-        "validations": [
-          {
-            "type": "required",
-            "applyWhen": [],
-            "applyWhenRelation": "OR"
-          }
-        ],
+        "validations": [],
         "displayWhen": {},
         "disabled": false,
         "allowedUsers": []

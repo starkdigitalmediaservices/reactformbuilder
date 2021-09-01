@@ -156,7 +156,6 @@ function App() {
             console.log('form reset callback')
           }}
           isStepForm={false}
-          // isStepForm
           stepFormProps={{
             steps: {
               userinfo: {
@@ -171,20 +170,13 @@ function App() {
             prevBtnText: ''
           }}
           isTabForm={true}
-          // isStepForm
-          tabFormProps={{
-            steps: {
-              userinfo: {
-                label: 'first'
-              },
-              userinfo: {
-                label: 'sectond'
-              }
-            },
-            containerClass: 'stark-stepper-container',
-            nextBtnText: '',
-            prevBtnText: ''
-          }}
+          // tabFormProps={{
+          //   steps: {
+          //     userinfo: {},
+          //     userinfo: {}
+          //   },
+          //   containerClass: 'stark-stepper-container'
+          // }}
         />
       </Card.Body>
     </Card>
