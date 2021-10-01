@@ -9,7 +9,7 @@ import swal from 'sweetalert';
 
 export default function FormRenderer(props) {
   const simpleValidator = useRef(new SimpleReactValidator());
-  const { sections, onFormSubmit, callbacks, options, defaultFormValues, currentUser, submitBtnText, resetBtnText, showResetBtn, onFormReset, btnContainerClass, stepFormProps, isStepForm, refreshCounter } = props;
+  const { sections, onFormSubmit, callbacks, options, defaultFormValues, currentUser, submitBtnText, resetBtnText, showResetBtn, onFormReset, btnContainerClass, stepFormProps, isStepForm, refreshCounter, formClass, showBtnClass } = props;
   const stepperProps = stepFormProps || {};
   const [formValues, setFormValues] = useState({});
   const [allFormFields, setAllFormFields] = useState([]);
@@ -294,7 +294,7 @@ export default function FormRenderer(props) {
             value: defaultValue,
             onChange: useCallback(onChange, []),
             errorMessage: getFieldValidation(field, isAddMore, fieldIndex, parentField)
-          }}
+          }}  
         />
       </>
     );
@@ -515,7 +515,7 @@ export default function FormRenderer(props) {
   simpleValidator.current.purgeFields();
   return (
     <>
-      <Form onSubmit={submitForm} onReset={resetForm}>
+      <Form className={`${formClass}`} onSubmit={submitForm} onReset={resetForm}>
         {
           isStepForm && (
             <div className={stepperProps.containerClass}>
@@ -536,7 +536,8 @@ export default function FormRenderer(props) {
             )
           })
         }
-        <div className={`btn-group mt-5 ${btnContainerClass}`}>
+
+        <div className={showBtnClass ? `btn-group mt-5 ${btnContainerClass}` : `${btnContainerClass}`}>
           {
             isStepForm ? (
               <>

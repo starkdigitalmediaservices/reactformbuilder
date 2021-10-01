@@ -138,6 +138,7 @@ function App() {
       <Card.Body>
         <FormBuilder
           containerClass=''
+          formClass=''
           formHeaderClass=''
           formSections={FormSections}
           formHeading="Registration"
@@ -149,6 +150,7 @@ function App() {
           defaultFormValues={defaultValues}
           currentUser={currentUser}
           submitBtnText=""
+          showBtnClass={true}
           showResetBtn
           resetBtnText="Clear"
           btnContainerClass="form-submit-buttons"
