@@ -16,7 +16,8 @@ export default function FileComponent(props) {
     multiple,
     value,
     showAsterisk,
-    bucketType
+    bucketType,
+    disabled
   } = props;
 
   const [inputFiles, setInputFiles] = useState('');
@@ -54,6 +55,7 @@ export default function FileComponent(props) {
           custom={custom}
           accept={accept}
           multiple={multiple}
+          disabled={disabled}
         />
         <Form.Text className="text-danger">{errorMessage}</Form.Text>
         {
