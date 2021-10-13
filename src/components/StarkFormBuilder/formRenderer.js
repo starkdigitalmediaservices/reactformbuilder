@@ -5,7 +5,6 @@ import FormElementRenderer from './formElementRenderer';
 import SimpleReactValidator from 'simple-react-validator';
 import CustomFunctions from './helper/customFunctions';
 import Stepper from 'react-stepper-horizontal';
-import swal from 'sweetalert';
 
 export default function FormRenderer(props) {
   const simpleValidator = useRef(new SimpleReactValidator());
@@ -69,7 +68,7 @@ export default function FormRenderer(props) {
   useEffect(() => {
     setDefaultFormValues();
     setFormValues({...defaultFormValues});
-  }, [defaultFormValues, refreshCounter]);  
+  }, [defaultFormValues, refreshCounter]);
 
   const updateFormValues = (e, field, fieldIndex = 0, aField = {}) => {
     if (!CustomFunctions.checkIfEmpty(callbacks, 'O')) {
@@ -294,7 +293,7 @@ export default function FormRenderer(props) {
             value: defaultValue,
             onChange: useCallback(onChange, []),
             errorMessage: getFieldValidation(field, isAddMore, fieldIndex, parentField)
-          }}  
+          }}
         />
       </>
     );
