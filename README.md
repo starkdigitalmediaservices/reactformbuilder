@@ -153,6 +153,11 @@ render() {
                         "applyWhenRelation": "OR"
                     }
                 ],
+                "errorMessage": { //To override error msg of require or whatever your pattern
+                  "messages": {
+                    "default": "First name and last name must be required."
+                  }
+                },
                 "displayWhen": {
                     "conditions": [
                         {

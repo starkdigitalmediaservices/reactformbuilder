@@ -1,10 +1,10 @@
 /* eslint-disable */
-import React, { useState, useCallback, useEffect, useRef } from 'react';
-import { Form, Button, Row, Col } from 'react-bootstrap';
-import FormElementRenderer from './formElementRenderer';
-import SimpleReactValidator from 'simple-react-validator';
-import CustomFunctions from './helper/customFunctions';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { Button, Col, Form, Row } from 'react-bootstrap';
 import Stepper from 'react-stepper-horizontal';
+import SimpleReactValidator from 'simple-react-validator';
+import FormElementRenderer from './formElementRenderer';
+import CustomFunctions from './helper/customFunctions';
 
 export default function FormRenderer(props) {
   const simpleValidator = useRef(new SimpleReactValidator());
@@ -67,7 +67,7 @@ export default function FormRenderer(props) {
 
   useEffect(() => {
     setDefaultFormValues();
-    setFormValues({...defaultFormValues});
+    setFormValues({ ...defaultFormValues });
   }, [defaultFormValues, refreshCounter]);
 
   const updateFormValues = (e, field, fieldIndex = 0, aField = {}) => {
@@ -233,7 +233,11 @@ export default function FormRenderer(props) {
       const val = fVal[fieldIndex][field.name];
       defaultValue = field.type === 'date' ? val ? new Date(val) : null : val; //fVal[fieldIndex][field.name];
     }
-    return simpleValidator.current.message(field.label, defaultValue, validations);
+    if (field.errorMessage) {
+      return simpleValidator.current.message(field.label, defaultValue, validations, field.errorMessage);
+    } else {
+      return simpleValidator.current.message(field.label, defaultValue, validations);
+    }
   };
 
   const RenderSectionTitle = ({ title }) => {
@@ -310,16 +314,16 @@ export default function FormRenderer(props) {
     });
   };
 
-   const removeField = (field, fieldIndex) => {
-     swal({
-        title: 'Are you sure?',
-        text: 'Are you sure you want to remove field?',
-        icon: 'warning',
-        dangerMode: true,
-        buttons: true,
-        closeOnClickOutside: false,
-        allowOutsideClick: false,
-      }).then(async (result) => {
+  const removeField = (field, fieldIndex) => {
+    swal({
+      title: 'Are you sure?',
+      text: 'Are you sure you want to remove field?',
+      icon: 'warning',
+      dangerMode: true,
+      buttons: true,
+      closeOnClickOutside: false,
+      allowOutsideClick: false,
+    }).then(async (result) => {
       const fields = allAddMoreFields[field.name];
       fields.splice(fieldIndex, 1);
       const allVals = formValues;
@@ -378,12 +382,12 @@ export default function FormRenderer(props) {
                               className="btn btn-primary btn-width mr-5"
                               onClick={() => addField(field)}
                             >+</Button>
-                             { (fieldIndex > 0) && (
-                            <Button
-                              className="btn btn-secondary btn-width"
-                              onClick={() => removeField(field, fieldIndex)}
-                            >-</Button>
-                          )}
+                            {(fieldIndex > 0) && (
+                              <Button
+                                className="btn btn-secondary btn-width"
+                                onClick={() => removeField(field, fieldIndex)}
+                              >-</Button>
+                            )}
                           </div>
                         </Col>
                       </>
