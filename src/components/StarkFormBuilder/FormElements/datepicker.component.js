@@ -36,7 +36,8 @@ export default function DateTimePicker(props) {
     inline,
     placeholder,
     errorMessage,
-    showAsterisk
+    showAsterisk,
+    onKeyDown
   } = props;
 
   const [selectedDate, setSelectedDate] = useState(null);
@@ -96,6 +97,7 @@ export default function DateTimePicker(props) {
           withPortal={withPortal}
           inline={inline}
           placeholderText={placeholder}
+          onKeyDown={(e)=>{if (onKeyDown) onKeyDown(e)}}
           {...propValue}
         />
       </div>
