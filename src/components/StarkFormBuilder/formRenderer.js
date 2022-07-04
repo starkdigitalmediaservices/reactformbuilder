@@ -5,7 +5,6 @@ import Stepper from 'react-stepper-horizontal';
 import SimpleReactValidator from 'simple-react-validator';
 import FormElementRenderer from './formElementRenderer';
 import CustomFunctions from './helper/customFunctions';
-import swal from 'sweetalert';
 
 export default function FormRenderer(props) {
   const simpleValidator = useRef(new SimpleReactValidator());
