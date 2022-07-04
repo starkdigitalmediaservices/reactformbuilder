@@ -5,10 +5,11 @@ import Stepper from 'react-stepper-horizontal';
 import SimpleReactValidator from 'simple-react-validator';
 import FormElementRenderer from './formElementRenderer';
 import CustomFunctions from './helper/customFunctions';
+import swal from 'sweetalert';
 
 export default function FormRenderer(props) {
   const simpleValidator = useRef(new SimpleReactValidator());
-  const { sections, onFormSubmit, callbacks, options, defaultFormValues, currentUser, submitBtnText, resetBtnText, showResetBtn, onFormReset, btnContainerClass, stepFormProps, isStepForm, refreshCounter, formClass, showBtnClass } = props;
+  const { sections, onFormSubmit, callbacks, options, defaultFormValues, currentUser, submitBtnText, resetBtnText, showResetBtn, onFormReset, btnContainerClass, stepFormProps, isStepForm, refreshCounter, formClass, showBtnClass, addMoreRemoved } = props;
   const stepperProps = stepFormProps || {};
   const [formValues, setFormValues] = useState({});
   const [allFormFields, setAllFormFields] = useState([]);
@@ -324,17 +325,23 @@ export default function FormRenderer(props) {
       closeOnClickOutside: false,
       allowOutsideClick: false,
     }).then(async (result) => {
-      const fields = allAddMoreFields[field.name];
-      fields.splice(fieldIndex, 1);
-      const allVals = formValues;
-      const fVal = CustomFunctions.checkIfEmpty(allVals[field.name], 'A') ? [] : allVals[field.name];
-      if (fVal.length) fVal.splice(fieldIndex, 1);
-      allVals[field.name] = fVal;
-      setFormValues(allVals);
-      setAddMoreFields({
-        ...allAddMoreFields,
-        [field.name]: fields
-      });
+      if (result) {
+        const fields = allAddMoreFields[field.name];
+        fields.splice(fieldIndex, 1);
+        const allVals = formValues;
+        const fVal = CustomFunctions.checkIfEmpty(allVals[field.name], 'A') ? [] : allVals[field.name];
+        if (fVal.length) fVal.splice(fieldIndex, 1);
+        allVals[field.name] = fVal;
+        setFormValues(allVals);
+        setAddMoreFields({
+          ...allAddMoreFields,
+          [field.name]: fields
+        });
+        if (addMoreRemoved) addMoreRemoved(fieldIndex);
+      }
+      else {
+        swal.close();
+      }
     });
   };
 

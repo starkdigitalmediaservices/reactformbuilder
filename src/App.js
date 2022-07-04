@@ -171,6 +171,9 @@ function App() {
             nextBtnText: '',
             prevBtnText: ''
           }}
+          addMoreRemoved={(index) => {
+            console.log('Add more field removed callback', index)
+          }}
         />
       </Card.Body>
     </Card>
