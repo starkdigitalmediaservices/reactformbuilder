@@ -59,6 +59,22 @@ render() {
             resetBtnText="Clear"
             btnContainerClass=""
             onFormReset={() => { console.log('form reset callback); }}
+             // isStepForm
+            stepFormProps={{
+              steps: {
+                userinfo: {
+                  label: 'first'
+                },
+                userdetails: {
+                  label: 'sectond'
+                }
+              },
+              containerClass: 'stark-stepper-container',
+              nextBtnText: '',
+              prevBtnText: ''
+            }}
+            addMoreRemoveCallback={() => { console.log('Add more field removed callback'); }}
+            addMoreAddCallback={() => { console.log('Add more field add callback'); }}
         />
     );
 }

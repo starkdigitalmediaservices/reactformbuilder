@@ -8,7 +8,7 @@ import CustomFunctions from './helper/customFunctions';
 
 export default function FormRenderer(props) {
   const simpleValidator = useRef(new SimpleReactValidator());
-  const { sections, onFormSubmit, callbacks, options, defaultFormValues, currentUser, submitBtnText, resetBtnText, showResetBtn, onFormReset, btnContainerClass, stepFormProps, isStepForm, refreshCounter, formClass, showBtnClass, addMoreRemoved } = props;
+  const { sections, onFormSubmit, callbacks, options, defaultFormValues, currentUser, submitBtnText, resetBtnText, showResetBtn, onFormReset, btnContainerClass, stepFormProps, isStepForm, refreshCounter, formClass, showBtnClass, addMoreRemoveCallback, addMoreAddCallback } = props;
   const stepperProps = stepFormProps || {};
   const [formValues, setFormValues] = useState({});
   const [allFormFields, setAllFormFields] = useState([]);
@@ -78,6 +78,9 @@ export default function FormRenderer(props) {
     if (field.type === 'addmore') {
       let fieldValues = formValues[field.name];
       if (!fieldValues) fieldValues = [];
+      if (!CustomFunctions.checkIfEmpty(callbacks, 'O')) {
+        if (callbacks[aField.callback]) callbacks[aField.callback](e);
+      }
       if (!fieldValues[fieldIndex]) fieldValues[fieldIndex] = {};
       fieldValues[fieldIndex][aField.name] = aField.type === 'date' ? e ? new Date(e) : null : e;
       allValues[field.name] = fieldValues;
@@ -304,6 +307,7 @@ export default function FormRenderer(props) {
   };
 
   const addField = (field) => {
+    if (addMoreAddCallback) addMoreAddCallback();
     const fields = allAddMoreFields[field.name];
     const foundFields = allFormFields.filter(f => f.type === 'addmore' && f.name === field.name);
     const fieldsToAdd = CustomFunctions.checkIfEmpty(foundFields, 'A') ? [] : foundFields[0].fields;
@@ -336,7 +340,7 @@ export default function FormRenderer(props) {
           ...allAddMoreFields,
           [field.name]: fields
         });
-        if (addMoreRemoved) addMoreRemoved(fieldIndex);
+        if (addMoreRemoveCallback) addMoreRemoveCallback(fieldIndex);
       }
       else {
         swal.close();

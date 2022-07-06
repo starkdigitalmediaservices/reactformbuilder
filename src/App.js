@@ -171,8 +171,11 @@ function App() {
             nextBtnText: '',
             prevBtnText: ''
           }}
-          addMoreRemoved={(index) => {
+          addMoreRemoveCallback={(index) => {
             console.log('Add more field removed callback', index)
+          }}
+          addMoreAddCallback={() => {
+            console.log('Add more field add callback')
           }}
         />
       </Card.Body>
