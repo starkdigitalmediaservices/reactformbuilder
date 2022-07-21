@@ -97,7 +97,9 @@ export default function DateTimePicker(props) {
           withPortal={withPortal}
           inline={inline}
           placeholderText={placeholder}
-          onKeyDown={(e)=>{if (onKeyDown) onKeyDown(e)}}
+          onKeyDown={(e) => {
+            if (onKeyDown) e.preventDefault();
+          }}
           {...propValue}
         />
       </div>
