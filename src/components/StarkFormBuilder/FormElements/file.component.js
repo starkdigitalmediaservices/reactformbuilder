@@ -13,7 +13,7 @@ export default function FileComponent(props) {
     containerClass,
     accept,
     errorMessage,
-    multiple,
+    isMulti,
     value,
     showAsterisk,
     bucketType,
@@ -42,7 +42,7 @@ export default function FileComponent(props) {
     <>
       <Form.Group className={containerClass}>
         {label && (<Form.Label>{label}{showAsterisk && (<sup className="text-danger stark-label-astrisk">*</sup>)}</Form.Label>)}
-        <Form.File
+        <Form.Control
           id={id}
           className={`form-control ${inputClass}`}
           type={type}
@@ -54,7 +54,7 @@ export default function FileComponent(props) {
           // label={label}
           custom={custom}
           accept={accept}
-          multiple={multiple}
+          multiple={isMulti}
           disabled={disabled}
         />
         <Form.Text className="text-danger">{errorMessage}</Form.Text>
@@ -65,8 +65,8 @@ export default function FileComponent(props) {
                 inputFiles.map((file) => (
                   (bucketType === 'internal') ?
                     <img src={getImageUrl(file)} className="stark-form-img" alt="sample" title={getImageUrl(file)} />
-                  :
-                    <a href={file} target="blank">Preview</a>
+                    :
+                    <a href={file} target="_blank">Preview</a>
                 ))
               }
             </div>
