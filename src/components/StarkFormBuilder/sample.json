@@ -26,6 +26,25 @@
         "allowedUsers": []
       },
       {
+        "name": "phone",
+        "type": "phonenumber",
+        "label": "Phone Number",
+        "id": "asd",
+        "placeholder": "",
+        "inputClass": "",
+        "containerClass": "",
+        "validations": [
+          {
+            "type": "required",
+            "applyWhen": [],
+            "applyWhenRelation": "OR"
+          }
+        ],
+        "displayWhen": {},
+        "disabled": false,
+        "allowedUsers": []
+      },
+      {
         "name": "email",
         "type": "email",
         "label": "Email",

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Form } from 'react-bootstrap';
-import { TextInput, TextAreaInput, FileInput, RadioInput, CheckboxInput, DropdownInput, DateTimePicker } from './FormElements';
+import { TextInput, TextAreaInput, FileInput, RadioInput, CheckboxInput, DropdownInput, DateTimePicker, PhoneInputComponent } from './FormElements';
 import CustomFunctions from './helper/customFunctions';
 
 export default function FormElementRenderer(props) {
@@ -38,6 +38,9 @@ export default function FormElementRenderer(props) {
 
       case 'date':
         return <DateTimePicker showAsterisk={asteriskToggle} {...input} />;
+
+      case 'phonenumber':
+        return <PhoneInputComponent showAsterisk={asteriskToggle} {...input} />;
 
       case 'switch':
         return (
