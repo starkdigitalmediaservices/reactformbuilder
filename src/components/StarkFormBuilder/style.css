@@ -17,3 +17,10 @@
     margin-bottom: 5px;
     padding: 5px;
 }
+
+input.PhoneInputInput {
+    border-width: 0;
+  }
+  input.PhoneInputInput:focus {
+    outline: none;
+  }

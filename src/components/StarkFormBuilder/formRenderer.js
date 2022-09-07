@@ -53,6 +53,7 @@ export default function FormRenderer(props) {
           addMoreFields[field.name] = Array(1).fill(field.fields);
         }
       }
+      
       return field;
     });
     setFormValues(allFormValues);
@@ -60,7 +61,6 @@ export default function FormRenderer(props) {
     setAddMoreFields(addMoreFields);
     setAllFormFields([...allFields]);
   };
-
   useEffect(() => {
     setDefaultFormValues();
   }, []);

@@ -17,7 +17,8 @@ export default function SelectDropdown(props) {
     classNamePrefix,
     disabled,
     isSearchable,
-    placeholder
+    placeholder,
+    isClearable
   } = props;
 
   const [inputValue, setInputValue] = useState(null);
@@ -44,6 +45,7 @@ export default function SelectDropdown(props) {
           isDisabled={disabled}
           isSearchable={isSearchable}
           placeholder={placeholder}
+          isClearable={isClearable}
         />
         <Form.Text className="text-danger">{errorMessage}</Form.Text>
       </Form.Group>

@@ -33,13 +33,9 @@
         "placeholder": "",
         "inputClass": "",
         "containerClass": "",
-        "validations": [
-          {
-            "type": "required",
-            "applyWhen": [],
-            "applyWhenRelation": "OR"
-          }
-        ],
+        "limitMaxLength":"true",
+        "defaultCountry":"US",
+        "validations": [],
         "displayWhen": {},
         "disabled": false,
         "allowedUsers": []

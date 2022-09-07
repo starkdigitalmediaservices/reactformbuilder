@@ -1,27 +1,34 @@
 import React, { useEffect, useState } from 'react';
 import PhoneInput from 'react-phone-number-input'
 import 'react-phone-number-input/style.css'
-import { Form, InputGroup } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 
 const PhoneInputComponent = (props) => {
-  const { input, placeholder, onChange, defaultCountry, label, showAsterisk, containerClass, errorMessage } = props;
-  const [value, setValue] = useState();
-  console.log('value', value);
+  const { placeholder, onChange, defaultCountry, label, showAsterisk, containerClass, errorMessage, value, limitMaxLength,countries } = props;
+  const [inputValue, setInputValue] = useState('');
+
+  useEffect(() => {
+    setInputValue(value)
+  }, [value])
+
   return (
 
     <Form.Group className={containerClass}>
       {label && <Form.Label> {label}{showAsterisk && (<sup className="text-danger stark-label-astrisk">*</sup>)} </Form.Label>}
-      {/* {inputIcon && <>{inputIcon}</>} */}
-      {/* <div className='form-control'> */}
       <PhoneInput
-        // className='form-control'
+        className='form-control'
         placeholder={placeholder}
-        value={value}
-        onChange={setValue}
+        value={inputValue}
+        limitMaxLength={limitMaxLength}
+        onChange={
+          (e) => {
+            setInputValue(e)
+            if (onChange) onChange(e);
+          }
+        }
         defaultCountry={defaultCountry}
+        countries={countries}
       />
-      {/* </div> */}
-      {/* </Form.Control> */}
       <Form.Text className="text-danger">{errorMessage}</Form.Text>
     </Form.Group>
 
