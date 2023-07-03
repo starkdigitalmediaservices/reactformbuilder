@@ -1,23 +1,21 @@
 /* eslint-disable */
-import React, { useState, useEffect } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { Card } from 'react-bootstrap';
-import FormBuilder from './components/StarkFormBuilder';
-import FormSections from './components/StarkFormBuilder/sample.json';
-import axios from 'axios';
-let formOptions = {}
+import React, { useState, useEffect } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Card } from "react-bootstrap";
+import FormBuilder from "./components/StarkFormBuilder";
+import FormSections from "./components/StarkFormBuilder/sample.json";
+import axios from "axios";
+let formOptions = {};
 
 function App() {
   // Variable declarations
   const [defaultValues, updateDefaultValues] = useState({});
   const [options, updateOptions] = useState({});
   const [currentUser, updateCurrentUser] = useState(0);
-  const step = [{
-
-  }]
+  const step = [{}];
   // Get user role
   const getUserRole = async () => {
-    const roleId = await localStorage.getItem('role');
+    const roleId = await localStorage.getItem("role");
     updateCurrentUser(Number(roleId));
   };
 
@@ -27,7 +25,7 @@ function App() {
 
   // Submit Form
   const submitForm = async (formValues) => {
-    console.log('formValues 123', formValues);
+    console.log("formValues 123", formValues);
 
     // const { data } = await AuthApi.postDataToServer(Api.addStudent, formValues);
     // if (!data) {
@@ -35,12 +33,11 @@ function App() {
     //   return;
     // }
     // // Perform success actions
-
   };
 
   const getStocks = async () => {
-    axios.get('https://jsonplaceholder.typicode.com/users/').then(res => {
-      console.log('res', res);
+    axios.get("https://jsonplaceholder.typicode.com/users/").then((res) => {
+      console.log("res", res);
       const data = res.data;
       const dpOptions = [];
       data.map((op) => {
@@ -51,20 +48,20 @@ function App() {
       const allOptions = {
         ...formOptions,
         ...options,
-        stock: dpOptions
+        stock: dpOptions,
       };
       formOptions = { ...allOptions };
       updateOptions(allOptions);
-    })
-  }
+    });
+  };
 
   useEffect(() => {
     getStocks();
   }, []);
 
   const getUsers = async () => {
-    axios.get('https://jsonplaceholder.typicode.com/users/').then(res => {
-      console.log('res', res);
+    axios.get("https://jsonplaceholder.typicode.com/users/").then((res) => {
+      console.log("res", res);
       const data = res.data;
       const dpOptions = [];
       data.map((op) => {
@@ -75,20 +72,20 @@ function App() {
       const allOptions = {
         ...formOptions,
         ...options,
-        users: dpOptions
+        users: dpOptions,
       };
       formOptions = { ...allOptions };
       updateOptions(allOptions);
-    })
-  }
+    });
+  };
 
   useEffect(() => {
     getUsers();
   }, []);
 
   const getClasses = async () => {
-    axios.get('https://jsonplaceholder.typicode.com/users/').then(res => {
-      console.log('res', res);
+    axios.get("https://jsonplaceholder.typicode.com/users/").then((res) => {
+      console.log("res", res);
       const data = res.data;
       const dpOptions = [];
       data.map((op) => {
@@ -99,16 +96,16 @@ function App() {
       const allOptions = {
         ...formOptions,
         ...options,
-        country: dpOptions
+        country: dpOptions,
       };
       formOptions = { ...allOptions };
       updateOptions(allOptions);
-    })
-  }
+    });
+  };
 
   const getStates = (val) => {
-    axios.get('https://jsonplaceholder.typicode.com/users/').then(res => {
-      console.log('res', res);
+    axios.get("https://jsonplaceholder.typicode.com/users/").then((res) => {
+      console.log("res", res);
       const data = res.data;
       const dpOptions = [];
       data.map((op) => {
@@ -119,14 +116,14 @@ function App() {
       const allOptions = {
         ...formOptions,
         ...options,
-        state: dpOptions
+        state: dpOptions,
       };
       formOptions = { ...allOptions };
       updateOptions(allOptions);
       updateDefaultValues({
-        state: null
-      })
-    })
+        state: null,
+      });
+    });
   };
 
   useEffect(() => {
@@ -137,45 +134,56 @@ function App() {
     <Card className="App">
       <Card.Body>
         <FormBuilder
-          containerClass=''
-          formClass=''
-          formHeaderClass=''
+          containerClass=""
+          formClass=""
+          formHeaderClass=""
           formSections={FormSections}
           formHeading="Registration"
-          onFormSubmit={(formValues) => { console.log('234234'); submitForm(formValues); }}
+          onFormSubmit={(formValues) => {
+            console.log("234234");
+            submitForm(formValues);
+          }}
+          onFormDraft={(formValues) => {
+            console.log("234234");
+            submitForm(formValues);
+          }}
           options={options}
           callbacks={{
-            onCountryChange: (val) => { console.log('val', val); getStates(val); }
+            onCountryChange: (val) => {
+              console.log("val", val);
+              getStates(val);
+            },
           }}
           defaultFormValues={defaultValues}
           currentUser={currentUser}
           submitBtnText=""
           showBtnClass={true}
           showResetBtn
+          showDraftBtn
           resetBtnText="Clear"
           btnContainerClass="form-submit-buttons"
           onFormReset={() => {
-            console.log('form reset callback')
+            console.log("form reset callback");
           }}
           // isStepForm
           stepFormProps={{
             steps: {
               userinfo: {
-                label: 'first'
+                label: "first",
               },
               userdetails: {
-                label: 'sectond'
-              }
+                label: "sectond",
+              },
             },
-            containerClass: 'stark-stepper-container',
-            nextBtnText: '',
-            prevBtnText: ''
+            containerClass: "stark-stepper-container",
+            nextBtnText: "",
+            prevBtnText: "",
           }}
           addMoreRemoveCallback={(index) => {
-            console.log('Add more field removed callback', index)
+            console.log("Add more field removed callback", index);
           }}
           addMoreAddCallback={() => {
-            console.log('Add more field add callback')
+            console.log("Add more field add callback");
           }}
         />
       </Card.Body>

@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import Select from 'react-select';
-import { Form } from 'react-bootstrap';
+import React, { useEffect, useState } from "react";
+import Select from "react-select";
+import { Form, OverlayTrigger, Tooltip } from "react-bootstrap";
+import Info from "../assets/info.png";
 
 export default function SelectDropdown(props) {
   const {
@@ -18,7 +19,8 @@ export default function SelectDropdown(props) {
     disabled,
     isSearchable,
     placeholder,
-    isClearable
+    isClearable,
+    tooltip,
   } = props;
 
   const [inputValue, setInputValue] = useState(null);
@@ -27,10 +29,36 @@ export default function SelectDropdown(props) {
     setInputValue(value);
   }, [value]);
 
+  const renderTooltip = (props) => (
+    <Tooltip {...props}>{tooltip ? tooltip : ""}</Tooltip>
+  );
+
   return (
     <>
       <Form.Group className={containerClass}>
-        {label && (<Form.Label>{label}{showAsterisk && (<sup className="text-danger stark-label-astrisk">*</sup>)}</Form.Label>)}
+        {/* {label && (<Form.Label>{label}{showAsterisk && (<sup className="text-danger stark-label-astrisk">*</sup>)}</Form.Label>)} */}
+        {tooltip && label ? (
+          <Form.Label>
+            {" "}
+            {label}
+            {showAsterisk && (
+              <sup className="text-danger stark-label-astrisk">*</sup>
+            )}{" "}
+            <OverlayTrigger placement="top" overlay={renderTooltip}>
+              <img width={15} src={Info} alt="copy icon" />
+            </OverlayTrigger>
+          </Form.Label>
+        ) : (
+          label && (
+            <Form.Label>
+              {" "}
+              {label}
+              {showAsterisk && (
+                <sup className="text-danger stark-label-astrisk">*</sup>
+              )}{" "}
+            </Form.Label>
+          )
+        )}
         <Select
           value={inputValue}
           onChange={(e) => {

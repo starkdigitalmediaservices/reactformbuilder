@@ -1,14 +1,36 @@
 /* eslint-disable */
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { Button, Col, Form, Row } from 'react-bootstrap';
-import Stepper from 'react-stepper-horizontal';
-import SimpleReactValidator from 'simple-react-validator';
-import FormElementRenderer from './formElementRenderer';
-import CustomFunctions from './helper/customFunctions';
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import { Button, Col, Form, Row } from "react-bootstrap";
+import Stepper from "react-stepper-horizontal";
+import SimpleReactValidator from "simple-react-validator";
+import FormElementRenderer from "./formElementRenderer";
+import CustomFunctions from "./helper/customFunctions";
 
 export default function FormRenderer(props) {
   const simpleValidator = useRef(new SimpleReactValidator());
-  const { sections, onFormSubmit, callbacks, options, defaultFormValues, currentUser, submitBtnText, resetBtnText, showResetBtn, onFormReset, btnContainerClass, stepFormProps, isStepForm, refreshCounter, formClass, showBtnClass, addMoreRemoveCallback, addMoreAddCallback } = props;
+  const {
+    sections,
+    onFormSubmit,
+    onFormDraft,
+    callbacks,
+    options,
+    defaultFormValues,
+    currentUser,
+    submitBtnText,
+    resetBtnText,
+    showDraftBtn,
+    draftBtnText,
+    showResetBtn,
+    onFormReset,
+    btnContainerClass,
+    stepFormProps,
+    isStepForm,
+    refreshCounter,
+    formClass,
+    showBtnClass,
+    addMoreRemoveCallback,
+    addMoreAddCallback,
+  } = props;
   const stepperProps = stepFormProps || {};
   const [formValues, setFormValues] = useState({});
   const [allFormFields, setAllFormFields] = useState([]);
@@ -33,27 +55,39 @@ export default function FormRenderer(props) {
         if (formValues[field.name]) {
           allFormValues[field.name] = formValues[field.name];
         } else {
-          allFormValues[field.name] = (defaultFormValues && defaultFormValues[field.name]) ? defaultFormValues[field.name] : field.value;
+          allFormValues[field.name] =
+            defaultFormValues && defaultFormValues[field.name]
+              ? defaultFormValues[field.name]
+              : field.value;
         }
       } else {
-        allFormValues[field.name] = '';
+        allFormValues[field.name] = "";
       }
-      if (field.type === 'addmore') {
+      if (field.type === "addmore") {
         if (!resetForm) {
           if (formValues[field.name]) {
             allFormValues[field.name] = formValues[field.name];
           } else {
-            allFormValues[field.name] = (typeof allFormValues[field.name] === 'object') ? allFormValues[field.name] : [];
+            allFormValues[field.name] =
+              typeof allFormValues[field.name] === "object"
+                ? allFormValues[field.name]
+                : [];
           }
-          const amFields = allFormValues[field.name] && (typeof allFormValues[field.name] === 'object') ? allFormValues[field.name] : [];
+          const amFields =
+            allFormValues[field.name] &&
+            typeof allFormValues[field.name] === "object"
+              ? allFormValues[field.name]
+              : [];
           // addMoreFields[field.name] = [field.fields];
-          addMoreFields[field.name] = Array(amFields.length || 1).fill(field.fields);
+          addMoreFields[field.name] = Array(amFields.length || 1).fill(
+            field.fields
+          );
         } else {
           allFormValues[field.name] = [];
           addMoreFields[field.name] = Array(1).fill(field.fields);
         }
       }
-      
+
       return field;
     });
     setFormValues(allFormValues);
@@ -71,37 +105,44 @@ export default function FormRenderer(props) {
   }, [defaultFormValues, refreshCounter]);
 
   const updateFormValues = (e, field, fieldIndex = 0, aField = {}) => {
-    if (!CustomFunctions.checkIfEmpty(callbacks, 'O')) {
+    if (!CustomFunctions.checkIfEmpty(callbacks, "O")) {
       if (callbacks[field.callback]) callbacks[field.callback](e);
     }
     const allValues = formValues;
-    if (field.type === 'addmore') {
+    if (field.type === "addmore") {
       let fieldValues = formValues[field.name];
       if (!fieldValues) fieldValues = [];
-      if (!CustomFunctions.checkIfEmpty(callbacks, 'O')) {
+      if (!CustomFunctions.checkIfEmpty(callbacks, "O")) {
         if (callbacks[aField.callback]) callbacks[aField.callback](e);
       }
       if (!fieldValues[fieldIndex]) fieldValues[fieldIndex] = {};
-      fieldValues[fieldIndex][aField.name] = aField.type === 'date' ? e ? new Date(e) : null : e;
+      fieldValues[fieldIndex][aField.name] =
+        aField.type === "date" ? (e ? new Date(e) : null) : e;
       allValues[field.name] = fieldValues;
     } else {
-      allValues[field.name] = field.type === 'date' ? e ? new Date(e) : null : e;
+      allValues[field.name] =
+        field.type === "date" ? (e ? new Date(e) : null) : e;
     }
-    if (!CustomFunctions.checkIfEmpty(field.fieldsToReset, 'A')) {
+    if (!CustomFunctions.checkIfEmpty(field.fieldsToReset, "A")) {
       field.fieldsToReset.map((f) => {
         allValues[f] = null;
         return f;
       });
     }
-    const forceUpdateFields = ['date', 'select', 'radio', 'checkbox'];
-    setFormValues(forceUpdateFields.includes(aField.type || field.type) ? { ...allValues } : allValues);
+    const forceUpdateFields = ["date", "select", "radio", "checkbox"];
+    setFormValues(
+      forceUpdateFields.includes(aField.type || field.type)
+        ? { ...allValues }
+        : allValues
+    );
   };
 
-  const getFieldType = (fieldName = '') => {
-    const selectedField = allFormFields.filter(field => field.name === fieldName);
-    if (CustomFunctions.checkIfEmpty(selectedField, 'A')) return '';
+  const getFieldType = (fieldName = "") => {
+    const selectedField = allFormFields.filter(
+      (field) => field.name === fieldName
+    );
+    if (CustomFunctions.checkIfEmpty(selectedField, "A")) return "";
     return { type: selectedField[0].type, isMulti: selectedField[0].isMulti };
-
   };
 
   const checkFieldCondition = (condition) => {
@@ -110,24 +151,31 @@ export default function FormRenderer(props) {
     let checkboxValue = [];
     let dropdownValue = fieldType.isMulti ? [] : {};
 
-    if (fieldType.type === 'checkbox') {
-      checkboxValue = CustomFunctions.checkIfEmpty(formValues[condition.name], 'A') ? [] : formValues[condition.name];
+    if (fieldType.type === "checkbox") {
+      checkboxValue = CustomFunctions.checkIfEmpty(
+        formValues[condition.name],
+        "A"
+      )
+        ? []
+        : formValues[condition.name];
     }
 
-    if (fieldType.type === 'select') {
-      dropdownValue = CustomFunctions.checkIfEmpty(formValues[condition.name]) ? dropdownValue : formValues[condition.name];
+    if (fieldType.type === "select") {
+      dropdownValue = CustomFunctions.checkIfEmpty(formValues[condition.name])
+        ? dropdownValue
+        : formValues[condition.name];
     }
 
     switch (condition.condition) {
-      case '===':
-      case '==':
-        if (fieldType.type === 'checkbox') {
+      case "===":
+      case "==":
+        if (fieldType.type === "checkbox") {
           conditionResults = checkboxValue.includes(condition.value);
           break;
         }
-        if (fieldType.type === 'select') {
+        if (fieldType.type === "select") {
           if (fieldType.isMulti) {
-            const values = [...dropdownValue].map(v => v.value);
+            const values = [...dropdownValue].map((v) => v.value);
             conditionResults = values.includes(condition.value);
             break;
           }
@@ -136,14 +184,14 @@ export default function FormRenderer(props) {
         }
         conditionResults = formValues[condition.name] === condition.value;
         break;
-      case '!=':
-        if (fieldType === 'checkbox') {
+      case "!=":
+        if (fieldType === "checkbox") {
           conditionResults = !checkboxValue.includes(condition.value);
-          break
+          break;
         }
-        if (fieldType.type === 'select') {
+        if (fieldType.type === "select") {
           if (fieldType.isMulti) {
-            const values = [...dropdownValue].map(v => v.value);
+            const values = [...dropdownValue].map((v) => v.value);
             conditionResults = !values.includes(condition.value);
             break;
           }
@@ -152,13 +200,31 @@ export default function FormRenderer(props) {
         }
         conditionResults = formValues[condition.name] != condition.value;
         break;
-      case '>=': conditionResults = formValues[condition.name] >= condition.value; break;
-      case '>': conditionResults = formValues[condition.name] > condition.value; break;
-      case '<': conditionResults = formValues[condition.name] < condition.value; break;
-      case '<=': conditionResults = formValues[condition.name] <= condition.value; break;
-      case '!empty': conditionResults = !CustomFunctions.checkIfEmpty(formValues[condition.name]); break;
-      case 'empty': conditionResults = CustomFunctions.checkIfEmpty(formValues[condition.name]); break;
-      default: conditionResults = true; break;
+      case ">=":
+        conditionResults = formValues[condition.name] >= condition.value;
+        break;
+      case ">":
+        conditionResults = formValues[condition.name] > condition.value;
+        break;
+      case "<":
+        conditionResults = formValues[condition.name] < condition.value;
+        break;
+      case "<=":
+        conditionResults = formValues[condition.name] <= condition.value;
+        break;
+      case "!empty":
+        conditionResults = !CustomFunctions.checkIfEmpty(
+          formValues[condition.name]
+        );
+        break;
+      case "empty":
+        conditionResults = CustomFunctions.checkIfEmpty(
+          formValues[condition.name]
+        );
+        break;
+      default:
+        conditionResults = true;
+        break;
     }
     return conditionResults;
   };
@@ -169,8 +235,9 @@ export default function FormRenderer(props) {
   };
 
   const checkDisplayConditions = (field) => {
-    if (CustomFunctions.checkIfEmpty(field.displayWhen, 'O')) return true;
-    if (CustomFunctions.checkIfEmpty(field.displayWhen.conditions, 'A')) return true;
+    if (CustomFunctions.checkIfEmpty(field.displayWhen, "O")) return true;
+    if (CustomFunctions.checkIfEmpty(field.displayWhen.conditions, "A"))
+      return true;
 
     const conditionResults = [];
     let displayField = true;
@@ -180,27 +247,37 @@ export default function FormRenderer(props) {
     });
 
     // Get all satisfied conditions
-    const filteredResult = conditionResults.filter(condition => condition);
+    const filteredResult = conditionResults.filter((condition) => condition);
 
-    switch (CustomFunctions.toLowerCase(field.displayWhen.displayWhenRelation)) {
-      case 'and':
-        if (filteredResult.length !== conditionResults.length) displayField = false;
+    switch (
+      CustomFunctions.toLowerCase(field.displayWhen.displayWhenRelation)
+    ) {
+      case "and":
+        if (filteredResult.length !== conditionResults.length)
+          displayField = false;
         break;
-      case 'or':
+      case "or":
         if (!filteredResult.length) displayField = false;
         break;
-      default: displayField = true;
+      default:
+        displayField = true;
     }
     return displayField;
-  }
+  };
 
-  const getFieldValidation = (field, isAddMore = false, fieldIndex = 0, parentField = {}) => {
-    if (CustomFunctions.checkIfEmpty(field.validations, 'A')) return '';
-    let validations = '';
+  const getFieldValidation = (
+    field,
+    isAddMore = false,
+    fieldIndex = 0,
+    parentField = {}
+  ) => {
+    if (CustomFunctions.checkIfEmpty(field.validations, "A")) return "";
+    let validations = "";
     field.validations.map((item) => {
       // If applywhen condition is empty
-      if (CustomFunctions.checkIfEmpty(item.applyWhen, 'A')) {
-        if (item.type) validations = `${validations}${validations ? '|' : ''}${item.type}`;
+      if (CustomFunctions.checkIfEmpty(item.applyWhen, "A")) {
+        if (item.type)
+          validations = `${validations}${validations ? "|" : ""}${item.type}`;
         return item;
       }
 
@@ -212,34 +289,50 @@ export default function FormRenderer(props) {
       });
 
       // Get all satisfied conditions
-      const filteredResult = conditionResults.filter(condition => condition);
+      const filteredResult = conditionResults.filter((condition) => condition);
 
       switch (CustomFunctions.toLowerCase(item.applyWhenRelation)) {
-        case 'and':
+        case "and":
           if (filteredResult.length !== conditionResults.length) return item;
           break;
-        case 'or':
+        case "or":
           if (!filteredResult.length) return item;
           break;
-        default: return item;
+        default:
+          return item;
       }
 
-      if (item.type) validations = `${validations}${validations ? '|' : ''}${item.type}`;
+      if (item.type)
+        validations = `${validations}${validations ? "|" : ""}${item.type}`;
       return item;
     });
 
-    if (!validations) return '';
+    if (!validations) return "";
     let defaultValue = formValues[field.name];
     if (isAddMore) {
-      const fVal = CustomFunctions.checkIfEmpty(formValues[parentField.name], 'A') ? [] : formValues[parentField.name];
+      const fVal = CustomFunctions.checkIfEmpty(
+        formValues[parentField.name],
+        "A"
+      )
+        ? []
+        : formValues[parentField.name];
       if (!fVal[fieldIndex]) fVal[fieldIndex] = {};
       const val = fVal[fieldIndex][field.name];
-      defaultValue = field.type === 'date' ? val ? new Date(val) : null : val; //fVal[fieldIndex][field.name];
+      defaultValue = field.type === "date" ? (val ? new Date(val) : null) : val; //fVal[fieldIndex][field.name];
     }
     if (field.errorMessage) {
-      return simpleValidator.current.message(field.label, defaultValue, validations, field.errorMessage);
+      return simpleValidator.current.message(
+        field.label,
+        defaultValue,
+        validations,
+        field.errorMessage
+      );
     } else {
-      return simpleValidator.current.message(field.label, defaultValue, validations);
+      return simpleValidator.current.message(
+        field.label,
+        defaultValue,
+        validations
+      );
     }
   };
 
@@ -251,44 +344,71 @@ export default function FormRenderer(props) {
         </div>
         <hr />
       </>
-    )
+    );
   };
 
-  const getFieldLayout = (layout = '1column') => {
+  const getFieldLayout = (layout = "1column") => {
     let columns = 1;
     switch (layout) {
-      case '1column': columns = 1; break;
-      case '2column': columns = 2; break;
-      case '3column': columns = 3; break;
-      case '4column': columns = 4; break;
-      default: columns = 1;
-    };
+      case "1column":
+        columns = 1;
+        break;
+      case "2column":
+        columns = 2;
+        break;
+      case "3column":
+        columns = 3;
+        break;
+      case "4column":
+        columns = 4;
+        break;
+      default:
+        columns = 1;
+    }
     return columns;
   };
 
-  const RenderFormField = ({ field, onChange, isAddMore, fieldIndex, parentField }) => {
+  const RenderFormField = ({
+    field,
+    onChange,
+    isAddMore,
+    fieldIndex,
+    parentField,
+  }) => {
     const extraProps = {};
-    if (field.minDateSelector) extraProps.minDate = formValues[field.minDateSelector];
-    if (field.maxDateSelector) extraProps.maxDate = formValues[field.maxDateSelector];
-    if (field.type === 'date') extraProps.selected = formValues[field.name];
+    if (field.minDateSelector)
+      extraProps.minDate = formValues[field.minDateSelector];
+    if (field.maxDateSelector)
+      extraProps.maxDate = formValues[field.maxDateSelector];
+    if (field.type === "date") extraProps.selected = formValues[field.name];
     // if (field.type === 'select') {
     //   extraProps.options = options[field.name] ? dropdownOptions[field.name] : field.options;
     // }
-    if (['select', 'checkbox'].includes(field.type)) {
-      extraProps.options = options[field.name] ? options[field.name] : field.options;
+    if (["select", "checkbox"].includes(field.type)) {
+      extraProps.options = options[field.name]
+        ? options[field.name]
+        : field.options;
     }
 
-    if (['checkbox', 'radio'].includes(field.type)) {
+    if (["checkbox", "radio"].includes(field.type)) {
       extraProps.name = `${field.name}[${fieldIndex}]`;
     }
 
     let defaultValue = formValues[field.name];
     if (isAddMore) {
-      const fVal = CustomFunctions.checkIfEmpty(formValues[parentField.name], 'A') ? [] : formValues[parentField.name];
+      const fVal = CustomFunctions.checkIfEmpty(
+        formValues[parentField.name],
+        "A"
+      )
+        ? []
+        : formValues[parentField.name];
       if (!fVal[fieldIndex]) fVal[fieldIndex] = {};
-      if (field.type === 'date') extraProps.selected = fVal[fieldIndex][field.name];
-      if (field.minDateSelector) extraProps.minDate = fVal[fieldIndex][field.minDateSelector];
-      if (field.maxDateSelector) extraProps.maxDate = fVal[fieldIndex][field.maxDateSelector];
+      if (field.type === "date")
+        extraProps.selected = fVal[fieldIndex][field.name];
+      if (field.minDateSelector)
+        extraProps.minDate = fVal[fieldIndex][field.minDateSelector];
+      if (field.maxDateSelector)
+        extraProps.maxDate = fVal[fieldIndex][field.maxDateSelector];
       defaultValue = fVal[fieldIndex][field.name];
     }
     return (
@@ -299,7 +419,12 @@ export default function FormRenderer(props) {
             ...extraProps,
             value: defaultValue,
             onChange: useCallback(onChange, []),
-            errorMessage: getFieldValidation(field, isAddMore, fieldIndex, parentField)
+            errorMessage: getFieldValidation(
+              field,
+              isAddMore,
+              fieldIndex,
+              parentField
+            ),
           }}
         />
       </>
@@ -309,20 +434,24 @@ export default function FormRenderer(props) {
   const addField = (field) => {
     if (addMoreAddCallback) addMoreAddCallback();
     const fields = allAddMoreFields[field.name];
-    const foundFields = allFormFields.filter(f => f.type === 'addmore' && f.name === field.name);
-    const fieldsToAdd = CustomFunctions.checkIfEmpty(foundFields, 'A') ? [] : foundFields[0].fields;
+    const foundFields = allFormFields.filter(
+      (f) => f.type === "addmore" && f.name === field.name
+    );
+    const fieldsToAdd = CustomFunctions.checkIfEmpty(foundFields, "A")
+      ? []
+      : foundFields[0].fields;
     fields.push(fieldsToAdd);
     setAddMoreFields({
       ...allAddMoreFields,
-      [field.name]: fields
+      [field.name]: fields,
     });
   };
 
   const removeField = (field, fieldIndex) => {
     swal({
-      title: 'Are you sure?',
-      text: 'Are you sure you want to remove field?',
-      icon: 'warning',
+      title: "Are you sure?",
+      text: "Are you sure you want to remove field?",
+      icon: "warning",
       dangerMode: true,
       buttons: true,
       closeOnClickOutside: false,
@@ -332,17 +461,18 @@ export default function FormRenderer(props) {
         const fields = allAddMoreFields[field.name];
         fields.splice(fieldIndex, 1);
         const allVals = formValues;
-        const fVal = CustomFunctions.checkIfEmpty(allVals[field.name], 'A') ? [] : allVals[field.name];
+        const fVal = CustomFunctions.checkIfEmpty(allVals[field.name], "A")
+          ? []
+          : allVals[field.name];
         if (fVal.length) fVal.splice(fieldIndex, 1);
         allVals[field.name] = fVal;
         setFormValues(allVals);
         setAddMoreFields({
           ...allAddMoreFields,
-          [field.name]: fields
+          [field.name]: fields,
         });
         if (addMoreRemoveCallback) addMoreRemoveCallback(fieldIndex);
-      }
-      else {
+      } else {
         swal.close();
       }
     });
@@ -356,72 +486,79 @@ export default function FormRenderer(props) {
     updateDisplayedFields(allDisplayFields);
     if (!displayField || !isPermittedUser) return <></>;
     const col = 12 / Number(columns);
-    const isAddMoreField = field.type === 'addmore';
+    const isAddMoreField = field.type === "addmore";
     const addMoreFields = isAddMoreField ? allAddMoreFields[field.name] : [];
-    const fieldCol = isAddMoreField ? 12 / getFieldLayout(field.fieldLayout) : col;
+    const fieldCol = isAddMoreField
+      ? 12 / getFieldLayout(field.fieldLayout)
+      : col;
     return (
       <>
         <Col md={col}>
-          {
-            isAddMoreField ? (
-              <Row className={field.sectionClass}>
-                <Form.Label>{field.label}</Form.Label>
-                {
-                  addMoreFields.map((aField, fieldIndex) => {
-                    return (
-                      <>
-                        {
-                          aField.map((bField) => (
-                            <Col md={fieldCol}>
-                              <RenderFormField
-                                field={{ ...bField }}
-                                column={col}
-                                onChange={(e) => {
-                                  updateFormValues(e, field, fieldIndex, bField);
-                                }}
-                                isAddMore
-                                fieldIndex={fieldIndex}
-                                parentField={field}
-                              />
-                            </Col>
-                          ))
-                        }
-                        <Col md={12} className="mb-3">
-                          <div className="btn-group addMoreBtnContainer">
-                            <Button
-                              className="btn btn-primary btn-width mr-5"
-                              onClick={() => addField(field)}
-                            >+</Button>
-                            {(fieldIndex > 0) && (
-                              <Button
-                                className="btn btn-secondary btn-width"
-                                onClick={() => removeField(field, fieldIndex)}
-                              >-</Button>
-                            )}
-                          </div>
-                        </Col>
-                      </>
-                    );
-                  })
-                }
-              </Row>
-            ) : (
-              <RenderFormField
-                field={{ ...field }}
-                column={col}
-                onChange={(e) => {
-                  updateFormValues(e, field);
-                }}
-              />
-            )
-          }
+          {isAddMoreField ? (
+            <Row className={field.sectionClass}>
+              <Form.Label>{field.label}</Form.Label>
+              {addMoreFields.map((aField, fieldIndex) => {
+                return (
+                  <>
+                    {aField.map((bField) => (
+                      <Col md={fieldCol}>
+                        <RenderFormField
+                          field={{ ...bField }}
+                          column={col}
+                          onChange={(e) => {
+                            updateFormValues(e, field, fieldIndex, bField);
+                          }}
+                          isAddMore
+                          fieldIndex={fieldIndex}
+                          parentField={field}
+                        />
+                      </Col>
+                    ))}
+                    <Col md={12} className="mb-3">
+                      <div className="btn-group addMoreBtnContainer">
+                        <Button
+                          className="btn btn-primary btn-width mr-5"
+                          onClick={() => addField(field)}
+                        >
+                          +
+                        </Button>
+                        {fieldIndex > 0 && (
+                          <Button
+                            className="btn btn-secondary btn-width"
+                            onClick={() => removeField(field, fieldIndex)}
+                          >
+                            -
+                          </Button>
+                        )}
+                      </div>
+                    </Col>
+                  </>
+                );
+              })}
+            </Row>
+          ) : (
+            <RenderFormField
+              field={{ ...field }}
+              column={col}
+              onChange={(e) => {
+                updateFormValues(e, field);
+              }}
+            />
+          )}
         </Col>
       </>
     );
-  }
+  };
 
   const RenderSection = ({ section }) => {
-    const { displaySection, sectionTitle, displaySectionTitle, fields, sectionLayout, containerClass } = section;
+    const {
+      displaySection,
+      sectionTitle,
+      displaySectionTitle,
+      fields,
+      sectionLayout,
+      containerClass,
+    } = section;
     const isPermittedUser = checkPermittedUser(section.allowedUsers);
     if (!displaySection || !isPermittedUser) return <></>;
     let columns = getFieldLayout(sectionLayout);
@@ -431,20 +568,18 @@ export default function FormRenderer(props) {
         <div className={containerClass}>
           {displaySectionTitle && <RenderSectionTitle title={sectionTitle} />}
           <Row>
-            {
-              fields.map((field, fieldIndex) => (
-                <>
-                  <RenderSingleFormField field={field} columns={columns} />
-                  {/* <RenderFormField
+            {fields.map((field, fieldIndex) => (
+              <>
+                <RenderSingleFormField field={field} columns={columns} />
+                {/* <RenderFormField
                     field={{ ...field }}
                     column={columns}
                     onChange={(e) => {
                       updateFormValues(e, field);
                     }}
                   /> */}
-                </>
-              ))
-            }
+              </>
+            ))}
           </Row>
         </div>
       </>
@@ -465,6 +600,7 @@ export default function FormRenderer(props) {
       }
       return field;
     });
+    console.log("finalFormValues", finalFormValues);
     if (onFormSubmit) onFormSubmit(finalFormValues);
   };
 
@@ -475,25 +611,45 @@ export default function FormRenderer(props) {
 
   const submitForm = (e) => {
     e.preventDefault();
+    console.log("submitForm");
     updateSubmitCount(submitCount + 1);
+  };
+
+  const onDraftSubmit = (e) => {
+    e.preventDefault();
+    let finalFormValues = {};
+    Object.keys(displayedFields).map((field) => {
+      if (displayedFields[field]) {
+        finalFormValues[field] = formValues[field];
+      }
+      return field;
+    });
+    if (onFormDraft) onFormDraft(finalFormValues);
   };
 
   const resetForm = (e) => {
     e.preventDefault();
-    if (simpleValidator && simpleValidator.current) simpleValidator.current.hideMessages();
+    if (simpleValidator && simpleValidator.current)
+      simpleValidator.current.hideMessages();
     setDefaultFormValues(true);
     if (onFormReset) onFormReset();
   };
 
   const getStepLabels = (allSections) => {
-    if (CustomFunctions.checkIfEmpty(allSections, 'A')) return [];
+    if (CustomFunctions.checkIfEmpty(allSections, "A")) return [];
     const stepProps = stepperProps.steps || {};
-    const steps = allSections.map(section => {
-      const label = stepProps[section.sectionName] && stepProps[section.sectionName].label ? stepProps[section.sectionName].label : section.sectionTitle;
-      const image = stepProps[section.sectionName] && stepProps[section.sectionName].image ? stepProps[section.sectionName].image : null;
+    const steps = allSections.map((section) => {
+      const label =
+        stepProps[section.sectionName] && stepProps[section.sectionName].label
+          ? stepProps[section.sectionName].label
+          : section.sectionTitle;
+      const image =
+        stepProps[section.sectionName] && stepProps[section.sectionName].image
+          ? stepProps[section.sectionName].image
+          : null;
       return {
         title: label,
-        icon: image
+        icon: image,
       };
     });
     return steps;
@@ -528,67 +684,81 @@ export default function FormRenderer(props) {
   simpleValidator.current.purgeFields();
   return (
     <>
-      <Form className={`${formClass}`} onSubmit={submitForm} onReset={resetForm}>
-        {
-          isStepForm && (
-            <div className={stepperProps.containerClass}>
-              <Stepper steps={getStepLabels(allFormSections)} activeStep={currentStepIndex} />
-            </div>
-          )
-        }
-        {
-          allFormSections && allFormSections.map((section, secIndex) => {
+      <Form
+        className={`${formClass}`}
+        onSubmit={submitForm}
+        onReset={resetForm}
+      >
+        {isStepForm && (
+          <div className={stepperProps.containerClass}>
+            <Stepper
+              steps={getStepLabels(allFormSections)}
+              activeStep={currentStepIndex}
+            />
+          </div>
+        )}
+        {allFormSections &&
+          allFormSections.map((section, secIndex) => {
             return (
               <React.Fragment key={secIndex}>
-                {
-                  ((isStepForm && secIndex === currentStepIndex) || !isStepForm) && (
-                    <RenderSection section={section} />
-                  )
-                }
+                {((isStepForm && secIndex === currentStepIndex) ||
+                  !isStepForm) && <RenderSection section={section} />}
               </React.Fragment>
-            )
-          })
-        }
+            );
+          })}
 
-        <div className={showBtnClass ? `btn-group mt-5 ${btnContainerClass}` : `${btnContainerClass}`}>
-          {
-            isStepForm ? (
-              <>
+        <div
+          className={
+            showBtnClass
+              ? `btn-group mt-5 ${btnContainerClass}`
+              : `${btnContainerClass}`
+          }
+        >
+          {isStepForm ? (
+            <>
+              <Button
+                variant="secondary"
+                className="mr-5 prev-btn"
+                onClick={() => {
+                  nextPrevCallback(false);
+                }}
+              >
+                {`${stepperProps.prevBtnText || "Prev"}`}
+              </Button>
+              <Button
+                variant="primary"
+                className="next-btn"
+                onClick={(e) => {
+                  if (currentStepIndex < allFormSections.length - 1)
+                    nextPrevCallback(true);
+                  else submitForm(e);
+                }}
+              >
+                {currentStepIndex < allFormSections.length - 1
+                  ? `${stepperProps.nextBtnText || "Next"}`
+                  : `${submitBtnText || "Submit"}`}
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button variant="primary" className="mr-5" type="submit">{`${
+                submitBtnText || "Submit"
+              }`}</Button>
+              {showResetBtn && (
+                <Button variant="secondary" className="mr-5" type="reset">{`${
+                  resetBtnText || "Reset"
+                }`}</Button>
+              )}
+              {showDraftBtn && (
                 <Button
                   variant="secondary"
-                  className="mr-5 prev-btn"
-                  onClick={() => {
-                    nextPrevCallback(false);
-                  }}
-                >
-                  {`${stepperProps.prevBtnText || 'Prev'}`}
-                </Button>
-                <Button
-                  variant="primary"
-                  className="next-btn"
                   onClick={(e) => {
-                    if (currentStepIndex < allFormSections.length - 1)
-                      nextPrevCallback(true);
-                    else
-                      submitForm(e);
+                    onDraftSubmit(e);
                   }}
-                >
-                  {
-                    currentStepIndex < allFormSections.length - 1 ? `${stepperProps.nextBtnText || 'Next'}` : `${submitBtnText || 'Submit'}`
-                  }
-                </Button>
-              </>
-            ) : (
-              <>
-                <Button variant="primary" className="mr-5" type="submit">{`${submitBtnText || 'Submit'}`}</Button>
-                {
-                  showResetBtn && (
-                    <Button variant="secondary" type="reset">{`${resetBtnText || 'Reset'}`}</Button>
-                  )
-                }
-              </>
-            )
-          }
+                >{`${draftBtnText || "Save Draft"}`}</Button>
+              )}
+            </>
+          )}
         </div>
       </Form>
     </>

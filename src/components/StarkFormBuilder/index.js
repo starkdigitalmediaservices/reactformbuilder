@@ -1,15 +1,41 @@
-import React from 'react';
-import { Container } from 'react-bootstrap';
-import FormRenderer from './formRenderer';
-import './style.css';
+import React from "react";
+import { Container } from "react-bootstrap";
+import FormRenderer from "./formRenderer";
+import "./style.css";
 
 export default function StarkFormBuilder(props) {
-  const { containerClass, formHeaderClass, formInputs, formSections, formHeading, onFormSubmit, callbacks, options, defaultFormValues, currentUser, submitBtnText, resetBtnText, showResetBtn, onFormReset, btnContainerClass, isStepForm, stepFormProps, refreshCounter, formClass, showBtnClass, addMoreRemoveCallback, addMoreAddCallback } = props;
+  const {
+    containerClass,
+    formHeaderClass,
+    formInputs,
+    formSections,
+    formHeading,
+    onFormSubmit,
+    onFormDraft,
+    showDraftBtn,
+    draftBtnText,
+    callbacks,
+    options,
+    defaultFormValues,
+    currentUser,
+    submitBtnText,
+    resetBtnText,
+    showResetBtn,
+    onFormReset,
+    btnContainerClass,
+    isStepForm,
+    stepFormProps,
+    refreshCounter,
+    formClass,
+    showBtnClass,
+    addMoreRemoveCallback,
+    addMoreAddCallback,
+  } = props;
   return (
     <>
       <Container>
-        <div className={`stark-form-builder ${containerClass || ''}`}>
-          <div className={`stark-form-header ${formHeaderClass || ''}`}>
+        <div className={`stark-form-builder ${containerClass || ""}`}>
+          <div className={`stark-form-header ${formHeaderClass || ""}`}>
             <h3>{formHeading}</h3>
           </div>
           <hr />
@@ -24,6 +50,9 @@ export default function StarkFormBuilder(props) {
             submitBtnText={submitBtnText}
             resetBtnText={resetBtnText}
             showResetBtn={showResetBtn}
+            draftBtnText={draftBtnText}
+            onFormDraft={onFormDraft}
+            showDraftBtn={showDraftBtn}
             refreshCounter={refreshCounter}
             onFormReset={onFormReset}
             btnContainerClass={btnContainerClass}

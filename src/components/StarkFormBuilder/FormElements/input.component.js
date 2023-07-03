@@ -1,7 +1,7 @@
 /* eslint no-unneeded-ternary: "error" */
-import React, { useEffect, useState } from 'react';
-import { Form, InputGroup } from 'react-bootstrap';
-
+import React, { useEffect, useState } from "react";
+import { Form, InputGroup, OverlayTrigger, Tooltip } from "react-bootstrap";
+import Info from "../assets/info.png";
 export default function InputComponent(props) {
   const {
     label,
@@ -19,10 +19,11 @@ export default function InputComponent(props) {
     disabled,
     showAsterisk,
     maxLength,
-    minLength
+    minLength,
+    tooltip,
   } = props;
 
-  const [inputValue, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useState("");
 
   useEffect(() => {
     setInputValue(value);
@@ -50,10 +51,36 @@ export default function InputComponent(props) {
     );
   };
 
+  const renderTooltip = (props) => (
+    <Tooltip {...props}>{tooltip ? tooltip : ""}</Tooltip>
+  );
+
   return (
     <>
       <Form.Group className={containerClass}>
-        {label && <Form.Label> {label}{showAsterisk && (<sup className="text-danger stark-label-astrisk">*</sup>)} </Form.Label>}
+        {tooltip && label ? (
+          <Form.Label>
+            {" "}
+            {label}
+            {showAsterisk && (
+              <sup className="text-danger stark-label-astrisk">*</sup>
+            )}{" "}
+            <OverlayTrigger placement="top" overlay={renderTooltip}>
+              <img width={15} src={Info} alt="copy icon" />
+            </OverlayTrigger>
+          </Form.Label>
+        ) : (
+          label && (
+            <Form.Label>
+              {" "}
+              {label}
+              {showAsterisk && (
+                <sup className="text-danger stark-label-astrisk">*</sup>
+              )}{" "}
+            </Form.Label>
+          )
+        )}
+
         {inputIcon && <>{inputIcon}</>}
         {inputVarible ? (
           <InputGroup>

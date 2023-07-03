@@ -1,8 +1,9 @@
 /* eslint no-unneeded-ternary: "error" */
-import React, { useEffect, useState } from 'react';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
-import { Form } from 'react-bootstrap';
+import React, { useEffect, useState } from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { Form, OverlayTrigger, Tooltip } from "react-bootstrap";
+import Info from "../assets/info.png";
 
 export default function DateTimePicker(props) {
   const {
@@ -37,7 +38,8 @@ export default function DateTimePicker(props) {
     placeholder,
     errorMessage,
     showAsterisk,
-    onKeyDown
+    onKeyDown,
+    tooltip,
   } = props;
 
   const [selectedDate, setSelectedDate] = useState(null);
@@ -51,9 +53,15 @@ export default function DateTimePicker(props) {
     return `${newDate.getDate()}/${newDate.getMonth()}/${newDate.getFullYear()}`;
   };
 
+  const renderTooltip = (props) => (
+    <Tooltip {...props}>{tooltip ? tooltip : ""}</Tooltip>
+  );
+
   const getDateRange = () => {
-    if (!startDate) return '';
-    return `${startDate ? convertDate(startDate) : ''} - ${endDate ? convertDate(endDate) : ''}`;
+    if (!startDate) return "";
+    return `${startDate ? convertDate(startDate) : ""} - ${
+      endDate ? convertDate(endDate) : ""
+    }`;
   };
 
   const propValue = {};
@@ -63,8 +71,30 @@ export default function DateTimePicker(props) {
 
   return (
     <Form.Group className={containerClass}>
+      {/* {label && (<Form.Label>{label}{showAsterisk && (<sup className="text-danger stark-label-astrisk">*</sup>)}</Form.Label>)} */}
 
-      {label && (<Form.Label>{label}{showAsterisk && (<sup className="text-danger stark-label-astrisk">*</sup>)}</Form.Label>)}
+      {tooltip && label ? (
+        <Form.Label>
+          {" "}
+          {label}
+          {showAsterisk && (
+            <sup className="text-danger stark-label-astrisk">*</sup>
+          )}{" "}
+          <OverlayTrigger placement="top" overlay={renderTooltip}>
+            <img width={15} src={Info} alt="copy icon" />
+          </OverlayTrigger>
+        </Form.Label>
+      ) : (
+        label && (
+          <Form.Label>
+            {" "}
+            {label}
+            {showAsterisk && (
+              <sup className="text-danger stark-label-astrisk">*</sup>
+            )}{" "}
+          </Form.Label>
+        )
+      )}
       <div>
         <DatePicker
           selected={selectedDate}
