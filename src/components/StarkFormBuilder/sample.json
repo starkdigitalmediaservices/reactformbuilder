@@ -33,7 +33,7 @@
         "name": "phone",
         "type": "phonenumber",
         "tooltipText": "",
-        "label": "Phone Number Phone Number Phone Number Phone Number Phone Number Phone Number",
+        "label": "Phone Number",
         "tooltip": "phone input",
         "tooltipIcon": "fa-regular fa-circle-question",
         "tooltipClass": "",
@@ -48,7 +48,9 @@
         "disabled": false,
         "allowedUsers": [],
         "countries": ["us", "in"],
-        "countryCodeEditable": false
+        "countryCodeEditable": false,
+        "enableSearch": true,
+        "disableSearchIcon": false
       },
       {
         "name": "email",

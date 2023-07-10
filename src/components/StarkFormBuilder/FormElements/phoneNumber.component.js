@@ -22,6 +22,8 @@ const PhoneInputComponent = (props) => {
     tooltipIcon,
     tooltipText,
     tooltipClass,
+    enableSearch,
+    disableSearchIcon,
   } = props;
   const [inputValue, setInputValue] = useState("");
 
@@ -76,6 +78,8 @@ const PhoneInputComponent = (props) => {
           countryCodeEditable={countryCodeEditable}
           country={defaultCountry}
           onlyCountries={countries}
+          enableSearch={enableSearch}
+          disableSearchIcon={disableSearchIcon}
         />
       </div>
       <Form.Text className="text-danger">{errorMessage}</Form.Text>
