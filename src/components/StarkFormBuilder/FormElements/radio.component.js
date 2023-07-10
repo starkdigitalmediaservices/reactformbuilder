@@ -17,6 +17,9 @@ export default function RadioComponent(props) {
     errorMessage,
     showAsterisk,
     tooltip,
+    tooltipIcon,
+    tooltipText,
+    tooltipClass,
   } = props;
 
   const [inputValue, setInputValue] = useState("");
@@ -42,7 +45,9 @@ export default function RadioComponent(props) {
               <sup className="text-danger stark-label-astrisk">*</sup>
             )}{" "}
             <OverlayTrigger placement="top" overlay={renderTooltip}>
-              <img width={15} src={Info} alt="copy icon" />
+              <i className={tooltipIcon}>
+                <span className={tooltipClass}>{tooltipText}</span>
+              </i>
             </OverlayTrigger>
           </Form.Label>
         ) : (

@@ -20,7 +20,19 @@
 
 input.PhoneInputInput {
     border-width: 0;
+    width: 100%;
   }
   input.PhoneInputInput:focus {
     outline: none;
+    width: 100%;
   }
+
+.react-tel-input .stark-phone-input{
+    width: 100%;
+    font-size: 1rem;
+    height: auto;
+}
+
+.form-label {
+    width: 100%;
+}

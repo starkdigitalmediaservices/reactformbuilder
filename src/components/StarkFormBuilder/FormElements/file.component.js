@@ -20,6 +20,9 @@ export default function FileComponent(props) {
     bucketType,
     disabled,
     tooltip,
+    tooltipIcon,
+    tooltipText,
+    tooltipClass,
   } = props;
 
   const [inputFiles, setInputFiles] = useState("");
@@ -56,7 +59,9 @@ export default function FileComponent(props) {
               <sup className="text-danger stark-label-astrisk">*</sup>
             )}{" "}
             <OverlayTrigger placement="top" overlay={renderTooltip}>
-              <img width={15} src={Info} alt="copy icon" />
+              <i className={tooltipIcon}>
+                <span className={tooltipClass}>{tooltipText}</span>
+              </i>
             </OverlayTrigger>
           </Form.Label>
         ) : (

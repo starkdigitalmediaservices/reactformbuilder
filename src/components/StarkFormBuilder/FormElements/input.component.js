@@ -21,6 +21,9 @@ export default function InputComponent(props) {
     maxLength,
     minLength,
     tooltip,
+    tooltipIcon,
+    tooltipText,
+    tooltipClass,
   } = props;
 
   const [inputValue, setInputValue] = useState("");
@@ -66,7 +69,9 @@ export default function InputComponent(props) {
               <sup className="text-danger stark-label-astrisk">*</sup>
             )}{" "}
             <OverlayTrigger placement="top" overlay={renderTooltip}>
-              <img width={15} src={Info} alt="copy icon" />
+              <i className={tooltipIcon}>
+                <span className={tooltipClass}>{tooltipText}</span>
+              </i>
             </OverlayTrigger>
           </Form.Label>
         ) : (

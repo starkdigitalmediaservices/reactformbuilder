@@ -17,6 +17,9 @@ export default function CheckboxComponent(props) {
     name,
     showAsterisk,
     tooltip,
+    tooltipIcon,
+    tooltipText,
+    tooltipClass,
   } = props;
 
   const [selectedValues, setSelectedValues] = useState([]);
@@ -43,7 +46,9 @@ export default function CheckboxComponent(props) {
               <sup className="text-danger stark-label-astrisk">*</sup>
             )}{" "}
             <OverlayTrigger placement="top" overlay={renderTooltip}>
-              <img width={15} src={Info} alt="copy icon" />
+              <i className={tooltipIcon}>
+                <span className={tooltipClass}>{tooltipText}</span>
+              </i>
             </OverlayTrigger>
           </Form.Label>
         ) : (

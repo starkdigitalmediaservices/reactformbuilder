@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import PhoneInput from "react-phone-number-input";
-import "react-phone-number-input/style.css";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
 import { Form, OverlayTrigger, Tooltip } from "react-bootstrap";
 import Info from "../assets/info.png";
 
@@ -17,6 +17,11 @@ const PhoneInputComponent = (props) => {
     limitMaxLength,
     countries,
     tooltip,
+    inputClass,
+    countryCodeEditable,
+    tooltipIcon,
+    tooltipText,
+    tooltipClass,
   } = props;
   const [inputValue, setInputValue] = useState("");
 
@@ -40,7 +45,9 @@ const PhoneInputComponent = (props) => {
             <sup className="text-danger stark-label-astrisk">*</sup>
           )}{" "}
           <OverlayTrigger placement="top" overlay={renderTooltip}>
-            <img width={15} src={Info} alt="copy icon" />
+            <i className={tooltipIcon}>
+              <span className={tooltipClass}>{tooltipText}</span>
+            </i>
           </OverlayTrigger>
         </Form.Label>
       ) : (
@@ -55,18 +62,22 @@ const PhoneInputComponent = (props) => {
         )
       )}
 
-      <PhoneInput
-        className="form-control"
-        placeholder={placeholder}
-        value={inputValue}
-        limitMaxLength={limitMaxLength}
-        onChange={(e) => {
-          setInputValue(e);
-          if (onChange) onChange(e);
-        }}
-        defaultCountry={defaultCountry}
-        countries={countries}
-      />
+      <div>
+        <PhoneInput
+          className={inputClass}
+          placeholder={placeholder}
+          inputClass={"form-control stark-phone-input"}
+          value={inputValue}
+          limitMaxLength={limitMaxLength}
+          onChange={(e) => {
+            setInputValue(e);
+            if (onChange) onChange(e);
+          }}
+          countryCodeEditable={countryCodeEditable}
+          country={defaultCountry}
+          onlyCountries={countries}
+        />
+      </div>
       <Form.Text className="text-danger">{errorMessage}</Form.Text>
     </Form.Group>
   );
