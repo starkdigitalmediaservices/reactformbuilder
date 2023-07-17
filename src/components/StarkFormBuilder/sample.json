@@ -47,7 +47,7 @@
         "displayWhen": {},
         "disabled": false,
         "allowedUsers": [],
-        "countries": ["us", "in"],
+
         "countryCodeEditable": false,
         "enableSearch": true,
         "disableSearchIcon": false
