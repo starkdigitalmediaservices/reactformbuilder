@@ -132,7 +132,7 @@ export default function FormRenderer(props) {
     if (field.displayQuestions && e) {
       // console.log("rrrrrrrrrrrrr====>", field.displayQuestions);
       // field.displayQuestions.map((f) => {});
-      addFieldNew(field, fieldIndex, e);
+      // addFieldNew(field, fieldIndex, e);
     }
     const forceUpdateFields = ["date", "select", "radio", "checkbox"];
     setFormValues(
