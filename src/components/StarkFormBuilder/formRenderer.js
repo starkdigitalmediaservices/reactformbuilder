@@ -129,6 +129,11 @@ export default function FormRenderer(props) {
         return f;
       });
     }
+    if (field.displayQuestions && e) {
+      // console.log("rrrrrrrrrrrrr====>", field.displayQuestions);
+      // field.displayQuestions.map((f) => {});
+      addFieldNew(field, fieldIndex, e);
+    }
     const forceUpdateFields = ["date", "select", "radio", "checkbox"];
     setFormValues(
       forceUpdateFields.includes(aField.type || field.type)
@@ -447,6 +452,28 @@ export default function FormRenderer(props) {
     });
   };
 
+  const addFieldNew = (field, index, value) => {
+    let newMoreFields = [];
+    console.log(value);
+    let initialFields = [...allFormFields];
+    if (value == "") setAllFormFields(initialFields);
+    console.log(allFormFields);
+    if (!field.displayQuestions) return;
+    let conds = field.displayQuestions.split(",");
+
+    for (let index = 0; index < value; index++) {
+      conds.map((ele) => {
+        let newField = allFormFields.find((e) => e.name == ele);
+        newField.isShow = true;
+        newMoreFields.push(newField);
+      });
+    }
+
+    newMoreFields = [...newMoreFields, ...initialFields];
+    setAllFormFields(newMoreFields);
+    console.log(newMoreFields);
+  };
+
   const removeField = (field, fieldIndex) => {
     swal({
       title: "Are you sure?",
@@ -562,7 +589,6 @@ export default function FormRenderer(props) {
     const isPermittedUser = checkPermittedUser(section.allowedUsers);
     if (!displaySection || !isPermittedUser) return <></>;
     let columns = getFieldLayout(sectionLayout);
-
     return (
       <>
         <div className={containerClass}>

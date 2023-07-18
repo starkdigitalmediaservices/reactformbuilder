@@ -8,6 +8,7 @@
     "fields": [
       {
         "name": "name",
+        "isShow": true,
         "type": "text",
         "label": "User Name",
         "id": "asd",
@@ -26,8 +27,10 @@
           }
         ],
         "displayWhen": {},
+        "maxValue": 2,
         "disabled": false,
-        "allowedUsers": []
+        "allowedUsers": [],
+        "displayQuestions": "phone,email"
       },
       {
         "name": "phone",
@@ -44,7 +47,16 @@
         "limitMaxLength": "true",
         "defaultCountry": "us",
         "validations": [],
-        "displayWhen": {},
+        "displayWhen": {
+          "conditions": [
+            {
+              "name": "name",
+              "value": "2",
+              "condition": "=="
+            }
+          ],
+          "displayWhenRelation": "AND"
+        },
         "disabled": false,
         "allowedUsers": [],
 
@@ -64,6 +76,16 @@
         "tooltipText": "",
         "inputClass": "",
         "containerClass": "",
+        "displayWhen": {
+          "conditions": [
+            {
+              "name": "name",
+              "value": "2",
+              "condition": "=="
+            }
+          ],
+          "displayWhenRelation": "AND"
+        },
         "validations": [
           {
             "type": "required",
@@ -80,6 +102,7 @@
       },
       {
         "id": "gender",
+        "isShow": true,
         "name": "gender",
         "label": "Gender",
         "tooltip": "Radio input",
@@ -111,6 +134,7 @@
       },
       {
         "id": "choices",
+        "isShow": true,
         "name": "choices",
         "label": "Choices",
         "tooltip": "Checkbox input",
@@ -148,123 +172,6 @@
           ],
           "displayWhenRelation": "AND"
         },
-        "disabled": false
-      },
-      {
-        "id": "stock",
-        "name": "stock",
-        "label": "Stock",
-        "tooltip": "dropdown input",
-        "tooltipIcon": "fa-regular fa-circle-question",
-        "tooltipText": "",
-        "tooltipClass": "",
-        "containerClass": "stark-frmmobile",
-        "type": "select",
-        "placeholder": "",
-        "inputClass": "",
-        "validations": [
-          {
-            "type": "required",
-            "applyWhen": [],
-            "applyWhenRelation": "OR"
-          }
-        ],
-        "options": [],
-        "isMulti": false,
-        "disabled": false
-      },
-      {
-        "id": "users",
-        "name": "users",
-        "label": "Users",
-        "tooltip": "dropdown input",
-        "tooltipIcon": "fa-regular fa-circle-question",
-        "tooltipText": "",
-        "containerClass": "stark-frmmobile",
-        "tooltipClass": "",
-        "type": "select",
-        "placeholder": "",
-        "inputClass": "",
-        "validations": [
-          {
-            "type": "required",
-            "applyWhen": [],
-            "applyWhenRelation": "OR"
-          }
-        ],
-        "options": [],
-        "isMulti": false,
-        "disabled": false
-      },
-      {
-        "id": "country",
-        "name": "country",
-        "label": "Country",
-        "tooltip": "dropdown input",
-        "tooltipIcon": "fa-regular fa-circle-question",
-        "tooltipClass": "",
-        "tooltipText": "",
-        "containerClass": "stark-frmmobile",
-        "type": "select",
-        "placeholder": "Select country",
-        "inputClass": "",
-        "validations": [
-          {
-            "type": "required",
-            "applyWhen": [],
-            "applyWhenRelation": "OR"
-          }
-        ],
-        "options": [],
-        "isMulti": false,
-        "disabled": false,
-        "isSearchable": false,
-        "callback": "onCountryChange",
-        "fieldsToReset": ["users", "state"]
-      },
-      {
-        "id": "state",
-        "name": "state",
-        "label": "State",
-        "tooltipText": "",
-        "tooltipClass": "",
-        "tooltipIcon": "fa-regular fa-circle-question",
-        "containerClass": "stark-frmmobile",
-        "type": "select",
-        "placeholder": "",
-        "inputClass": "",
-        "validations": [
-          {
-            "type": "required",
-            "applyWhen": [],
-            "applyWhenRelation": "OR"
-          }
-        ],
-        "options": [],
-        "isMulti": false,
-        "disabled": false
-      },
-      {
-        "id": "startdate",
-        "name": "startdate",
-        "label": "Start date",
-        "tooltip": "date input",
-        "tooltipIcon": "fa-regular fa-circle-question",
-        "tooltipText": "",
-        "tooltipClass": "",
-        "containerClass": "stark-frmmobile",
-        "type": "date",
-        "placeholder": "YYYY-MM-DD",
-        "inputClass": "",
-        "validations": [
-          {
-            "type": "required",
-            "applyWhen": [],
-            "applyWhenRelation": "OR"
-          }
-        ],
-        "options": [],
-        "isMulti": false,
         "disabled": false
       }
     ],
