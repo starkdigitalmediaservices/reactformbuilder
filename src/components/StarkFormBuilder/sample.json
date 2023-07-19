@@ -9,6 +9,7 @@
       {
         "name": "name",
         "type": "text",
+        "flag":"question",
         "label": "User Name",
         "id": "asd",
         "placeholder": "",
@@ -25,10 +26,13 @@
             "applyWhenRelation": "OR"
           }
         ],
-        "displayWhen": {},
+        "displayWhen": {
+          
+        },
         "disabled": false,
         "allowedUsers": []
       },
+      
       {
         "name": "phone",
         "type": "phonenumber",
@@ -44,7 +48,17 @@
         "limitMaxLength": "true",
         "defaultCountry": "us",
         "validations": [],
-        "displayWhen": {},
+        "displayWhen": {
+          "conditions": [
+            {
+              "name": "name",
+              "flag" :"question",
+              "value": "1,2,3",
+              "condition": "=="
+            }
+          ],
+          "displayWhenRelation": "AND"
+        },
         "disabled": false,
         "allowedUsers": [],
 
@@ -76,7 +90,163 @@
             "applyWhenRelation": "OR"
           }
         ],
+        "displayWhen": {
+          "conditions": [
+            {
+              "name": "name",
+              "flag" :"question",
+              "value": "1,2,3",
+              "condition": "=="
+            }
+          ],
+          "displayWhenRelation": "AND"
+        },
         "disabled": false
+        
+      },
+      {
+        "name": "phone",
+        "type": "phonenumber",
+        "tooltipText": "",
+        "label": "Phone Number",
+        "tooltip": "phone input",
+        "tooltipIcon": "fa-regular fa-circle-question",
+        "tooltipClass": "",
+        "id": "asd",
+        "placeholder": "",
+        "inputClass": "",
+        "containerClass": "",
+        "limitMaxLength": "true",
+        "defaultCountry": "us",
+        "validations": [],
+        "displayWhen": {
+          "conditions": [
+            {
+              "name": "name",
+              "flag" :"question",
+              "value": "2,3",
+              "condition": "=="
+            }
+          ],
+          "displayWhenRelation": "AND"
+        },
+        "disabled": false,
+        "allowedUsers": [],
+
+        "countryCodeEditable": false,
+        "enableSearch": true,
+        "disableSearchIcon": false
+      },
+      
+      {
+        "name": "email",
+        "type": "email",
+        "label": "Email",
+        "id": "",
+        "placeholder": "",
+        "tooltip": "email input",
+        "tooltipIcon": "fa-regular fa-circle-question",
+        "tooltipClass": "",
+        "tooltipText": "",
+        "inputClass": "",
+        "containerClass": "",
+        "validations": [
+          {
+            "type": "required",
+            "applyWhen": [],
+            "applyWhenRelation": "OR"
+          },
+          {
+            "type": "email",
+            "applyWhen": [],
+            "applyWhenRelation": "OR"
+          }
+        ],
+        "displayWhen": {
+          "conditions": [
+            {
+              "name": "name",
+              "flag" :"question",
+              "value": "2,3",
+              "condition": "=="
+            }
+          ],
+          "displayWhenRelation": "AND"
+        },
+        "disabled": false
+        
+      },
+      {
+        "name": "phone",
+        "type": "phonenumber",
+        "tooltipText": "",
+        "label": "Phone Number",
+        "tooltip": "phone input",
+        "tooltipIcon": "fa-regular fa-circle-question",
+        "tooltipClass": "",
+        "id": "asd",
+        "placeholder": "",
+        "inputClass": "",
+        "containerClass": "",
+        "limitMaxLength": "true",
+        "defaultCountry": "us",
+        "validations": [],
+        "displayWhen": {
+          "conditions": [
+            {
+              "name": "name",
+              "flag" :"question",
+              "value": "3",
+              "condition": "=="
+            }
+          ],
+          "displayWhenRelation": "AND"
+        },
+        "disabled": false,
+        "allowedUsers": [],
+
+        "countryCodeEditable": false,
+        "enableSearch": true,
+        "disableSearchIcon": false
+      },
+      
+      {
+        "name": "email",
+        "type": "email",
+        "label": "Email",
+        "id": "",
+        "placeholder": "",
+        "tooltip": "email input",
+        "tooltipIcon": "fa-regular fa-circle-question",
+        "tooltipClass": "",
+        "tooltipText": "",
+        "inputClass": "",
+        "containerClass": "",
+        "validations": [
+          {
+            "type": "required",
+            "applyWhen": [],
+            "applyWhenRelation": "OR"
+          },
+          {
+            "type": "email",
+            "applyWhen": [],
+            "applyWhenRelation": "OR"
+          }
+        ],
+        "displayWhen": {
+          "conditions": [
+            {
+              "name": "name",
+              "flag" :"question",
+              "value": "3",
+              "condition": "=="
+            }
+          ],
+          "displayWhenRelation": "AND"
+        },
+        "disabled": false
+        
       },
       {
         "id": "gender",
