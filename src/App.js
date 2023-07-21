@@ -154,7 +154,10 @@ function App() {
               getStates(val);
             },
           }}
-          
+         
+          onInputChange={(e)=>{
+              console.log("555");
+          }}
           defaultFormValues={defaultValues}
           currentUser={currentUser}
           submitBtnText=""
