@@ -9,7 +9,7 @@
       {
         "name": "name",
         "type": "text",
-        "flag":"question",
+        "maxNumber": 3,
         "label": "User Name",
         "id": "asd",
         "placeholder": "",
@@ -26,13 +26,12 @@
             "applyWhenRelation": "OR"
           }
         ],
-        "displayWhen": {
-          
-        },
+        "displayWhen": {},
         "disabled": false,
-        "allowedUsers": []
+        "allowedUsers": [],
+        "subFields": []
       },
-      
+
       {
         "name": "phone",
         "type": "phonenumber",
@@ -52,7 +51,7 @@
           "conditions": [
             {
               "name": "name",
-              "flag" :"question",
+              "maxNumber": 3,
               "value": "1,2,3",
               "condition": "=="
             }
@@ -94,7 +93,7 @@
           "conditions": [
             {
               "name": "name",
-              "flag" :"question",
+              "maxNumber": 3,
               "value": "1,2,3",
               "condition": "=="
             }
@@ -102,7 +101,6 @@
           "displayWhenRelation": "AND"
         },
         "disabled": false
-        
       },
       {
         "name": "phone",
@@ -123,7 +121,7 @@
           "conditions": [
             {
               "name": "name",
-              "flag" :"question",
+              "flag": "question",
               "value": "2,3",
               "condition": "=="
             }
@@ -137,7 +135,7 @@
         "enableSearch": true,
         "disableSearchIcon": false
       },
-      
+
       {
         "name": "email",
         "type": "email",
@@ -166,7 +164,7 @@
           "conditions": [
             {
               "name": "name",
-              "flag" :"question",
+              "flag": "question",
               "value": "2,3",
               "condition": "=="
             }
@@ -174,7 +172,6 @@
           "displayWhenRelation": "AND"
         },
         "disabled": false
-        
       },
       {
         "name": "phone",
@@ -195,7 +192,7 @@
           "conditions": [
             {
               "name": "name",
-              "flag" :"question",
+              "flag": "question",
               "value": "3",
               "condition": "=="
             }
@@ -209,7 +206,7 @@
         "enableSearch": true,
         "disableSearchIcon": false
       },
-      
+
       {
         "name": "email",
         "type": "email",
@@ -238,7 +235,7 @@
           "conditions": [
             {
               "name": "name",
-              "flag" :"question",
+              "flag": "question",
               "value": "3",
               "condition": "=="
             }
@@ -246,7 +243,6 @@
           "displayWhenRelation": "AND"
         },
         "disabled": false
-        
       },
       {
         "id": "gender",
