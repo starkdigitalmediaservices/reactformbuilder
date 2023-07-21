@@ -9,7 +9,7 @@
       {
         "name": "name",
         "type": "text",
-        "flag":"question",
+        "maxNumber": 3,
         "label": "User Name",
         "id": "asd",
         "placeholder": "",
@@ -26,11 +26,10 @@
             "applyWhenRelation": "OR"
           }
         ],
-        "displayWhen": {
-          
-        },
+        "displayWhen": {},
         "disabled": false,
-        "allowedUsers": []
+        "allowedUsers": [],
+        "subFields": []
       },
       {
         "name": "addmore",
