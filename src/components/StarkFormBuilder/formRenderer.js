@@ -41,7 +41,9 @@ export default function FormRenderer(props) {
   const [stepCounter, updateStepCounter] = useState(0);
   const [currentStepIndex, updateStepIndex] = useState(0);
   const [isClickedNext, updateIsClickedNext] = useState(false);
-  const [value1,setValue1]=useState(0)
+  const [value1, setValue1] = useState(0)
+  console.log("value1", value1);
+
 
   const setDefaultFormValues = (resetForm = false) => {
     let allFields = [];
@@ -76,7 +78,7 @@ export default function FormRenderer(props) {
           }
           const amFields =
             allFormValues[field.name] &&
-            typeof allFormValues[field.name] === "object"
+              typeof allFormValues[field.name] === "object"
               ? allFormValues[field.name]
               : [];
           // addMoreFields[field.name] = [field.fields];
@@ -105,11 +107,14 @@ export default function FormRenderer(props) {
     setFormValues({ ...defaultFormValues });
   }, [defaultFormValues, refreshCounter]);
 
-  const updateFormValues = (e, field, fieldIndex = 0, aField = {}) => {
+  const updateFormValues = (e, field, fieldIndex, aField = {}, index) => {
     if (!CustomFunctions.checkIfEmpty(callbacks, "O")) {
       if (callbacks[field.callback]) callbacks[field.callback](e);
     }
+    setValue1(e)
+
     const allValues = formValues;
+
     if (field.type === "addmore") {
       let fieldValues = formValues[field.name];
       if (!fieldValues) fieldValues = [];
@@ -120,6 +125,7 @@ export default function FormRenderer(props) {
       fieldValues[fieldIndex][aField.name] =
         aField.type === "date" ? (e ? new Date(e) : null) : e;
       allValues[field.name] = fieldValues;
+      console.log("fieldValues", allValues)
     } else {
       allValues[field.name] =
         field.type === "date" ? (e ? new Date(e) : null) : e;
@@ -130,14 +136,6 @@ export default function FormRenderer(props) {
         return f;
       });
     }
-
-   
-
-    // if (field.type === "text" ) {
-
-    //   //  updateSubmitCount1(submitCount1 + 1)
-    //   addField(field)
-    // }
 
     const forceUpdateFields = ["date", "select", "radio", "checkbox"];
     setFormValues(
@@ -260,7 +258,7 @@ export default function FormRenderer(props) {
     const filteredResult = conditionResults.filter((condition) => condition);
 
     switch (
-      CustomFunctions.toLowerCase(field.displayWhen.displayWhenRelation)
+    CustomFunctions.toLowerCase(field.displayWhen.displayWhenRelation)
     ) {
       case "and":
         if (filteredResult.length !== conditionResults.length)
@@ -384,6 +382,7 @@ export default function FormRenderer(props) {
     isAddMore,
     fieldIndex,
     parentField,
+
   }) => {
     const extraProps = {};
     if (field.minDateSelector)
@@ -443,6 +442,7 @@ export default function FormRenderer(props) {
 
 
   const addField = (field) => {
+    console.log("field55", field);
     if (addMoreAddCallback) addMoreAddCallback();
     const fields = allAddMoreFields[field.name];
     const foundFields = allFormFields.filter(
@@ -458,28 +458,34 @@ export default function FormRenderer(props) {
     });
   };
 
+
+ 
+
+
+
+
   const removeField = (field, fieldIndex) => {
-    
-      
-        const fields = allAddMoreFields[field.name];
-        fields.splice(fieldIndex, 1);
-        const allVals = formValues;
-        const fVal = CustomFunctions.checkIfEmpty(allVals[field.name], "A")
-          ? []
-          : allVals[field.name];
-        if (fVal.length) fVal.splice(fieldIndex, 1);
-        allVals[field.name] = fVal;
-        setFormValues(allVals);
-        setAddMoreFields({
-          ...allAddMoreFields,
-          [field.name]: fields,
-        });
-        if (addMoreRemoveCallback) addMoreRemoveCallback(fieldIndex);
-      
-    
+
+
+    const fields = allAddMoreFields[field.name];
+    fields.splice(fieldIndex, 1);
+    const allVals = formValues;
+    const fVal = CustomFunctions.checkIfEmpty(allVals[field.name], "A")
+      ? []
+      : allVals[field.name];
+    if (fVal.length) fVal.splice(fieldIndex, 1);
+    allVals[field.name] = fVal;
+    setFormValues(allVals);
+    setAddMoreFields({
+      ...allAddMoreFields,
+      [field.name]: fields,
+    });
+    if (addMoreRemoveCallback) addMoreRemoveCallback(fieldIndex);
+
+
   };
 
-  
+
   const RenderSingleFormField = ({ field, columns }) => {
     const displayField = checkDisplayConditions(field);
     const isPermittedUser = checkPermittedUser(field.allowedUsers);
@@ -501,46 +507,45 @@ export default function FormRenderer(props) {
               <Form.Label>{field.label}</Form.Label>
               {addMoreFields.map((aField, fieldIndex) => {
                 return (
-                  console.log("afield",aField),
+
                   <>
-                    {aField.map((bField) => (
-                      <Col md={fieldCol}>
-                        < RenderFormField
-                          field={{ ...bField }}
-                          column={col}
-                          onChange={(e) => {
-                            updateFormValues(e, field, fieldIndex, bField);
-                          }}
-                          isAddMore
-                          fieldIndex={fieldIndex}
-                          parentField={field}
-                        />
-                      </Col>
+
+                    {Array.from({ length: value1 }, (_, i) => (
+                      <React.Fragment key={i}>
+
+                        {
+                          aField.map((bField) => (
+                            <Col md={fieldCol}>
+                              <RenderFormField
+                                field={{ ...bField }}
+                                column={col}
+                                onChange={(e) => {
+                                  updateFormValues(e, field, fieldIndex, bField, index);
+
+                                }}
+                                isAddMore
+                                fieldIndex={fieldIndex}
+                                parentField={field}
+                                index={i}
+
+                              />
+                            </Col>
+                          ))
+
+                        }
+                      </React.Fragment>
                     ))}
+
+
                     <Col md={12} className="mb-3">
                       <div className="btn-group addMoreBtnContainer">
-                        <input 
-                         type="text"
-                        
-                         onChange={(e)=>{
-                         
-                          console.log(e.target.value);
-                          setValue1(e.target.value)
-                          for(let i=0;i<e.target.value;i++){
-                            addField(field)
-                          }
-                            // removeField(field, fieldIndex)
-                          
-                          
-                         }}
-
-                         />
+{/* 
                         {/* <Button
                           className="btn btn-primary btn-width mr-5"
                           onClick={() => addField(field)}
                         >
                           +
-                        </Button> */}
+                        </Button> */} 
                         {fieldIndex > 0 && (
                           <Button
                             className="btn btn-secondary btn-width"
@@ -561,6 +566,7 @@ export default function FormRenderer(props) {
               column={col}
               onChange={(e) => {
                 updateFormValues(e, field);
+                console.log("field", field);
               }}
             />
           )}
@@ -590,13 +596,7 @@ export default function FormRenderer(props) {
             {fields.map((field, fieldIndex) => (
               <>
                 <RenderSingleFormField field={field} columns={columns} />
-                {/* <RenderFormField
-                    field={{ ...field }}
-                    column={columns}
-                    onChange={(e) => {
-                      updateFormValues(e, field);
-                    }}
-                  /> */}
+
               </>
             ))}
           </Row>
@@ -619,7 +619,7 @@ export default function FormRenderer(props) {
       }
       return field;
     });
-    console.log("finalFormValues", finalFormValues);
+
     if (onFormSubmit) onFormSubmit(finalFormValues);
   };
 
@@ -638,8 +638,10 @@ export default function FormRenderer(props) {
     e.preventDefault();
     let finalFormValues = {};
     Object.keys(displayedFields).map((field) => {
+      console.log("field11", field);
       if (displayedFields[field]) {
         finalFormValues[field] = formValues[field];
+        console.log("final", finalFormValues, formValues);
       }
       return field;
     });
@@ -760,13 +762,11 @@ export default function FormRenderer(props) {
             </>
           ) : (
             <>
-              <Button variant="primary" className="mr-5" type="submit">{`${
-                submitBtnText || "Submit"
-              }`}</Button>
-              {showResetBtn && (
-                <Button variant="secondary" className="mr-5" type="reset">{`${
-                  resetBtnText || "Reset"
+              <Button variant="primary" className="mr-5" type="submit">{`${submitBtnText || "Submit"
                 }`}</Button>
+              {showResetBtn && (
+                <Button variant="secondary" className="mr-5" type="reset">{`${resetBtnText || "Reset"
+                  }`}</Button>
               )}
               {showDraftBtn && (
                 <Button
