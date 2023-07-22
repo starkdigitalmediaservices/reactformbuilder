@@ -102,8 +102,18 @@ export default function FormRenderer(props) {
     if (!CustomFunctions.checkIfEmpty(callbacks, "O")) {
       if (callbacks[field.callback]) callbacks[field.callback](e);
     }
+    const sumUpdates = [];
     const allValues = formValues;
-    if (field.type === "text" && field.maxNumber > 0 && e != "") {
+    if (field.type === "text" && field.operation === "sum" && !isNaN(e)) {
+      allValues[field.name] = e;
+      let sum = 0;
+      field.fieldsToSum.map((f) => {
+        sum += Number(allValues[f]);
+        return f;
+      });
+      allValues[field.sumField] = isNaN(sum) ? "" : sum;
+      sumUpdates.push("text");
+    } else if (field.type === "text" && field.maxNumber > 0 && e != "") {
       addFieldNew(e, field);
       allValues[field.name] =
         field.type === "date" ? (e ? new Date(e) : null) : e;
@@ -127,7 +137,13 @@ export default function FormRenderer(props) {
         return f;
       });
     }
-    const forceUpdateFields = ["date", "select", "radio", "checkbox"];
+    const forceUpdateFields = [
+      "date",
+      "select",
+      "radio",
+      "checkbox",
+      ...sumUpdates,
+    ];
     setFormValues(
       forceUpdateFields.includes(aField.type || field.type)
         ? { ...allValues }

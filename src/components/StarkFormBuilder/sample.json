@@ -140,6 +140,83 @@
         ],
         "optionCallback": "",
         "options": []
+      },
+      {
+        "name": "value1",
+        "type": "text",
+        "label": "Value 1",
+        "id": "asd",
+        "placeholder": "",
+        "tooltip": "text input",
+        "tooltipIcon": "fa-regular fa-circle-question",
+        "tooltipText": "",
+        "tooltipClass": "",
+        "inputClass": "",
+        "containerClass": "",
+        "validations": [
+          {
+            "type": "required",
+            "applyWhen": [],
+            "applyWhenRelation": "OR"
+          }
+        ],
+        "displayWhen": {},
+        "disabled": false,
+        "allowedUsers": [],
+        "operation": "sum",
+        "fieldsToSum": ["value1", "value2"],
+        "sumField": "sum"
+      },
+      {
+        "name": "value2",
+        "type": "text",
+        "label": "Value 2",
+        "id": "asd",
+        "placeholder": "",
+        "tooltip": "text input",
+        "tooltipIcon": "fa-regular fa-circle-question",
+        "tooltipText": "",
+        "tooltipClass": "",
+        "inputClass": "",
+        "containerClass": "",
+        "validations": [
+          {
+            "type": "required",
+            "applyWhen": [],
+            "applyWhenRelation": "OR"
+          }
+        ],
+        "displayWhen": {},
+        "disabled": false,
+        "allowedUsers": [],
+        "operation": "sum",
+        "fieldsToSum": ["value1", "value2"],
+        "sumField": "sum"
+      },
+      {
+        "name": "sum",
+        "type": "text",
+        "label": "Sum Of value 1 and Value 2",
+        "id": "asd",
+        "placeholder": "",
+        "tooltip": "text input",
+        "tooltipIcon": "fa-regular fa-circle-question",
+        "tooltipText": "",
+        "tooltipClass": "",
+        "inputClass": "",
+        "containerClass": "",
+        "validations": [
+          {
+            "type": "required",
+            "applyWhen": [],
+            "applyWhenRelation": "OR"
+          }
+        ],
+        "displayWhen": {},
+        "allowedUsers": [],
+        "disabled": true,
+        "operation": "sum",
+        "fieldsToSum": ["value1", "value2"]
       }
     ]
   }
