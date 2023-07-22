@@ -29,10 +29,10 @@
         "displayWhen": {},
         "disabled": false,
         "allowedUsers": [],
-        "subFields": []
+        "childElement": "addmore_name"
       },
       {
-        "name": "addmore",
+        "name": "addmore_name",
         "type": "addmore",
         "label": "",
         "id": "",
@@ -40,7 +40,16 @@
         "inputClass": "",
         "containerClass": "",
         "validations": [],
-        "displayWhen": {},
+        "displayWhen": {
+          "conditions": [
+            {
+              "name": "name",
+              "value": "1,2,3",
+              "condition": "=="
+            }
+          ],
+          "displayWhenRelation": "AND"
+        },
         "haveValidations": "false",
         "haveDisplayOptions": "false",
         "callback": "",
@@ -54,7 +63,6 @@
         "fieldsToReset": [],
         "fieldLayout": "2column",
         "fields": [
-          
           {
             "name": "team_id",
             "type": "select",
@@ -101,7 +109,7 @@
             ]
           },
           {
-            "name": "percentage",
+            "name": "percentage1",
             "type": "text",
             "label": "Percentage",
             "id": "",
@@ -134,6 +142,5 @@
         "options": []
       }
     ]
-      
   }
 ]

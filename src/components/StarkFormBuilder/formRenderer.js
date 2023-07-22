@@ -23,25 +23,18 @@ export default function FormRenderer(props) {
     showResetBtn,
     onFormReset,
     btnContainerClass,
-    stepFormProps,
-    isStepForm,
     refreshCounter,
     formClass,
     showBtnClass,
     addMoreRemoveCallback,
     addMoreAddCallback,
   } = props;
-  const stepperProps = stepFormProps || {};
   const [formValues, setFormValues] = useState({});
   const [allFormFields, setAllFormFields] = useState([]);
   const [allFormSections, setAllFormSections] = useState([]);
   const [allAddMoreFields, setAddMoreFields] = useState({});
   const [submitCount, updateSubmitCount] = useState(0);
   const [displayedFields, updateDisplayedFields] = useState({});
-  const [stepCounter, updateStepCounter] = useState(0);
-  const [currentStepIndex, updateStepIndex] = useState(0);
-  const [isClickedNext, updateIsClickedNext] = useState(false);
-  const [value1,setValue1]=useState(0)
 
   const setDefaultFormValues = (resetForm = false) => {
     let allFields = [];
@@ -110,7 +103,11 @@ export default function FormRenderer(props) {
       if (callbacks[field.callback]) callbacks[field.callback](e);
     }
     const allValues = formValues;
-    if (field.type === "addmore") {
+    if (field.type === "text" && field.maxNumber > 0 && e != "") {
+      addFieldNew(e, field);
+      allValues[field.name] =
+        field.type === "date" ? (e ? new Date(e) : null) : e;
+    } else if (field.type === "addmore") {
       let fieldValues = formValues[field.name];
       if (!fieldValues) fieldValues = [];
       if (!CustomFunctions.checkIfEmpty(callbacks, "O")) {
@@ -130,15 +127,6 @@ export default function FormRenderer(props) {
         return f;
       });
     }
-
-   
-
-    // if (field.type === "text" ) {
-
-    //   //  updateSubmitCount1(submitCount1 + 1)
-    //   addField(field)
-    // }
-
     const forceUpdateFields = ["date", "select", "radio", "checkbox"];
     setFormValues(
       forceUpdateFields.includes(aField.type || field.type)
@@ -152,13 +140,18 @@ export default function FormRenderer(props) {
       (field) => field.name === fieldName
     );
     if (CustomFunctions.checkIfEmpty(selectedField, "A")) return "";
-    return { type: selectedField[0].type, isMulti: selectedField[0].isMulti };
+    return {
+      type: selectedField[0].type,
+      isMulti: selectedField[0].isMulti,
+      maxNumber: selectedField[0].maxNumber,
+    };
   };
 
   const checkFieldCondition = (condition) => {
     const fieldType = getFieldType(condition.name);
     let conditionResults = true;
     let checkboxValue = [];
+    let textValue = "";
     let dropdownValue = fieldType.isMulti ? [] : {};
 
     if (fieldType.type === "checkbox") {
@@ -175,12 +168,29 @@ export default function FormRenderer(props) {
         ? dropdownValue
         : formValues[condition.name];
     }
-
+    if (
+      fieldType.type === "text" &&
+      fieldType.maxNumber &&
+      fieldType.maxNumber > 0
+    ) {
+      textValue = CustomFunctions.checkIfEmpty(formValues[condition.name])
+        ? textValue
+        : formValues[condition.name];
+    }
     switch (condition.condition) {
       case "===":
       case "==":
         if (fieldType.type === "checkbox") {
           conditionResults = checkboxValue.includes(condition.value);
+          break;
+        }
+        if (
+          fieldType.type === "text" &&
+          fieldType.maxNumber &&
+          fieldType.maxNumber > 0
+        ) {
+          let cond = condition.value.split(",");
+          conditionResults = cond.includes(textValue);
           break;
         }
         if (fieldType.type === "select") {
@@ -192,6 +202,7 @@ export default function FormRenderer(props) {
           conditionResults = dropdownValue.value === condition.value;
           break;
         }
+
         conditionResults = formValues[condition.name] === condition.value;
         break;
       case "!=":
@@ -386,10 +397,6 @@ export default function FormRenderer(props) {
     parentField,
   }) => {
     const extraProps = {};
-    if (field.minDateSelector)
-      extraProps.minDate = formValues[field.minDateSelector];
-    if (field.maxDateSelector)
-      extraProps.maxDate = formValues[field.maxDateSelector];
     if (field.type === "date") extraProps.selected = formValues[field.name];
     // if (field.type === 'select') {
     //   extraProps.options = options[field.name] ? dropdownOptions[field.name] : field.options;
@@ -441,7 +448,6 @@ export default function FormRenderer(props) {
     );
   };
 
-
   const addField = (field) => {
     if (addMoreAddCallback) addMoreAddCallback();
     const fields = allAddMoreFields[field.name];
@@ -458,41 +464,56 @@ export default function FormRenderer(props) {
     });
   };
 
-  const removeField = (field, fieldIndex) => {
-    
-      
-        const fields = allAddMoreFields[field.name];
-        fields.splice(fieldIndex, 1);
-        const allVals = formValues;
-        const fVal = CustomFunctions.checkIfEmpty(allVals[field.name], "A")
-          ? []
-          : allVals[field.name];
-        if (fVal.length) fVal.splice(fieldIndex, 1);
-        allVals[field.name] = fVal;
-        setFormValues(allVals);
-        setAddMoreFields({
-          ...allAddMoreFields,
-          [field.name]: fields,
-        });
-        if (addMoreRemoveCallback) addMoreRemoveCallback(fieldIndex);
-      
-    
+  const addFieldNew = (e, field) => {
+    for (let index = 1; index < e; index++) {
+      const fields = allAddMoreFields[field.childElement];
+      const foundFields = allFormFields.filter(
+        (f) =>
+          f.type === "addmore" &&
+          f.name === field.childElement &&
+          field.maxNumber > 0
+      );
+      const fieldsToAdd = CustomFunctions.checkIfEmpty(foundFields, "A")
+        ? []
+        : foundFields[0].fields;
+      fields.push(fieldsToAdd);
+      setAddMoreFields({
+        ...allAddMoreFields,
+        [field.name]: fields,
+      });
+    }
   };
 
-  
+  const removeField = (field, fieldIndex) => {
+    const fields = allAddMoreFields[field.name];
+    fields.splice(fieldIndex, 1);
+    const allVals = formValues;
+    const fVal = CustomFunctions.checkIfEmpty(allVals[field.name], "A")
+      ? []
+      : allVals[field.name];
+    if (fVal.length) fVal.splice(fieldIndex, 1);
+    allVals[field.name] = fVal;
+    setFormValues(allVals);
+    setAddMoreFields({
+      ...allAddMoreFields,
+      [field.name]: fields,
+    });
+    if (addMoreRemoveCallback) addMoreRemoveCallback(fieldIndex);
+  };
+
   const RenderSingleFormField = ({ field, columns }) => {
     const displayField = checkDisplayConditions(field);
-    const isPermittedUser = checkPermittedUser(field.allowedUsers);
     const allDisplayFields = displayedFields;
     allDisplayFields[field.name] = displayField;
     updateDisplayedFields(allDisplayFields);
-    if (!displayField || !isPermittedUser) return <></>;
+    if (!displayField) return <></>;
     const col = 12 / Number(columns);
     const isAddMoreField = field.type === "addmore";
     const addMoreFields = isAddMoreField ? allAddMoreFields[field.name] : [];
     const fieldCol = isAddMoreField
       ? 12 / getFieldLayout(field.fieldLayout)
       : col;
+
     return (
       <>
         <Col md={col}>
@@ -501,11 +522,10 @@ export default function FormRenderer(props) {
               <Form.Label>{field.label}</Form.Label>
               {addMoreFields.map((aField, fieldIndex) => {
                 return (
-                  console.log("afield",aField),
                   <>
                     {aField.map((bField) => (
                       <Col md={fieldCol}>
-                        < RenderFormField
+                        <RenderFormField
                           field={{ ...bField }}
                           column={col}
                           onChange={(e) => {
@@ -517,40 +537,6 @@ export default function FormRenderer(props) {
                         />
                       </Col>
                     ))}
-                    <Col md={12} className="mb-3">
-                      <div className="btn-group addMoreBtnContainer">
-                        <input 
-                         type="text"
-                        
-                         onChange={(e)=>{
-                         
-                          console.log(e.target.value);
-                          setValue1(e.target.value)
-                          for(let i=0;i<e.target.value;i++){
-                            addField(field)
-                          }
-                            // removeField(field, fieldIndex)
-                          
-                          
-                         }}
-
-                         />
-                        {/* <Button
-                          className="btn btn-primary btn-width mr-5"
-                          onClick={() => addField(field)}
-                        >
-                          +
-                        </Button> */}
-                        {fieldIndex > 0 && (
-                          <Button
-                            className="btn btn-secondary btn-width"
-                            onClick={() => removeField(field, fieldIndex)}
-                          >
-                            -
-                          </Button>
-                        )}
-                      </div>
-                    </Col>
                   </>
                 );
               })}
@@ -569,7 +555,7 @@ export default function FormRenderer(props) {
     );
   };
 
-  const RenderSection = ({ section }) => {
+  const RenderSection = ({ section, secIndex }) => {
     const {
       displaySection,
       sectionTitle,
@@ -589,14 +575,12 @@ export default function FormRenderer(props) {
           <Row>
             {fields.map((field, fieldIndex) => (
               <>
-                <RenderSingleFormField field={field} columns={columns} />
-                {/* <RenderFormField
-                    field={{ ...field }}
-                    column={columns}
-                    onChange={(e) => {
-                      updateFormValues(e, field);
-                    }}
-                  /> */}
+                <RenderSingleFormField
+                  field={field}
+                  columns={columns}
+                  secIndex={secIndex}
+                  index={fieldIndex}
+                />
               </>
             ))}
           </Row>
@@ -653,53 +637,6 @@ export default function FormRenderer(props) {
     setDefaultFormValues(true);
     if (onFormReset) onFormReset();
   };
-
-  const getStepLabels = (allSections) => {
-    if (CustomFunctions.checkIfEmpty(allSections, "A")) return [];
-    const stepProps = stepperProps.steps || {};
-    const steps = allSections.map((section) => {
-      const label =
-        stepProps[section.sectionName] && stepProps[section.sectionName].label
-          ? stepProps[section.sectionName].label
-          : section.sectionTitle;
-      const image =
-        stepProps[section.sectionName] && stepProps[section.sectionName].image
-          ? stepProps[section.sectionName].image
-          : null;
-      return {
-        title: label,
-        icon: image,
-      };
-    });
-    return steps;
-  };
-
-  const nextPrevCallback = (next = true) => {
-    updateIsClickedNext(next);
-    updateStepCounter(stepCounter + 1);
-  };
-
-  const changeStep = (next = true) => {
-    if (next) {
-      if (!simpleValidator.current.allValid()) {
-        simpleValidator.current.showMessages();
-        setFormValues({ ...formValues });
-        return;
-      }
-      simpleValidator.current.hideMessages();
-      if (currentStepIndex + 1 > allFormSections.length - 1) return;
-      updateStepIndex(currentStepIndex + 1);
-    } else {
-      if (currentStepIndex - 1 < 0) return;
-      updateStepIndex(currentStepIndex - 1);
-    }
-  };
-
-  useEffect(() => {
-    if (!stepCounter) return;
-    changeStep(isClickedNext);
-  }, [stepCounter]);
-
   simpleValidator.current.purgeFields();
   return (
     <>
@@ -708,20 +645,11 @@ export default function FormRenderer(props) {
         onSubmit={submitForm}
         onReset={resetForm}
       >
-        {isStepForm && (
-          <div className={stepperProps.containerClass}>
-            <Stepper
-              steps={getStepLabels(allFormSections)}
-              activeStep={currentStepIndex}
-            />
-          </div>
-        )}
         {allFormSections &&
           allFormSections.map((section, secIndex) => {
             return (
               <React.Fragment key={secIndex}>
-                {((isStepForm && secIndex === currentStepIndex) ||
-                  !isStepForm) && <RenderSection section={section} />}
+                <RenderSection section={section} secIndex={secIndex} />
               </React.Fragment>
             );
           })}
@@ -733,51 +661,24 @@ export default function FormRenderer(props) {
               : `${btnContainerClass}`
           }
         >
-          {isStepForm ? (
-            <>
+          <>
+            <Button variant="primary" className="mr-5" type="submit">{`${
+              submitBtnText || "Submit"
+            }`}</Button>
+            {showResetBtn && (
+              <Button variant="secondary" className="mr-5" type="reset">{`${
+                resetBtnText || "Reset"
+              }`}</Button>
+            )}
+            {showDraftBtn && (
               <Button
                 variant="secondary"
-                className="mr-5 prev-btn"
-                onClick={() => {
-                  nextPrevCallback(false);
-                }}
-              >
-                {`${stepperProps.prevBtnText || "Prev"}`}
-              </Button>
-              <Button
-                variant="primary"
-                className="next-btn"
                 onClick={(e) => {
-                  if (currentStepIndex < allFormSections.length - 1)
-                    nextPrevCallback(true);
-                  else submitForm(e);
+                  onDraftSubmit(e);
                 }}
-              >
-                {currentStepIndex < allFormSections.length - 1
-                  ? `${stepperProps.nextBtnText || "Next"}`
-                  : `${submitBtnText || "Submit"}`}
-              </Button>
-            </>
-          ) : (
-            <>
-              <Button variant="primary" className="mr-5" type="submit">{`${
-                submitBtnText || "Submit"
-              }`}</Button>
-              {showResetBtn && (
-                <Button variant="secondary" className="mr-5" type="reset">{`${
-                  resetBtnText || "Reset"
-                }`}</Button>
-              )}
-              {showDraftBtn && (
-                <Button
-                  variant="secondary"
-                  onClick={(e) => {
-                    onDraftSubmit(e);
-                  }}
-                >{`${draftBtnText || "Save Draft"}`}</Button>
-              )}
-            </>
-          )}
+              >{`${draftBtnText || "Save Draft"}`}</Button>
+            )}
+          </>
         </div>
       </Form>
     </>
