@@ -36,8 +36,6 @@ export default function FormRenderer(props) {
   const [submitCount, updateSubmitCount] = useState(0);
   const [displayedFields, updateDisplayedFields] = useState({});
 
-  const [value1, setValue1] = useState(0);
-
   const setDefaultFormValues = (resetForm = false) => {
     let allFields = [];
     const addMoreFields = {};
@@ -566,8 +564,6 @@ export default function FormRenderer(props) {
               column={col}
               onChange={(e) => {
                 updateFormValues(e, field);
-                setValue1(e);
-                //  removeField(field, fieldIndex)
               }}
             />
           )}
