@@ -109,7 +109,7 @@
             ]
           },
           {
-            "name": "percentage1",
+            "name": "percentage",
             "type": "text",
             "label": "Percentage",
             "id": "",

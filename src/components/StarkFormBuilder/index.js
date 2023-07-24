@@ -30,8 +30,22 @@ export default function StarkFormBuilder(props) {
     showBtnClass,
     addMoreRemoveCallback,
     addMoreAddCallback,
-    onInputChange
+    onInputChange,
   } = props;
+
+  const formValues = {
+    name: 2,
+    addmore_name: [
+      {
+        percentage: 70,
+        team_id: { value: 2, label: "Development" },
+      },
+      {
+        percentage: 20,
+        team_id: { value: 4, label: "Quality Analysis" },
+      },
+    ],
+  };
   return (
     <>
       <Container>
@@ -46,7 +60,7 @@ export default function StarkFormBuilder(props) {
             onFormSubmit={onFormSubmit}
             callbacks={callbacks}
             options={options}
-            defaultFormValues={defaultFormValues}
+            defaultFormValues={formValues}
             currentUser={currentUser}
             submitBtnText={submitBtnText}
             resetBtnText={resetBtnText}
