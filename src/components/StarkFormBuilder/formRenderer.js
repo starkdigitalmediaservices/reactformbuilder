@@ -39,7 +39,6 @@ export default function FormRenderer(props) {
   const setDefaultFormValues = (resetForm = false) => {
     let allFields = [];
     const addMoreFields = {};
-    const originalMoreFields = {};
     sections.map((section) => {
       allFields = [...allFields, ...section.fields];
       return section;
