@@ -30,7 +30,6 @@ export default function StarkFormBuilder(props) {
     showBtnClass,
     addMoreRemoveCallback,
     addMoreAddCallback,
-    onInputChange,
   } = props;
 
   const formValues = {

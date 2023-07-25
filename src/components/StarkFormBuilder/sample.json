@@ -217,6 +217,77 @@
         "disabled": true,
         "operation": "sum",
         "fieldsToSum": ["value1", "value2"]
+      },
+      {
+        "name": "mqid-2",
+        "type": "checkbox",
+        "label": "I request that USCIS send my notice containing Form I-94 to me at my U.S. mailing address.",
+        "id": 28,
+        "tooltip": "check",
+        "tooltipIcon": "fa-regular fa-circle-question",
+        "placeholder": "",
+        "inputClass": "",
+        "containerClass": "form-group",
+        "validations": [],
+        "displayWhen": {},
+        "haveValidations": "true",
+        "haveDisplayOptions": "false",
+        "callback": "",
+        "callbackUrl": "",
+        "inputToChange": "",
+        "minDateSelector": "",
+        "maxDateSelector": "",
+        "disabled": false,
+        "isMulti": false,
+        "allowedUsers": [],
+        "fieldsToReset": [],
+        "fieldLayout": {
+          "label": "1 Column",
+          "value": "1column"
+        },
+        "fields": [],
+        "optionCallback": "",
+        "options": []
+      },
+      {
+        "name": "mqid-3",
+        "type": "checkbox",
+        "label": "This is sample checkbox with options",
+        "id": 28,
+        "tooltip": "check",
+        "tooltipIcon": "fa-regular fa-circle-question",
+        "placeholder": "",
+        "inputClass": "",
+        "containerClass": "form-group",
+        "validations": [],
+        "displayWhen": {},
+        "haveValidations": "true",
+        "haveDisplayOptions": "false",
+        "callback": "",
+        "callbackUrl": "",
+        "inputToChange": "",
+        "minDateSelector": "",
+        "maxDateSelector": "",
+        "disabled": false,
+        "isMulti": false,
+        "allowedUsers": [],
+        "fieldsToReset": [],
+        "fieldLayout": {
+          "label": "1 Column",
+          "value": "1column"
+        },
+        "fields": [],
+        "optionCallback": "",
+        "options": [
+          {
+            "value": "11-am not",
+            "label": "am not"
+          },
+          {
+            "value": "12-am",
+            "label": "am"
+          }
+        ]
       }
     ]
   }
