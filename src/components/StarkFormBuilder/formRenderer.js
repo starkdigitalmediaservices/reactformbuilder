@@ -1,7 +1,6 @@
 /* eslint-disable */
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
-import Stepper from "react-stepper-horizontal";
 import SimpleReactValidator from "simple-react-validator";
 import FormElementRenderer from "./formElementRenderer";
 import CustomFunctions from "./helper/customFunctions";
@@ -35,10 +34,12 @@ export default function FormRenderer(props) {
   const [allAddMoreFields, setAddMoreFields] = useState({});
   const [submitCount, updateSubmitCount] = useState(0);
   const [displayedFields, updateDisplayedFields] = useState({});
+  const [addMoreFieldsMaxCount,setAddMoreFieldsMaxCount] = useState({})
 
   const setDefaultFormValues = (resetForm = false) => {
     let allFields = [];
     const addMoreFields = {};
+    const addMoreFieldsCount = {}
     sections.map((section) => {
       allFields = [...allFields, ...section.fields];
       return section;
@@ -75,9 +76,11 @@ export default function FormRenderer(props) {
           addMoreFields[field.name] = Array(amFields.length || 1).fill(
             field.fields
           );
+          addMoreFieldsCount[field.name] = field.maxNumber
         } else {
           allFormValues[field.name] = [];
           addMoreFields[field.name] = Array(1).fill(field.fields);
+          addMoreFieldsCount[field.name] = field.maxNumber
         }
       }
 
@@ -87,11 +90,13 @@ export default function FormRenderer(props) {
     setAllFormSections(sections);
     setAddMoreFields(addMoreFields);
     setAllFormFields([...allFields]);
+    setAddMoreFieldsMaxCount(addMoreFieldsCount)
   };
   useEffect(() => {
     setDefaultFormValues();
   }, []);
 
+  console.log("addMoreFieldsCount[field.name] = field.maxNumber",addMoreFieldsMaxCount)
   useEffect(() => {
     setDefaultFormValues();
     setFormValues({ ...defaultFormValues });
@@ -464,6 +469,11 @@ export default function FormRenderer(props) {
   const addField = (field) => {
     if (addMoreAddCallback) addMoreAddCallback();
     const fields = allAddMoreFields[field.name];
+    let maxNumber = addMoreFieldsMaxCount[field.name] - 1
+    setAddMoreFieldsMaxCount({
+      ...addMoreFieldsMaxCount,
+      [field.name] : maxNumber
+    })
     const foundFields = allFormFields.filter(
       (f) => f.type === "addmore" && f.name === field.name
     );
@@ -502,6 +512,11 @@ export default function FormRenderer(props) {
 
   const removeField = (field, fieldIndex) => {
     const fields = allAddMoreFields[field.name];
+    let maxNumber = addMoreFieldsMaxCount[field.name] + 1
+    setAddMoreFieldsMaxCount({
+      ...addMoreFieldsMaxCount,
+      [field.name] : maxNumber
+    })
     fields.splice(fieldIndex, 1);
     const allVals = formValues;
     const fVal = CustomFunctions.checkIfEmpty(allVals[field.name], "A")
@@ -553,6 +568,33 @@ export default function FormRenderer(props) {
                         />
                       </Col>
                     ))}
+
+                    {field.isAddMoreButton && CustomFunctions.toLowerCase(field.isAddMoreButton) === "yes" &&
+                    <Col md={12} className="mb-3">
+                      <div className="btn-group addMoreBtnContainer">
+                        {addMoreFieldsMaxCount[field.name] > 1  && (<Button
+                          className="btn btn-primary btn-width mr-5"
+                          onClick={() => addField(field)}
+                        >
+                          +
+                        </Button>)}
+                        {/* <Button
+                          className="btn btn-primary btn-width mr-5"
+                          onClick={() => addField(field)}
+                        >
+                          +
+                        </Button> */}
+                        {fieldIndex > 0 && (
+                          <Button
+                            className="btn btn-secondary btn-width"
+                            onClick={() => removeField(field, fieldIndex)}
+                          >
+                            -
+                          </Button>
+                        )}
+                      </div>
+                    </Col>
+                    }
                   </>
                 );
               })}
