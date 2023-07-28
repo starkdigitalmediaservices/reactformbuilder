@@ -29,10 +29,10 @@
         "displayWhen": {},
         "disabled": false,
         "allowedUsers": [],
-        "childElement": "addmore_name"
+        "childElement": "addmore-name"
       },
       {
-        "name": "addmore_name",
+        "name": "addmore-name",
         "type": "addmore",
         "label": "",
         "id": "",

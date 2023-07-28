@@ -34,7 +34,7 @@ export default function StarkFormBuilder(props) {
 
   const formValues = {
     name: 2,
-    addmore_name: [
+    "addmore-name": [
       {
         percentage: 70,
         team_id: { value: 2, label: "Development" },
