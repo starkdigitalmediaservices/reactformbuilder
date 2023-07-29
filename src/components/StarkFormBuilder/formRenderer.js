@@ -116,7 +116,7 @@ export default function FormRenderer(props) {
       allValues[field.sumField] = isNaN(sum) ? "" : sum;
       sumUpdates.push("text");
     } else if (field.type === "text" && field.maxNumber > 0 && e != "") {
-      addFieldNew(e, field, fieldIndex);
+      addFieldNew(e, field);
 
       allValues[field.name] =
         field.type === "date" ? (e ? new Date(e) : null) : e;
@@ -166,41 +166,39 @@ export default function FormRenderer(props) {
     };
   };
 
-  const checkFieldCondition = (condition) => {
-    const fieldType = getFieldType(condition.name);
+  const displayNew = (condition) => {
+    const { question, comparison_operator, values } = condition;
+    const fieldType = getFieldType(question);
     let conditionResults = true;
     let checkboxValue = [];
     let textValue = "";
     let dropdownValue = fieldType.isMulti ? [] : {};
-
     if (fieldType.type === "checkbox") {
-      checkboxValue = CustomFunctions.checkIfEmpty(
-        formValues[condition.name],
-        "A"
-      )
+      checkboxValue = CustomFunctions.checkIfEmpty(formValues[question], "A")
         ? []
-        : formValues[condition.name];
+        : formValues[question];
     }
 
     if (fieldType.type === "select") {
-      dropdownValue = CustomFunctions.checkIfEmpty(formValues[condition.name])
+      dropdownValue = CustomFunctions.checkIfEmpty(formValues[question])
         ? dropdownValue
-        : formValues[condition.name];
+        : formValues[question];
     }
+
     if (
       fieldType.type === "text" &&
       fieldType.maxNumber &&
       fieldType.maxNumber > 0
     ) {
-      textValue = CustomFunctions.checkIfEmpty(formValues[condition.name])
+      textValue = CustomFunctions.checkIfEmpty(formValues[question])
         ? textValue
-        : formValues[condition.name];
+        : formValues[question];
     }
-    switch (condition.condition) {
-      case "===":
+
+    switch (comparison_operator) {
       case "==":
         if (fieldType.type === "checkbox") {
-          conditionResults = checkboxValue.includes(condition.value);
+          conditionResults = checkboxValue.includes(values[0]);
           break;
         }
         if (
@@ -208,65 +206,55 @@ export default function FormRenderer(props) {
           fieldType.maxNumber &&
           fieldType.maxNumber > 0
         ) {
-          let cond = condition.value.split(",");
-          conditionResults = cond.includes(textValue + "");
+          conditionResults = values.includes(textValue + "");
           break;
         }
         if (fieldType.type === "select") {
-          if (fieldType.isMulti) {
-            const values = [...dropdownValue].map((v) => v.value);
-            conditionResults = values.includes(condition.value);
-            break;
-          }
-          conditionResults = dropdownValue.value === condition.value;
+          conditionResults = values.includes(dropdownValue.value);
           break;
         }
-
-        conditionResults = formValues[condition.name] === condition.value;
-        break;
-      case "!=":
-        if (fieldType === "checkbox") {
-          conditionResults = !checkboxValue.includes(condition.value);
+      case "IN":
+        if (fieldType.type === "checkbox") {
+          conditionResults = checkboxValue.includes(values[0]);
+          break;
+        }
+        if (
+          fieldType.type === "text" &&
+          fieldType.maxNumber &&
+          fieldType.maxNumber > 0
+        ) {
+          conditionResults = values.includes(textValue + "");
           break;
         }
         if (fieldType.type === "select") {
-          if (fieldType.isMulti) {
-            const values = [...dropdownValue].map((v) => v.value);
-            conditionResults = !values.includes(condition.value);
-            break;
-          }
-          conditionResults = dropdownValue.value !== condition.value;
+          conditionResults = values.includes(dropdownValue.value);
           break;
         }
-        conditionResults = formValues[condition.name] != condition.value;
-        break;
-      case ">=":
-        conditionResults = formValues[condition.name] >= condition.value;
-        break;
-      case ">":
-        conditionResults = formValues[condition.name] > condition.value;
-        break;
-      case "<":
-        conditionResults = formValues[condition.name] < condition.value;
-        break;
-      case "<=":
-        conditionResults = formValues[condition.name] <= condition.value;
-        break;
-      case "!empty":
-        conditionResults = !CustomFunctions.checkIfEmpty(
-          formValues[condition.name]
-        );
-        break;
-      case "empty":
-        conditionResults = CustomFunctions.checkIfEmpty(
-          formValues[condition.name]
-        );
-        break;
-      default:
-        conditionResults = true;
-        break;
     }
     return conditionResults;
+  };
+
+  const getLengthOfConditions = (outer_conditions) => {
+    let length = 0;
+    outer_conditions.map((ele) => (length += ele.inner_condition.length));
+    return length;
+  };
+
+  const checkFieldCondition = (condition) => {
+    const arr = [];
+    if (condition.inner_relation == "OR") {
+      condition.inner_condition.map((ele) => {
+        arr.push(displayNew(ele));
+      });
+      if (arr.filter((ele) => ele).length > 0) arr.fill(true);
+      return arr;
+    }
+    if (condition.inner_relation == "AND") {
+      condition.inner_condition.map((ele) => {
+        arr.push(displayNew(ele));
+      });
+      return arr;
+    }
   };
 
   const checkPermittedUser = (allowedUsers = []) => {
@@ -276,31 +264,36 @@ export default function FormRenderer(props) {
 
   const checkDisplayConditions = (field) => {
     if (CustomFunctions.checkIfEmpty(field.displayWhen, "O")) return true;
-    if (CustomFunctions.checkIfEmpty(field.displayWhen.conditions, "A"))
+    if (CustomFunctions.checkIfEmpty(field.displayWhen.outer_conditions, "A"))
       return true;
-
-    const conditionResults = [];
+    let conditionResults = [];
     let displayField = true;
-    field.displayWhen.conditions.map((condition) => {
-      conditionResults.push(checkFieldCondition(condition));
+    let lengthOfConditions = getLengthOfConditions(
+      field.displayWhen.outer_conditions
+    );
+    field.displayWhen.outer_conditions.map((condition) => {
+      conditionResults = [
+        ...conditionResults,
+        ...checkFieldCondition(condition),
+      ];
       return condition;
     });
 
     // Get all satisfied conditions
     const filteredResult = conditionResults.filter((condition) => condition);
 
-    switch (
-      CustomFunctions.toLowerCase(field.displayWhen.displayWhenRelation)
-    ) {
+    let cond = CustomFunctions.toLowerCase(field.displayWhen.outer_relation);
+    switch (cond) {
       case "and":
-        if (filteredResult.length !== conditionResults.length)
-          displayField = false;
+        displayField = lengthOfConditions == filteredResult.length;
         break;
       case "or":
-        if (!filteredResult.length) displayField = false;
+        displayField =
+          filteredResult.length >= 1 &&
+          filteredResult.length <= lengthOfConditions;
         break;
       default:
-        displayField = true;
+        displayField = false;
     }
     return displayField;
   };
@@ -485,7 +478,7 @@ export default function FormRenderer(props) {
     });
   };
 
-  const addFieldNew = (e, field, fieldIndex) => {
+  const addFieldNew = (e, field) => {
     for (let index = 0; index < e; index++) {
       const fields = allAddMoreFields[field.childElement];
       const foundFields = allFormFields.filter(
@@ -524,7 +517,6 @@ export default function FormRenderer(props) {
     allVals[field.name] = fVal;
     if (isCalledFromInput) {
       const [type, ...arr] = field.name.split("-");
-      console.log(arr,type)
       allVals[arr.join("-")] = formValues[arr.join("-")] - 1;
     }
     setFormValues(allVals);

@@ -41,14 +41,19 @@
         "containerClass": "",
         "validations": [],
         "displayWhen": {
-          "conditions": [
+          "outer_relation": "AND",
+          "outer_conditions": [
             {
-              "name": "name",
-              "value": "1,2,3",
-              "condition": "=="
+              "inner_relation": "AND",
+              "inner_condition": [
+                {
+                  "question": "name",
+                  "comparison_operator": "IN",
+                  "values": ["1", "2", "3"]
+                }
+              ]
             }
-          ],
-          "displayWhenRelation": "AND"
+          ]
         },
         "haveValidations": "false",
         "haveDisplayOptions": "false",
@@ -141,97 +146,15 @@
         "optionCallback": "",
         "options": []
       },
-      
       {
-        "name": "value1",
-        "type": "text",
-        "label": "Value 1",
-        "id": "asd",
-        "placeholder": "",
-        "tooltip": "text input",
-        "tooltipIcon": "fa-regular fa-circle-question",
-        "tooltipText": "",
-        "tooltipClass": "",
+        "name": "team_id_checkbox",
+        "type": "select",
+        "label": "Team",
+        "id": "",
+        "placeholder": "Please select team",
         "inputClass": "",
         "containerClass": "",
-        "validations": [
-          {
-            "type": "required",
-            "applyWhen": [],
-            "applyWhenRelation": "OR"
-          }
-        ],
         "displayWhen": {},
-        "disabled": false,
-        "allowedUsers": [],
-        "operation": "sum",
-        "fieldsToSum": ["value1", "value2"],
-        "sumField": "sum"
-      },
-      {
-        "name": "value2",
-        "type": "text",
-        "label": "Value 2",
-        "id": "asd",
-        "placeholder": "",
-        "tooltip": "text input",
-        "tooltipIcon": "fa-regular fa-circle-question",
-        "tooltipText": "",
-        "tooltipClass": "",
-        "inputClass": "",
-        "containerClass": "",
-        "validations": [
-          {
-            "type": "required",
-            "applyWhen": [],
-            "applyWhenRelation": "OR"
-          }
-        ],
-        "displayWhen": {},
-        "disabled": false,
-        "allowedUsers": [],
-        "operation": "sum",
-        "fieldsToSum": ["value1", "value2"],
-        "sumField": "sum"
-      },
-      {
-        "name": "sum",
-        "type": "text",
-        "label": "Sum Of value 1 and Value 2",
-        "id": "asd",
-        "placeholder": "",
-        "tooltip": "text input",
-        "tooltipIcon": "fa-regular fa-circle-question",
-        "tooltipText": "",
-        "tooltipClass": "",
-        "inputClass": "",
-        "containerClass": "",
-        "validations": [
-          {
-            "type": "required",
-            "applyWhen": [],
-            "applyWhenRelation": "OR"
-          }
-        ],
-        "displayWhen": {},
-        "allowedUsers": [],
-        "disabled": true,
-        "operation": "sum",
-        "fieldsToSum": ["value1", "value2"]
-      },
-      {
-        "name": "mqid-2",
-        "type": "checkbox",
-        "label": "I request that USCIS send my notice containing Form I-94 to me at my U.S. mailing address.",
-        "id": 28,
-        "tooltip": "check",
-        "tooltipIcon": "fa-regular fa-circle-question",
-        "placeholder": "",
-        "inputClass": "",
-        "containerClass": "form-group",
-        "validations": [],
-        "displayWhen": {},
-        "haveValidations": "true",
         "haveDisplayOptions": "false",
         "callback": "",
         "callbackUrl": "",
@@ -248,7 +171,25 @@
         },
         "fields": [],
         "optionCallback": "",
-        "options": []
+        "optionsCallbackUrl": "",
+        "options": [
+          {
+            "label": "Project Management",
+            "value": "1"
+          },
+          {
+            "label": "Development",
+            "value": "2"
+          },
+          {
+            "label": "Design",
+            "value": "3"
+          },
+          {
+            "label": "Quality Analysis",
+            "value": "4"
+          }
+        ]
       },
       {
         "name": "mqid-3",
@@ -291,27 +232,18 @@
         ]
       },
       {
-        "name": "addmore_plain",
-        "type": "addmore",
-        "isAddMoreButton":"Yes",
-        "label": "",
-        "id": "",
+        "name": "mqid-4",
+        "type": "checkbox",
+        "label": "This is sample checkbox with options with yes no",
+        "id": 28,
+        "tooltip": "check",
+        "tooltipIcon": "fa-regular fa-circle-question",
         "placeholder": "",
         "inputClass": "",
-        "containerClass": "",
-        "maxNumber":4,
+        "containerClass": "form-group",
         "validations": [],
-        "displayWhen": {
-          "conditions": [
-            {
-              "name": "mqid-3",
-              "value": "12-am",
-              "condition": "=="
-            }
-          ],
-          "displayWhenRelation": "AND"
-        },
-        "haveValidations": "false",
+        "displayWhen": {},
+        "haveValidations": "true",
         "haveDisplayOptions": "false",
         "callback": "",
         "callbackUrl": "",
@@ -322,83 +254,121 @@
         "isMulti": false,
         "allowedUsers": [],
         "fieldsToReset": [],
-        "fieldLayout": "2column",
-        "fields": [
+        "fieldLayout": {
+          "label": "1 Column",
+          "value": "1column"
+        },
+        "fields": [],
+        "optionCallback": "",
+        "options": [
           {
-            "name": "team_id_checkbox",
-            "type": "select",
-            "label": "Team",
-            "id": "",
-            "placeholder": "Please select team",
-            "inputClass": "",
-            "containerClass": "",
-            "displayWhen": {},
-            "haveDisplayOptions": "false",
-            "callback": "",
-            "callbackUrl": "",
-            "inputToChange": "",
-            "minDateSelector": "",
-            "maxDateSelector": "",
-            "disabled": false,
-            "isMulti": false,
-            "allowedUsers": [],
-            "fieldsToReset": [],
-            "fieldLayout": {
-              "label": "1 Column",
-              "value": "1column"
-            },
-            "fields": [],
-            "optionCallback": "",
-            "optionsCallbackUrl": "",
-            "options": [
-              {
-                "label": "Project Management",
-                "value": "1"
-              },
-              {
-                "label": "Development",
-                "value": "2"
-              },
-              {
-                "label": "Design",
-                "value": "3"
-              },
-              {
-                "label": "Quality Analysis",
-                "value": "4"
-              }
-            ]
+            "value": "Yes",
+            "label": "Yes"
           },
           {
-            "name": "percentage_checkbox",
-            "type": "text",
-            "label": "Percentage",
-            "id": "",
-            "placeholder": "Percentage",
-            "inputClass": "",
-            "containerClass": "",
-            "validations": [],
-            "displayWhen": {},
-            "haveValidations": "false",
-            "haveDisplayOptions": "false",
-            "callback": "",
-            "callbackUrl": "",
-            "inputToChange": "",
-            "minDateSelector": "",
-            "maxDateSelector": "",
-            "disabled": false,
-            "isMulti": false,
-            "allowedUsers": [],
-            "fieldsToReset": [],
-            "fieldLayout": {
-              "label": "1 Column",
-              "value": "1column"
-            },
-            "fields": [],
-            "optionCallback": "",
-            "options": []
+            "value": "No",
+            "label": "No"
+          }
+        ]
+      },
+      {
+        "name": "due_date",
+        "type": "date",
+        "label": "When is it due?",
+        "id": "",
+        "placeholder": "Select date",
+        "inputClass": "",
+        "dateFormat": "dd/MM/yyyy",
+        "containerClass": "form-group",
+        "validations": [
+          {
+            "type": "required",
+            "applyWhen": [],
+            "applyWhenRelation": "OR"
           }
         ],
+        "displayWhen": {
+          "outer_relation": "AND",
+          "outer_conditions": [
+            {
+              "inner_relation": "AND",
+              "inner_condition": [
+                {
+                  "question": "mqid-3",
+                  "comparison_operator": "IN",
+                  "values": ["11-am not", "12-am"]
+                },
+                {
+                  "question": "mqid-4",
+                  "comparison_operator": "==",
+                  "values": ["No"]
+                }
+              ]
+            },
+            {
+              "inner_relation": "AND",
+              "inner_condition": [
+                {
+                  "question": "team_id_checkbox",
+                  "comparison_operator": "==",
+                  "values": ["1"]
+                }
+              ]
+            }
+          ]
+        },
+        "haveValidations": "true",
+        "haveDisplayOptions": "false",
+        "callback": "",
+        "callbackUrl": "",
+        "inputToChange": "",
+        "minDateSelector": "",
+        "maxDateSelector": "",
+        "disabled": false,
+        "isMulti": false,
+        "allowedUsers": [],
+        "fieldsToReset": [],
+        "fieldLayout": {
+          "label": "1 Column",
+          "value": "1column"
+        },
+        "fields": [],
+        "optionCallback": "",
+        "options": []
+      },
+      {
+        "name": "due_date_new",
+        "type": "daten",
+        "label": "When is it new due?",
+        "id": "",
+        "placeholder": "Select date",
+        "inputClass": "",
+        "dateFormat": "dd/MM/yyyy",
+        "containerClass": "form-group",
+        "validations": [
+          {
+            "type": "required",
+            "applyWhen": [],
+            "applyWhenRelation": "OR"
+          }
+        ],
+        "displayWhen": {},
+        "haveValidations": "true",
+        "haveDisplayOptions": "false",
+        "callback": "",
+        "callbackUrl": "",
+        "inputToChange": "",
+        "minDateSelector": "",
+        "maxDateSelector": "",
+        "disabled": false,
+        "isMulti": false,
+        "allowedUsers": [],
+        "fieldsToReset": [],
+        "fieldLayout": {
+          "label": "1 Column",
+          "value": "1column"
+        },
+        "fields": [],
         "optionCallback": "",
         "options": []
       }

@@ -33,17 +33,14 @@ export default function StarkFormBuilder(props) {
   } = props;
 
   const formValues = {
-    name: 2,
-    "addmore-name": [
-      {
-        percentage: 70,
-        team_id: { value: 2, label: "Development" },
-      },
-      {
-        percentage: 20,
-        team_id: { value: 4, label: "Quality Analysis" },
-      },
-    ],
+    team_id_checkbox: {
+      label: "Project Management",
+      value: "1",
+    },
+    "mqid-3": ["11-am not"],
+    "mqid-4": ["No"],
+
+    name: "1",
   };
   return (
     <>
@@ -59,7 +56,7 @@ export default function StarkFormBuilder(props) {
             onFormSubmit={onFormSubmit}
             callbacks={callbacks}
             options={options}
-            defaultFormValues={formValues}
+            defaultFormValues={defaultFormValues}
             currentUser={currentUser}
             submitBtnText={submitBtnText}
             resetBtnText={resetBtnText}

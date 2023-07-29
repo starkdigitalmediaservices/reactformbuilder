@@ -1,38 +1,68 @@
 .btn-width {
-    width: auto;
-    min-width: auto;
+  width: auto;
+  min-width: auto;
 }
 .mr-5 {
-    margin-right: 5px;
+  margin-right: 5px;
 }
 
 .stark-form-img {
-    width: 70px;
-    height: 70px;
-    margin-right: 2px;
+  width: 70px;
+  height: 70px;
+  margin-right: 2px;
 }
 .container1 {
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    margin-bottom: 5px;
-    padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  margin-bottom: 5px;
+  padding: 5px;
 }
 
 input.PhoneInputInput {
-    border-width: 0;
-    width: 100%;
-  }
-  input.PhoneInputInput:focus {
-    outline: none;
-    width: 100%;
-  }
+  border-width: 0;
+  width: 100%;
+}
+input.PhoneInputInput:focus {
+  outline: none;
+  width: 100%;
+}
 
-.react-tel-input .stark-phone-input{
-    width: 100%;
-    font-size: 1rem;
-    height: auto;
+.react-tel-input .stark-phone-input {
+  width: 100%;
+  font-size: 1rem;
+  height: auto;
 }
 
 .form-label {
-    width: 100%;
+  width: 100%;
+}
+
+.rsd__select-container-month {
+  padding: 3px !important;
+}
+.rsd__select-container-day {
+  padding: 3px !important;
+}
+.rsd__select-container-year {
+  padding: 3px !important;
+}
+.rsd__select-month {
+  padding: 3px !important;
+  border: none;
+}
+
+.rsd__select-day {
+  padding: 3px !important;
+  border: none;
+}
+
+.rsd__select-year {
+  padding: 3px !important;
+  border: none;
+  color: black;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
 }

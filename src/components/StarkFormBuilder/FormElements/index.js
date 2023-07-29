@@ -1,13 +1,14 @@
 // import React from 'react';
 
-import TextInput from './input.component';
-import TextAreaInput from './textarea.component';
-import FileInput from './file.component';
-import RadioInput from './radio.component';
-import CheckboxInput from './checkbox.component';
-import DropdownInput from './selectDropdown.component';
-import DateTimePicker from './datepicker.component';
-import PhoneInputComponent from './phoneNumber.component';
+import TextInput from "./input.component";
+import TextAreaInput from "./textarea.component";
+import FileInput from "./file.component";
+import RadioInput from "./radio.component";
+import CheckboxInput from "./checkbox.component";
+import DropdownInput from "./selectDropdown.component";
+import DateTimePicker from "./datepicker.component";
+import PhoneInputComponent from "./phoneNumber.component";
+import SelectDateTimePicker from "./dropdown-datepicker.component";
 
 export {
   TextInput,
@@ -18,4 +19,5 @@ export {
   DropdownInput,
   DateTimePicker,
   PhoneInputComponent,
+  SelectDateTimePicker,
 };

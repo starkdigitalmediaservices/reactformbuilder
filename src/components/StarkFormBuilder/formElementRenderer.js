@@ -9,6 +9,7 @@ import {
   DropdownInput,
   DateTimePicker,
   PhoneInputComponent,
+  SelectDateTimePicker,
 } from "./FormElements";
 import CustomFunctions from "./helper/customFunctions";
 
@@ -53,6 +54,11 @@ export default function FormElementRenderer(props) {
 
       case "phonenumber":
         return <PhoneInputComponent showAsterisk={asteriskToggle} {...input} />;
+
+      case "daten":
+        return (
+          <SelectDateTimePicker showAsterisk={asteriskToggle} {...input} />
+        );
 
       case "switch":
         return (
