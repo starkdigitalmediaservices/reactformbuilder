@@ -46,23 +46,39 @@ input.PhoneInputInput:focus {
 .rsd__select-container-year {
   padding: 3px !important;
 }
+
 .rsd__select-month {
-  padding: 3px !important;
-  border: none;
-}
-
-.rsd__select-day {
-  padding: 3px !important;
-  border: none;
-}
-
-.rsd__select-year {
-  padding: 3px !important;
-  border: none;
-  color: black;
+  padding: 5px !important;
+  background-color: #f3f1ee;
+  border-radius: 3px;
+  color: rgb(68, 68, 68);
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 16px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.rsd__select-day {
+  padding: 5px !important;
+  background-color: #f3f1ee;
+  border-radius: 3px;
+  color: rgb(68, 68, 68);
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.rsd__select-year {
+  padding: 5px !important;
+  background-color: #f3f1ee;
+  border-radius: 3px;
+  color: rgb(68, 68, 68);
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 13px;
   cursor: pointer;
 }

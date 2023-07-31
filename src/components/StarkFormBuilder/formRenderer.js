@@ -119,7 +119,11 @@ export default function FormRenderer(props) {
       addFieldNew(e, field);
 
       allValues[field.name] =
-        field.type === "date" ? (e ? new Date(e) : null) : e;
+        field.type === "date" || field.type === "daten"
+          ? e
+            ? new Date(e)
+            : null
+          : e;
     } else if (field.type === "addmore") {
       let fieldValues = formValues[field.name];
       if (!fieldValues) fieldValues = [];
@@ -128,11 +132,19 @@ export default function FormRenderer(props) {
       }
       if (!fieldValues[fieldIndex]) fieldValues[fieldIndex] = {};
       fieldValues[fieldIndex][aField.name] =
-        aField.type === "date" ? (e ? new Date(e) : null) : e;
+        aField.type === "date" || aField.type === "daten"
+          ? e
+            ? new Date(e)
+            : null
+          : e;
       allValues[field.name] = fieldValues;
     } else {
       allValues[field.name] =
-        field.type === "date" ? (e ? new Date(e) : null) : e;
+        field.type === "date" || field.type === "daten"
+          ? e
+            ? new Date(e)
+            : null
+          : e;
     }
     if (!CustomFunctions.checkIfEmpty(field.fieldsToReset, "A")) {
       field.fieldsToReset.map((f) => {
@@ -351,7 +363,12 @@ export default function FormRenderer(props) {
         : formValues[parentField.name];
       if (!fVal[fieldIndex]) fVal[fieldIndex] = {};
       const val = fVal[fieldIndex][field.name];
-      defaultValue = field.type === "date" ? (val ? new Date(val) : null) : val; //fVal[fieldIndex][field.name];
+      defaultValue =
+        field.type === "date" || field.type === "daten"
+          ? val
+            ? new Date(val)
+            : null
+          : val; //fVal[fieldIndex][field.name];
     }
     if (field.errorMessage) {
       return simpleValidator.current.message(
@@ -409,7 +426,8 @@ export default function FormRenderer(props) {
     parentField,
   }) => {
     const extraProps = {};
-    if (field.type === "date") extraProps.selected = formValues[field.name];
+    if (field.type === "date" || field.type === "daten")
+      extraProps.selected = formValues[field.name];
     if (["select", "checkbox"].includes(field.type)) {
       extraProps.options = options[field.name]
         ? options[field.name]
@@ -429,7 +447,7 @@ export default function FormRenderer(props) {
         ? []
         : formValues[parentField.name];
       if (!fVal[fieldIndex]) fVal[fieldIndex] = {};
-      if (field.type === "date")
+      if (field.type === "date" || field.type === "daten")
         extraProps.selected = fVal[fieldIndex][field.name];
       if (field.minDateSelector)
         extraProps.minDate = fVal[fieldIndex][field.minDateSelector];

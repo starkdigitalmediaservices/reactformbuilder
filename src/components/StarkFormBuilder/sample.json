@@ -343,7 +343,7 @@
         "id": "",
         "placeholder": "Select date",
         "inputClass": "",
-        "dateFormat": "dd/MM/yyyy",
+        "dateFormat": "MM/dd/yyyy",
         "containerClass": "form-group",
         "validations": [
           {

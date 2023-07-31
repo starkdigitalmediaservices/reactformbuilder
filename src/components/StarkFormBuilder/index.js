@@ -2,6 +2,7 @@ import React from "react";
 import { Container } from "react-bootstrap";
 import FormRenderer from "./formRenderer";
 import "./style.css";
+import customFunctions from "./helper/customFunctions";
 
 export default function StarkFormBuilder(props) {
   const {
@@ -33,14 +34,16 @@ export default function StarkFormBuilder(props) {
   } = props;
 
   const formValues = {
-    team_id_checkbox: {
-      label: "Project Management",
-      value: "1",
-    },
-    "mqid-3": ["11-am not"],
-    "mqid-4": ["No"],
+    // team_id_checkbox: {
+    //   label: "Project Management",
+    //   value: "1",
+    // },
+    // "mqid-3": ["11-am not"],
+    // "mqid-4": ["No"],
 
-    name: "1",
+    // name: "1",
+    // due_date_new: new Date(customFunctions.getDate("2023-08-31")),
+    due_date_new: new Date("12/10/2023"),
   };
   return (
     <>
@@ -56,7 +59,7 @@ export default function StarkFormBuilder(props) {
             onFormSubmit={onFormSubmit}
             callbacks={callbacks}
             options={options}
-            defaultFormValues={defaultFormValues}
+            defaultFormValues={formValues}
             currentUser={currentUser}
             submitBtnText={submitBtnText}
             resetBtnText={resetBtnText}
