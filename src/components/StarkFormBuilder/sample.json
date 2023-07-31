@@ -371,6 +371,67 @@
         "fields": [],
         "optionCallback": "",
         "options": []
+      },
+      {
+        "name": "conditional_name",
+        "type": "text",
+        "hasCondition": true,
+        "label": "Conditional User Name1",
+        "id": "asd",
+        "placeholder": "",
+        "tooltip": "text input",
+        "tooltipIcon": "fa-regular fa-circle-question",
+        "tooltipText": "",
+        "tooltipClass": "",
+        "inputClass": "",
+        "containerClass": "",
+        "validations": [
+          {
+            "type": "required",
+            "applyWhen": [],
+            "applyWhenRelation": "OR"
+          }
+        ],
+        "displayWhen": {},
+        "disabled": false,
+        "allowedUsers": []
+      },
+      {
+        "name": "conditional_newname",
+        "type": "text",
+        "label": "Conditional User Name 2",
+        "id": "asd",
+        "placeholder": "",
+        "tooltip": "text input",
+        "tooltipIcon": "fa-regular fa-circle-question",
+        "tooltipText": "",
+        "tooltipClass": "",
+        "inputClass": "",
+        "containerClass": "",
+        "validations": [
+          {
+            "type": "required",
+            "applyWhen": [],
+            "applyWhenRelation": "OR"
+          }
+        ],
+        "displayWhen": {
+          "outer_relation": "AND",
+          "outer_conditions": [
+            {
+              "inner_relation": "AND",
+              "inner_condition": [
+                {
+                  "question": "conditional_name",
+                  "comparison_operator": "IN",
+                  "values": ["1"]
+                }
+              ]
+            }
+          ]
+        },
+        "disabled": false,
+        "allowedUsers": []
       }
     ]
   }

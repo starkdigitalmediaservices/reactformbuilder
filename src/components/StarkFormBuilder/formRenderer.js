@@ -106,7 +106,14 @@ export default function FormRenderer(props) {
     }
     const sumUpdates = [];
     const allValues = formValues;
-    if (field.type === "text" && field.operation === "sum" && !isNaN(e)) {
+    if (field.type === "text" && field.hasCondition) {
+      allValues[field.name] = e;
+      sumUpdates.push("text");
+    } else if (
+      field.type === "text" &&
+      field.operation === "sum" &&
+      !isNaN(e)
+    ) {
       allValues[field.name] = e;
       let sum = 0;
       field.fieldsToSum.map((f) => {
@@ -175,6 +182,7 @@ export default function FormRenderer(props) {
       type: selectedField[0].type,
       isMulti: selectedField[0].isMulti,
       maxNumber: selectedField[0].maxNumber,
+      hasCondition: selectedField[0].hasCondition,
     };
   };
 
@@ -202,6 +210,12 @@ export default function FormRenderer(props) {
       fieldType.maxNumber &&
       fieldType.maxNumber > 0
     ) {
+      textValue = CustomFunctions.checkIfEmpty(formValues[question])
+        ? textValue
+        : formValues[question];
+    }
+
+    if (fieldType.type === "text" && fieldType.hasCondition) {
       textValue = CustomFunctions.checkIfEmpty(formValues[question])
         ? textValue
         : formValues[question];
@@ -235,6 +249,10 @@ export default function FormRenderer(props) {
           fieldType.maxNumber &&
           fieldType.maxNumber > 0
         ) {
+          conditionResults = values.includes(textValue + "");
+          break;
+        }
+        if (fieldType.type === "text" && fieldType.hasCondition) {
           conditionResults = values.includes(textValue + "");
           break;
         }
