@@ -36,3 +36,35 @@ input.PhoneInputInput:focus {
 .form-label {
   width: 100%;
 }
+.rsd__react-select-datepicker .rsd__select-container-month,
+.rsd__react-select-datepicker .rsd__select-container-day {
+  margin-right: 5px;
+}
+.rsd__react-select-datepicker .rsd__select-container-month select,
+.rsd__react-select-datepicker .rsd__select-container-day select,
+.rsd__react-select-datepicker .rsd__select-container-year select {
+  padding: 5px;
+  border-color: #b2b2b2;
+  border-radius: 3px;
+}
+.rsd__react-select-datepicker .rsd__select-container-month select:focus-visible,
+.rsd__react-select-datepicker .rsd__select-container-day select:focus-visible,
+.rsd__react-select-datepicker .rsd__select-container-year select:focus-visible  {
+  outline: none;
+  box-shadow: none;
+}
+@media (max-width:500px) {
+  .rsd__react-select-datepicker .rsd__select-container-day select,
+  .rsd__react-select-datepicker .rsd__select-container-year select {
+    max-width: 80px;
+  }
+}
+
+@media (max-width:320px) {
+  .rsd__react-select-datepicker .rsd__select-container-day select {
+    max-width: 60px;
+  }
+  .rsd__react-select-datepicker .rsd__select-container-month select {
+    max-width: 110px;
+  }
+}
