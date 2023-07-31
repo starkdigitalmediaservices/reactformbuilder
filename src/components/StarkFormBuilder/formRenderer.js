@@ -239,6 +239,10 @@ export default function FormRenderer(props) {
           conditionResults = values.includes(dropdownValue.value);
           break;
         }
+        if (fieldType.type === "text" && fieldType.hasCondition) {
+          conditionResults = values.includes(textValue + "");
+          break;
+        }
       case "IN":
         if (fieldType.type === "checkbox") {
           conditionResults = checkboxValue.includes(values[0]);
