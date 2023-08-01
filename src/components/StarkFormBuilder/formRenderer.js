@@ -264,6 +264,28 @@ export default function FormRenderer(props) {
           conditionResults = values.includes(dropdownValue.value);
           break;
         }
+
+      case "!=":
+        if (fieldType.type === "checkbox") {
+          conditionResults = checkboxValue.includes(values[0]);
+          break;
+        }
+        if (
+          fieldType.type === "text" &&
+          fieldType.maxNumber &&
+          fieldType.maxNumber > 0
+        ) {
+          conditionResults = values.includes(textValue + "");
+          break;
+        }
+        if (fieldType.type === "text" && fieldType.hasCondition) {
+          conditionResults = values.includes(textValue + "");
+          break;
+        }
+        if (fieldType.type === "select") {
+          conditionResults = values.includes(dropdownValue.value);
+          break;
+        }
     }
     return conditionResults;
   };
