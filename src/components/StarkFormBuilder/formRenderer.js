@@ -243,6 +243,8 @@ export default function FormRenderer(props) {
           conditionResults = values.includes(textValue + "");
           break;
         }
+        conditionResults = values.includes(formValues[question]);
+        break;
       case "IN":
         if (fieldType.type === "checkbox") {
           conditionResults = checkboxValue.includes(values[0]);
@@ -264,7 +266,8 @@ export default function FormRenderer(props) {
           conditionResults = values.includes(dropdownValue.value);
           break;
         }
-
+        conditionResults = values.includes(formValues[question]);
+        break;
       case "!=":
         if (fieldType.type === "checkbox") {
           conditionResults = checkboxValue.includes(values[0]);
@@ -286,6 +289,8 @@ export default function FormRenderer(props) {
           conditionResults = values.includes(dropdownValue.value);
           break;
         }
+        conditionResults = values.includes(formValues[question]);
+        break;
     }
     return conditionResults;
   };
