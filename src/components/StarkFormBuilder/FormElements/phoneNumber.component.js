@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import PhoneInput from "react-phone-input-2";
-import "react-phone-input-2/lib/style.css";
+// import "react-phone-input-2/lib/style.css";
 import { Form, OverlayTrigger, Tooltip } from "react-bootstrap";
-import Info from "../assets/info.png";
 
 const PhoneInputComponent = (props) => {
   const {

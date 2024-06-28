@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Select from "react-select";
 import { Form, OverlayTrigger, Tooltip } from "react-bootstrap";
-import Info from "../assets/info.png";
 
 export default function SelectDropdown(props) {
   const {

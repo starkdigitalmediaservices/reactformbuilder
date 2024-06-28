@@ -1,7 +1,8 @@
 /* eslint no-unneeded-ternary: "error" */
 import React, { useEffect, useState } from "react";
 import { Form, InputGroup, OverlayTrigger, Tooltip } from "react-bootstrap";
-import Info from "../assets/info.png";
+
+
 export default function InputComponent(props) {
   const {
     label,

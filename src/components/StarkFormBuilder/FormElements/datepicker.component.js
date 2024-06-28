@@ -1,9 +1,8 @@
 /* eslint no-unneeded-ternary: "error" */
 import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+// import "react-datepicker/dist/react-datepicker.css";
 import { Form, OverlayTrigger, Tooltip } from "react-bootstrap";
-import Info from "../assets/info.png";
 
 export default function DateTimePicker(props) {
   const {

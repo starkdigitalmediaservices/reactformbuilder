@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Form, OverlayTrigger, Tooltip } from "react-bootstrap";
-import Info from "../assets/info.png";
-import FilePlaceholder from "../assets/file.png";
 
 export default function FileComponent(props) {
   const {
@@ -40,7 +38,7 @@ export default function FileComponent(props) {
 
   const getImageUrl = (file) => {
     if (typeof file === "object") {
-      if (!file.type.match("image.*")) return FilePlaceholder;
+      if (!file.type.match("image.*")) return './file.png';
       return URL.createObjectURL(file);
     }
     return file;

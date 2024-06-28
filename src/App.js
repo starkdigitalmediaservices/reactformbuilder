@@ -1,6 +1,5 @@
 /* eslint-disable */
 import React, { useState, useEffect } from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
 import { Card } from "react-bootstrap";
 import FormBuilder from "./components/StarkFormBuilder";
 import FormSections from "./components/StarkFormBuilder/sample.json";
