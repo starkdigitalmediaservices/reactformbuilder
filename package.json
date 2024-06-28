@@ -16,7 +16,8 @@
   "module": "dist/index.js",
   "files": [
     "dist",
-    "README.md"
+    "README.md",
+    "public"
   ],
   "repository": {
     "type": "git",
