@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Form, OverlayTrigger, Tooltip } from "react-bootstrap";
-import FilePlaceHolder from "../assets/file.png"
 
 
 
@@ -41,7 +40,7 @@ export default function FileComponent(props) {
 
   const getImageUrl = (file) => {
     if (typeof file === "object") {
-      if (!file.type.match("image.*")) return FilePlaceHolder;
+      // if (!file.type.match("image.*")) return ;
       return URL.createObjectURL(file);
     }
     return file;
@@ -96,12 +95,14 @@ export default function FileComponent(props) {
           <div className="mt-1">
             {inputFiles.map((file) =>
               bucketType === "internal" ? (
-                <img
-                  src={getImageUrl(file)}
-                  className="stark-form-img"
-                  alt="sample"
-                  title={getImageUrl(file)}
-                />
+                // <img
+                //   src={getImageUrl(file)}
+                //   className="stark-form-img"
+                //   alt="sample"
+                //   title={getImageUrl(file)}
+                // />
+                <i class="bi bi-file-earmark-image" title={getImageUrl(file)}  className="stark-form-img"
+                alt="sample"></i>
               ) : (
                 <a href={file} target="_blank">
                   Preview

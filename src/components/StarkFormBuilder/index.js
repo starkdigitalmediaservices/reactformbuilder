@@ -1,7 +1,6 @@
 import React from "react";
 import { Container } from "react-bootstrap";
 import FormRenderer from "./formRenderer";
-import "./style.css";
 
 export default function StarkFormBuilder(props) {
   const {

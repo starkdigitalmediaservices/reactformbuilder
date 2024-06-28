@@ -1,6 +1,8 @@
 @import "~bootstrap/dist/css/bootstrap.min.css";
 @import '~react-datepicker/dist/react-datepicker.css';
 @import '~react-phone-input-2/lib/style.css';
+@import "~bootstrap-icons/font/bootstrap-icons.css";
+
 
 .btn-width {
     width: auto;

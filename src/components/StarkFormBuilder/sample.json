@@ -30,6 +30,29 @@
         "allowedUsers": []
       },
       {
+        "name": "file",
+        "type": "file",
+        "label": "Upload file",
+        "id": "asd",
+        "placeholder": "",
+        "tooltip": "text input",
+        "tooltipIcon": "fa-regular fa-circle-question",
+        "tooltipText": "",
+        "tooltipClass": "",
+        "inputClass": "",
+        "containerClass": "",
+        "validations": [
+          {
+            "type": "required",
+            "applyWhen": [],
+            "applyWhenRelation": "OR"
+          }
+        ],
+        "displayWhen": {},
+        "disabled": false,
+        "allowedUsers": []
+      },
+      {
         "name": "phone",
         "type": "phonenumber",
         "tooltipText": "",

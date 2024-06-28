@@ -1,8 +1,8 @@
 {
-  "name": "stark-form-builder",
-  "version": "0.4.2",
+  "name": "stark-form-builder-updated",
+  "version": "0.4.5",
   "private": false,
-  "author": "stark",
+  "author": "stark-digital",
   "keywords": [
     "react",
     "form-components",
@@ -18,10 +18,6 @@
     "dist",
     "README.md"
   ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/starkdigitalmediaservices/reactformbuilder.git"
-  },
   "dependencies": {
     "@babel/polyfill": "^7.12.1",
     "@testing-library/jest-dom": "^6.4.6",
@@ -29,6 +25,8 @@
     "@testing-library/user-event": "^14.5.2",
     "axios": "^1.7.2",
     "bootstrap": "^5.3.3",
+    "bootstrap-icons": "^1.11.3",
+    "core-js": "^3.37.1",
     "react": "^18.3.1",
     "react-bootstrap": "^2.10.3",
     "react-datepicker": "^7.2.0",
@@ -39,6 +37,7 @@
     "react-select": "^5.8.0",
     "react-stepper-horizontal": "^1.0.11",
     "simple-react-validator": "^1.6.2",
+    "stark-form-builder-updated": "^0.4.2",
     "web-vitals": "^4.2.0"
   },
   "scripts": {

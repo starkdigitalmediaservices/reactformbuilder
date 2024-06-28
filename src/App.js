@@ -1,7 +1,8 @@
 /* eslint-disable */
 import React, { useState, useEffect } from "react";
 import { Card } from "react-bootstrap";
-import FormBuilder from "./components/StarkFormBuilder";
+// import FormBuilder from "./components/StarkFormBuilder";
+import StarkFormBuilder from "stark-form-builder-updated"
 import FormSections from "./components/StarkFormBuilder/sample.json";
 import axios from "axios";
 let formOptions = {};
@@ -9,7 +10,9 @@ let formOptions = {};
 function App() {
   // Variable declarations
   const [defaultValues, updateDefaultValues] = useState({});
+  console.log("🚀 ~ App ~ defaultValues:", defaultValues)
   const [options, updateOptions] = useState({});
+  console.log("🚀 ~ App ~ options:", options)
   const [currentUser, updateCurrentUser] = useState(0);
   const step = [{}];
   // Get user role
@@ -132,7 +135,8 @@ function App() {
   return (
     <Card className="App">
       <Card.Body>
-        <FormBuilder
+     
+        <StarkFormBuilder
           containerClass=""
           formClass=""
           formHeaderClass=""
@@ -185,6 +189,7 @@ function App() {
             console.log("Add more field add callback");
           }}
         />
+
       </Card.Body>
     </Card>
   );
