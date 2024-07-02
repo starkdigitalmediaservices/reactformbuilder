@@ -7,7 +7,7 @@ Package to create form using JSON schema
 Install react form builder
 
 ```
-npm i --save stark-form-builder
+npm i --save stark-form-builder-next
 ```
 
 ## Dependencies
@@ -29,20 +29,36 @@ npm i --save bootstrap react-bootstrap react-select react-datepicker simple-reac
 
 Import this in your screen/component.
 
+Import following css in Entry file of React/Next App or include in global.css file.
 ```
-import FormBuilder from 'reactformbuilder';
+import 'stark-form-builder-next/dist/style.css';
+```
+
+```
+import StarkFormBuilder from "stark-form-builder-next";
 import FormSchema from './formschema.json';
 ```
 
-Use this in render / return
+Example : 
 
 ```
-// some code
+import { Card } from "react-bootstrap";
+import StarkFormBuilder from "stark-form-builder-next";
+import FormSchema from "../FormSchema.json";
+import {useState } from "react";
 
 
-render() {
-    return (
-        <FormBuilder
+export default function CreatForm() {
+  const [defaultValues, updateDefaultValues] = useState({});
+  const [options, updateOptions] = useState({});
+  const [currentUser, updateCurrentUser] = useState(0);
+
+  return (
+    <>
+      <Card>
+        <Card.Header>Create form example</Card.Header>
+        <Card.Body>
+           <StarkFormBuilder
             containerClass=''
             formHeaderClass=''
             formHeading="Registration"
@@ -67,7 +83,7 @@ render() {
                   label: 'first'
                 },
                 userdetails: {
-                  label: 'sectond'
+                  label: 'second'
                 }
               },
               containerClass: 'stark-stepper-container',
@@ -77,7 +93,10 @@ render() {
             addMoreRemoveCallback={() => { console.log('Add more field removed callback'); }}
             addMoreAddCallback={() => { console.log('Add more field add callback'); }}
         />
-    );
+        </Card.Body>
+      </Card>
+    </>
+  );
 }
 
 ```
