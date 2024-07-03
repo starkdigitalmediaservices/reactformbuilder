@@ -5,6 +5,8 @@ import Stepper from "react-stepper-horizontal";
 import SimpleReactValidator from "simple-react-validator";
 import FormElementRenderer from "./formElementRenderer";
 import CustomFunctions from "./helper/customFunctions";
+import swal from "sweetalert";
+import Swal from "sweetalert2";
 
 export default function FormRenderer(props) {
   const simpleValidator = useRef(new SimpleReactValidator());
@@ -448,22 +450,33 @@ export default function FormRenderer(props) {
   };
 
   const removeField = (field, fieldIndex) => {
-    swal({
+    /*   swal({
       title: "Are you sure?",
       text: "Are you sure you want to remove field?",
       icon: "warning",
       dangerMode: true,
-      buttons: true,
+      // buttons: true,
+      buttons: ["Cancel", true],
       closeOnClickOutside: false,
       allowOutsideClick: false,
-    }).then(async (result) => {
-      if (result) {
-        const fields = allAddMoreFields[field.name];
+    }). */
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Do you want to remove field?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3E8855",
+      cancelButtonColor: "#d33",
+      cancelButtonText: "No",
+      confirmButtonText: "Yes",
+    }).then((result) => {
+      if (result?.isConfirmed) {
+        const fields = [...allAddMoreFields[field.name]];
         fields.splice(fieldIndex, 1);
-        const allVals = formValues;
+        const allVals = { ...formValues };
         const fVal = CustomFunctions.checkIfEmpty(allVals[field.name], "A")
           ? []
-          : allVals[field.name];
+          : [...allVals[field.name]];
         if (fVal.length) fVal.splice(fieldIndex, 1);
         allVals[field.name] = fVal;
         setFormValues(allVals);
@@ -472,8 +485,6 @@ export default function FormRenderer(props) {
           [field.name]: fields,
         });
         if (addMoreRemoveCallback) addMoreRemoveCallback(fieldIndex);
-      } else {
-        swal.close();
       }
     });
   };
@@ -516,18 +527,23 @@ export default function FormRenderer(props) {
                     ))}
                     <Col md={12} className="mb-3">
                       <div className="btn-group addMoreBtnContainer">
-                        <Button
-                          className="btn btn-primary btn-width mr-5"
-                          onClick={() => addField(field)}
-                        >
-                          +
-                        </Button>
-                        {fieldIndex > 0 && (
+                        {addMoreFields?.length > 1 && (
                           <Button
                             className="btn btn-secondary btn-width"
-                            onClick={() => removeField(field, fieldIndex)}
+                            onClick={(e) => {
+                              e.preventDefault();
+                              removeField(field, fieldIndex);
+                            }}
                           >
                             -
+                          </Button>
+                        )}{" "}
+                        {addMoreFields?.length - 1 === fieldIndex && (
+                          <Button
+                            className="btn btn-primary btn-width mr-5"
+                            onClick={() => addField(field)}
+                          >
+                            +
                           </Button>
                         )}
                       </div>
@@ -600,7 +616,6 @@ export default function FormRenderer(props) {
       }
       return field;
     });
-    console.log("finalFormValues", finalFormValues);
     if (onFormSubmit) onFormSubmit(finalFormValues);
   };
 
@@ -611,7 +626,7 @@ export default function FormRenderer(props) {
 
   const submitForm = (e) => {
     e.preventDefault();
-    console.log("submitForm");
+
     updateSubmitCount(submitCount + 1);
   };
 
@@ -743,15 +758,15 @@ export default function FormRenderer(props) {
             <>
               <Button variant="primary" className="mr-5" type="submit">{`${
                 submitBtnText || "Submit"
-              }`}</Button>
+              }`}</Button>{" "}
               {showResetBtn && (
                 <Button variant="secondary" className="mr-5" type="reset">{`${
                   resetBtnText || "Reset"
                 }`}</Button>
-              )}
+              )}{" "}
               {showDraftBtn && (
                 <Button
-                  variant="secondary"
+                  variant="success"
                   onClick={(e) => {
                     onDraftSubmit(e);
                   }}

@@ -1,18 +1,19 @@
 /* eslint-disable */
 import React, { useState, useEffect } from "react";
 import { Card } from "react-bootstrap";
-// import FormBuilder from "./components/StarkFormBuilder";
-import StarkFormBuilder from "stark-form-builder-updated"
+import StarkFormBuilder from "./components/StarkFormBuilder";
+// import StarkFormBuilder from "stark-form-builder-updated"
 import FormSections from "./components/StarkFormBuilder/sample.json";
+import Schema from "./components/StarkFormBuilder/addMoreFormSchema.json";
 import axios from "axios";
 let formOptions = {};
 
 function App() {
   // Variable declarations
   const [defaultValues, updateDefaultValues] = useState({});
-  console.log("🚀 ~ App ~ defaultValues:", defaultValues)
+  console.log("🚀 ~ App ~ defaultValues:", defaultValues);
   const [options, updateOptions] = useState({});
-  console.log("🚀 ~ App ~ options:", options)
+  console.log("🚀 ~ App ~ options:", options);
   const [currentUser, updateCurrentUser] = useState(0);
   const step = [{}];
   // Get user role
@@ -135,12 +136,11 @@ function App() {
   return (
     <Card className="App">
       <Card.Body>
-     
         <StarkFormBuilder
           containerClass=""
           formClass=""
           formHeaderClass=""
-          formSections={FormSections}
+          formSections={/* FormSections */ Schema}
           formHeading="Registration"
           onFormSubmit={(formValues) => {
             console.log("234234");
@@ -163,7 +163,7 @@ function App() {
           showBtnClass={true}
           showResetBtn
           showDraftBtn
-          resetBtnText="Clear"
+          resetBtnText="Reset"
           btnContainerClass="form-submit-buttons"
           onFormReset={() => {
             console.log("form reset callback");
@@ -189,7 +189,6 @@ function App() {
             console.log("Add more field add callback");
           }}
         />
-
       </Card.Body>
     </Card>
   );
