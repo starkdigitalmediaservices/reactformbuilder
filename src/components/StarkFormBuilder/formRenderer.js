@@ -491,6 +491,9 @@ export default function FormRenderer(props) {
 
   const RenderSingleFormField = ({ field, columns }) => {
     const displayField = checkDisplayConditions(field);
+    if (!displayField) {
+      formValues[field.name] = "";
+    }
     const isPermittedUser = checkPermittedUser(field.allowedUsers);
     const allDisplayFields = displayedFields;
     allDisplayFields[field.name] = displayField;
@@ -499,6 +502,7 @@ export default function FormRenderer(props) {
     const col = 12 / Number(columns);
     const isAddMoreField = field.type === "addmore";
     const addMoreFields = isAddMoreField ? allAddMoreFields[field.name] : [];
+    
     const fieldCol = isAddMoreField
       ? 12 / getFieldLayout(field.fieldLayout)
       : col;
@@ -509,48 +513,50 @@ export default function FormRenderer(props) {
             <Row className={field.sectionClass}>
               <Form.Label>{field.label}</Form.Label>
               {addMoreFields.map((aField, fieldIndex) => {
-                return (
-                  <>
-                    {aField.map((bField) => (
-                      <Col md={fieldCol}>
-                        <RenderFormField
-                          field={{ ...bField }}
-                          column={col}
-                          onChange={(e) => {
-                            updateFormValues(e, field, fieldIndex, bField);
-                          }}
-                          isAddMore
-                          fieldIndex={fieldIndex}
-                          parentField={field}
-                        />
-                      </Col>
-                    ))}
-                    <Col md={12} className="mb-3">
-                      <div className="btn-group addMoreBtnContainer">
-                        {addMoreFields?.length > 1 && (
-                          <Button
-                            className="btn btn-secondary btn-width"
-                            onClick={(e) => {
-                              e.preventDefault();
-                              removeField(field, fieldIndex);
-                            }}
-                          >
-                            -
-                          </Button>
-                        )}{" "}
-                        {addMoreFields?.length - 1 === fieldIndex && (
-                          <Button
-                            className="btn btn-primary btn-width mr-5"
-                            onClick={() => addField(field)}
-                          >
-                            +
-                          </Button>
-                        )}
-                      </div>
-                    </Col>
-                  </>
-                );
-              })}
+                    return (
+                      <>
+                        {aField.map((bField) => (
+                          <Col md={fieldCol}>
+                            <RenderFormField
+                              field={{ ...bField }}
+                              column={col}
+                              onChange={(e) => {
+                                updateFormValues(e, field, fieldIndex, bField);
+                              }}
+                              isAddMore
+                              fieldIndex={fieldIndex}
+                              parentField={field}
+                            />
+                          </Col>
+                        ))}
+                        <Col md={12} className="mb-3">
+                          <div className="btn-group addMoreBtnContainer">
+                            {addMoreFields?.length > 1 && (
+                              <Button
+                                className="btn btn-secondary btn-width"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  removeField(field, fieldIndex);
+                                }}
+                              >
+                                -
+                              </Button>
+                            )}{" "}
+                            {addMoreFields?.length - 1 === fieldIndex && (
+                              <Button
+                                className="btn btn-primary btn-width mr-5"
+                                onClick={() => addField(field)}
+                              >
+                                +
+                              </Button>
+                            )}
+                          </div>
+                        </Col>
+                      </>
+                    );
+                  }
+                )
+              }
             </Row>
           ) : (
             <RenderFormField

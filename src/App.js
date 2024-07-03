@@ -4,7 +4,8 @@ import { Card } from "react-bootstrap";
 import StarkFormBuilder from "./components/StarkFormBuilder";
 // import StarkFormBuilder from "stark-form-builder-updated"
 import FormSections from "./components/StarkFormBuilder/sample.json";
-import Schema from "./components/StarkFormBuilder/addMoreFormSchema.json";
+import Schema from "./components/StarkFormBuilder/addMoreFormSchema.json"; // Add more
+import conditionalSchema from "./components/StarkFormBuilder/conditionalBasedFormSchema.json";
 import axios from "axios";
 let formOptions = {};
 
@@ -141,6 +142,7 @@ function App() {
           formClass=""
           formHeaderClass=""
           formSections={/* FormSections */ Schema}
+          // formSections={conditionalSchema}
           formHeading="Registration"
           onFormSubmit={(formValues) => {
             console.log("234234");
