@@ -90,9 +90,7 @@ export default function InputComponent(props) {
         {inputIcon && <>{inputIcon}</>}
         {inputVarible ? (
           <InputGroup>
-            <InputGroup.Prepend>
               <InputGroup.Text>{inputVarible}</InputGroup.Text>
-            </InputGroup.Prepend>
             {renderInput()}
           </InputGroup>
         ) : (
