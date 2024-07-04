@@ -267,6 +267,164 @@ export default function FormRenderer(props) {
     return displayField;
   };
 
+  /* get AddMore Field type */
+  const getAddMoreFieldType = (fieldName = "") => {
+    let checkIsAddmore = allFormFields[0]?.type === "addmore";
+    let selectedField;
+
+    if (checkIsAddmore) {
+      selectedField = allFormFields[0]?.fields.filter(
+        (ele) => ele?.name === fieldName
+      );
+    }
+
+    if (CustomFunctions.checkIfEmpty(selectedField, "A")) return "";
+    return { type: selectedField[0]?.type, isMulti: selectedField[0]?.isMulti };
+  };
+
+  /* check AddMore Field Condition*/
+  const checkAddMoreFieldCondition = (condition, fieldIndex) => {
+    const fieldType = getAddMoreFieldType(condition.name, fieldIndex);
+    let conditionResults = true;
+    let checkboxValue = [];
+    let dropdownValue = fieldType.isMulti ? [] : {};
+    let radioValue = [];
+
+    let addMoreKey = Object.keys(formValues)?.toString();
+
+    if (fieldType.type === "radio") {
+      radioValue =
+        formValues[addMoreKey] && formValues[addMoreKey][fieldIndex]
+          ? formValues[addMoreKey][fieldIndex][condition?.name]
+          : [];
+    }
+
+    if (fieldType.type === "checkbox") {
+      checkboxValue = CustomFunctions.checkIfEmpty(
+        formValues[condition.name],
+        "A"
+      )
+        ? []
+        : formValues[condition.name];
+    }
+
+    if (fieldType.type === "select") {
+      dropdownValue = CustomFunctions.checkIfEmpty(formValues[condition.name])
+        ? dropdownValue
+        : formValues[condition.name];
+    }
+    if (!radioValue) return;
+    switch (condition.condition) {
+      case "===":
+      case "==":
+        if (fieldType.type === "checkbox") {
+          conditionResults = checkboxValue.includes(condition.value);
+          break;
+        }
+        if (fieldType.type === "radio") {
+          conditionResults = radioValue.includes(condition.value);
+          break;
+        }
+        if (fieldType.type === "select") {
+          if (fieldType.isMulti) {
+            const values = [...dropdownValue].map((v) => v.value);
+            conditionResults = values.includes(condition.value);
+            break;
+          }
+          conditionResults = dropdownValue.value === condition.value;
+          break;
+        }
+        conditionResults = formValues[condition.name] === condition.value;
+        break;
+      case "!=":
+        if (fieldType === "checkbox") {
+          conditionResults = !checkboxValue.includes(condition.value);
+          break;
+        }
+        if (fieldType.type === "select") {
+          if (fieldType.isMulti) {
+            const values = [...dropdownValue].map((v) => v.value);
+            conditionResults = !values.includes(condition.value);
+            break;
+          }
+          conditionResults = dropdownValue.value !== condition.value;
+          break;
+        }
+        conditionResults = formValues[condition.name] != condition.value;
+        break;
+      case ">=":
+        conditionResults = formValues[condition.name] >= condition.value;
+        break;
+      case ">":
+        conditionResults = formValues[condition.name] > condition.value;
+        break;
+      case "<":
+        conditionResults = formValues[condition.name] < condition.value;
+        break;
+      case "<=":
+        conditionResults = formValues[condition.name] <= condition.value;
+        break;
+      case "!empty":
+        conditionResults = !CustomFunctions.checkIfEmpty(
+          formValues[condition.name]
+        );
+        break;
+      case "empty":
+        conditionResults = CustomFunctions.checkIfEmpty(
+          formValues[condition.name]
+        );
+        break;
+      default:
+        conditionResults = true;
+        break;
+    }
+    return conditionResults;
+  };
+
+  /* for Add more Display Condition */
+  const checkAddMoreDisplayConditions = (field, fieldIndex) => {
+    if (CustomFunctions.checkIfEmpty(field.displayWhen, "O")) return true;
+    if (CustomFunctions.checkIfEmpty(field.displayWhen.conditions, "A"))
+      return true;
+
+    const conditionResults = [];
+    let displayField = true;
+    field.displayWhen.conditions.map((condition) => {
+      conditionResults.push(checkAddMoreFieldCondition(condition, fieldIndex));
+      return condition;
+    });
+
+    // Get all satisfied conditions
+    const filteredResult = conditionResults.filter((condition) => condition);
+
+    switch (
+      CustomFunctions.toLowerCase(field.displayWhen.displayWhenRelation)
+    ) {
+      case "and":
+        if (filteredResult.length !== conditionResults.length)
+          displayField = false;
+        break;
+      case "or":
+        if (!filteredResult.length) displayField = false;
+        break;
+      default:
+        displayField = true;
+    }
+
+    let addMoreKey = Object.keys(formValues);
+
+    if (
+      !displayField &&
+      formValues[addMoreKey] &&
+      formValues[addMoreKey][fieldIndex] &&
+      formValues[addMoreKey][fieldIndex][field.name]
+    ) {
+      formValues[addMoreKey][fieldIndex][field.name] = "";
+    }
+
+    return displayField;
+  };
+
   const getFieldValidation = (
     field,
     isAddMore = false,
@@ -502,10 +660,12 @@ export default function FormRenderer(props) {
     const col = 12 / Number(columns);
     const isAddMoreField = field.type === "addmore";
     const addMoreFields = isAddMoreField ? allAddMoreFields[field.name] : [];
-    
+
     const fieldCol = isAddMoreField
       ? 12 / getFieldLayout(field.fieldLayout)
       : col;
+
+    let addMoreDisplayField;
     return (
       <>
         <Col md={col}>
@@ -513,9 +673,15 @@ export default function FormRenderer(props) {
             <Row className={field.sectionClass}>
               <Form.Label>{field.label}</Form.Label>
               {addMoreFields.map((aField, fieldIndex) => {
-                    return (
-                      <>
-                        {aField.map((bField) => (
+                return (
+                  <>
+                    {aField.map(
+                      (bField) => (
+                        (addMoreDisplayField = checkAddMoreDisplayConditions(
+                          bField,
+                          fieldIndex
+                        )),
+                        addMoreDisplayField ? (
                           <Col md={fieldCol}>
                             <RenderFormField
                               field={{ ...bField }}
@@ -528,35 +694,35 @@ export default function FormRenderer(props) {
                               parentField={field}
                             />
                           </Col>
-                        ))}
-                        <Col md={12} className="mb-3">
-                          <div className="btn-group addMoreBtnContainer">
-                            {addMoreFields?.length > 1 && (
-                              <Button
-                                className="btn btn-secondary btn-width"
-                                onClick={(e) => {
-                                  e.preventDefault();
-                                  removeField(field, fieldIndex);
-                                }}
-                              >
-                                -
-                              </Button>
-                            )}{" "}
-                            {addMoreFields?.length - 1 === fieldIndex && (
-                              <Button
-                                className="btn btn-primary btn-width mr-5"
-                                onClick={() => addField(field)}
-                              >
-                                +
-                              </Button>
-                            )}
-                          </div>
-                        </Col>
-                      </>
-                    );
-                  }
-                )
-              }
+                        ) : null
+                      )
+                    )}
+                    <Col md={12} className="mb-3">
+                      <div className="btn-group addMoreBtnContainer">
+                        {addMoreFields?.length > 1 && (
+                          <Button
+                            className="btn btn-secondary btn-width"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              removeField(field, fieldIndex);
+                            }}
+                          >
+                            -
+                          </Button>
+                        )}{" "}
+                        {addMoreFields?.length - 1 === fieldIndex && (
+                          <Button
+                            className="btn btn-primary btn-width mr-5"
+                            onClick={() => addField(field)}
+                          >
+                            +
+                          </Button>
+                        )}
+                      </div>
+                    </Col>
+                  </>
+                );
+              })}
             </Row>
           ) : (
             <RenderFormField
