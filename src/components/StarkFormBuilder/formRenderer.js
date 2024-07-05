@@ -431,14 +431,14 @@ export default function FormRenderer(props) {
 
     let addMoreKey = Object.keys(formValues);
 
-    // if (
-    //   !displayField &&
-    //   formValues[addMoreKey] &&
-    //   formValues[addMoreKey][fieldIndex] &&
-    //   formValues[addMoreKey][fieldIndex][field.name]
-    // ) {
-    //   formValues[addMoreKey][fieldIndex][field.name] = "";
-    // }
+    if (
+      !displayField &&
+      formValues[fieldName] &&
+      formValues[fieldName][fieldIndex] &&
+      formValues[fieldName][fieldIndex][field.name]
+    ) {
+      formValues[fieldName][fieldIndex][field.name] = "";
+    }
 
     return displayField;
   };
