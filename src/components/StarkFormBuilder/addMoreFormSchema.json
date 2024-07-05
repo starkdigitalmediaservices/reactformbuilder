@@ -156,7 +156,7 @@
     "sectionTitle": "History",
     "containerClass": "mt-4 ps-4",
     "displaySection": true,
-    "displaySectionTitle": false,
+    "displaySectionTitle": true,
     "fields": [
       {
         "name": "History Data",
