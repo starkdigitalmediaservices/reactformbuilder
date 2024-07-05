@@ -6,7 +6,10 @@ import StarkFormBuilder from "./components/StarkFormBuilder";
 import FormSections from "./components/StarkFormBuilder/sample.json";
 import Schema from "./components/StarkFormBuilder/addMoreFormSchema.json"; // Add more
 import conditionalSchema from "./components/StarkFormBuilder/conditionalBasedFormSchema.json";
+import FormSchema05 from "./components/StarkFormBuilder/FormSchema05.json";
+import newFormSchema from "./components/StarkFormBuilder/newFormSchema.json";
 import axios from "axios";
+
 let formOptions = {};
 
 function App() {
@@ -141,7 +144,7 @@ function App() {
           containerClass=""
           formClass=""
           formHeaderClass=""
-          formSections={/* FormSections */ Schema}
+          formSections={/* FormSections */ Schema /* FormSchema05 *//* newFormSchema */}
           // formSections={conditionalSchema}
           formHeading="Registration"
           onFormSubmit={(formValues) => {

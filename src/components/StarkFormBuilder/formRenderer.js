@@ -268,14 +268,25 @@ export default function FormRenderer(props) {
   };
 
   /* get AddMore Field type */
-  const getAddMoreFieldType = (fieldName = "") => {
-    let checkIsAddmore = allFormFields[0]?.type === "addmore";
+  const getAddMoreFieldType = (
+    fieldName = "",
+    fieldIndex,
+    addMoreFieldName
+  ) => {
+    let checkAddMoreAllField = allFormFields.filter(
+      (element) => element.type === "addmore"
+    );
+    let addMoreIndex = checkAddMoreAllField.findIndex(
+      (ele) => ele.name == addMoreFieldName
+    );
+    let checkIsAddmore =
+      /* allFormFields[4] */ checkAddMoreAllField[addMoreIndex]?.type ===
+      "addmore";
     let selectedField;
-
     if (checkIsAddmore) {
-      selectedField = allFormFields[0]?.fields.filter(
-        (ele) => ele?.name === fieldName
-      );
+      selectedField = /* allFormFields[4] */ checkAddMoreAllField[
+        addMoreIndex
+      ]?.fields.filter((ele) => ele?.name === fieldName);
     }
 
     if (CustomFunctions.checkIfEmpty(selectedField, "A")) return "";
@@ -283,14 +294,18 @@ export default function FormRenderer(props) {
   };
 
   /* check AddMore Field Condition*/
-  const checkAddMoreFieldCondition = (condition, fieldIndex) => {
-    const fieldType = getAddMoreFieldType(condition.name, fieldIndex);
+  const checkAddMoreFieldCondition = (condition, fieldIndex, fieldName) => {
+    const fieldType = getAddMoreFieldType(
+      condition.name,
+      fieldIndex,
+      fieldName
+    );
     let conditionResults = true;
     let checkboxValue = [];
     let dropdownValue = fieldType.isMulti ? [] : {};
     let radioValue = [];
 
-    let addMoreKey = Object.keys(formValues)?.toString();
+    let addMoreKey = /* Object.keys(formValues)?.toString() */ fieldName;
 
     if (fieldType.type === "radio") {
       radioValue =
@@ -300,19 +315,20 @@ export default function FormRenderer(props) {
     }
 
     if (fieldType.type === "checkbox") {
-      checkboxValue = CustomFunctions.checkIfEmpty(
-        formValues[condition.name],
-        "A"
-      )
-        ? []
-        : formValues[condition.name];
+      checkboxValue =
+        formValues[addMoreKey] && formValues[addMoreKey][fieldIndex]
+          ? formValues[addMoreKey][fieldIndex][condition?.name]
+          : [];
     }
 
     if (fieldType.type === "select") {
-      dropdownValue = CustomFunctions.checkIfEmpty(formValues[condition.name])
-        ? dropdownValue
-        : formValues[condition.name];
+      dropdownValue =
+        formValues[addMoreKey] && formValues[addMoreKey][fieldIndex]
+          ? formValues[addMoreKey][fieldIndex][condition?.name]
+          : [];
     }
+    if (!dropdownValue) return;
+    if (!checkboxValue) return;
     if (!radioValue) return;
     switch (condition.condition) {
       case "===":
@@ -331,7 +347,7 @@ export default function FormRenderer(props) {
             conditionResults = values.includes(condition.value);
             break;
           }
-          conditionResults = dropdownValue.value === condition.value;
+          conditionResults = dropdownValue.value === condition?.value;
           break;
         }
         conditionResults = formValues[condition.name] === condition.value;
@@ -382,7 +398,7 @@ export default function FormRenderer(props) {
   };
 
   /* for Add more Display Condition */
-  const checkAddMoreDisplayConditions = (field, fieldIndex) => {
+  const checkAddMoreDisplayConditions = (field, fieldIndex, fieldName) => {
     if (CustomFunctions.checkIfEmpty(field.displayWhen, "O")) return true;
     if (CustomFunctions.checkIfEmpty(field.displayWhen.conditions, "A"))
       return true;
@@ -390,7 +406,9 @@ export default function FormRenderer(props) {
     const conditionResults = [];
     let displayField = true;
     field.displayWhen.conditions.map((condition) => {
-      conditionResults.push(checkAddMoreFieldCondition(condition, fieldIndex));
+      conditionResults.push(
+        checkAddMoreFieldCondition(condition, fieldIndex, fieldName)
+      );
       return condition;
     });
 
@@ -413,14 +431,14 @@ export default function FormRenderer(props) {
 
     let addMoreKey = Object.keys(formValues);
 
-    if (
-      !displayField &&
-      formValues[addMoreKey] &&
-      formValues[addMoreKey][fieldIndex] &&
-      formValues[addMoreKey][fieldIndex][field.name]
-    ) {
-      formValues[addMoreKey][fieldIndex][field.name] = "";
-    }
+    // if (
+    //   !displayField &&
+    //   formValues[addMoreKey] &&
+    //   formValues[addMoreKey][fieldIndex] &&
+    //   formValues[addMoreKey][fieldIndex][field.name]
+    // ) {
+    //   formValues[addMoreKey][fieldIndex][field.name] = "";
+    // }
 
     return displayField;
   };
@@ -679,7 +697,8 @@ export default function FormRenderer(props) {
                       (bField) => (
                         (addMoreDisplayField = checkAddMoreDisplayConditions(
                           bField,
-                          fieldIndex
+                          fieldIndex,
+                          field?.name
                         )),
                         addMoreDisplayField ? (
                           <Col md={fieldCol}>

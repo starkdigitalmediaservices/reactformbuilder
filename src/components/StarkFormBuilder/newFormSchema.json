@@ -1,0 +1,154 @@
+[
+  {
+    "sectionName": "basicinfo",
+    "sectionTitle": "Basic Info",
+    "layout": { "label": "1 Column", "value": "1column" },
+    "containerClass": "",
+    "displaySection": true,
+    "displaySectionTitle": true,
+    "fields": [
+      {
+        "name": "Position_Applied_For",
+        "type": "select",
+        "label": "Position Applied For",
+        "id": "PositionAppliedFor",
+        "placeholder": "",
+        "inputClass": "",
+        "containerClass": "",
+        "validations": [
+          { "type": "required", "applyWhen": [], "applyWhenRelation": "OR" }
+        ],
+        "displayWhen": {},
+        "haveValidations": "true",
+        "haveDisplayOptions": "false",
+        "callback": "",
+        "callbackUrl": "",
+        "inputToChange": "",
+        "minDateSelector": "",
+        "maxDateSelector": "",
+        "disabled": false,
+        "isMulti": false,
+        "allowedUsers": [],
+        "fieldsToReset": [],
+        "fieldLayout": { "label": "1 Column", "value": "1column" },
+        "fields": [],
+        "optionCallback": "getPosition Applied For",
+        "options": [
+          { "value": "reactjs", "label": "React Js" },
+          { "value": "nodejs", "label": "Node Js" },
+          { "value": "python", "label": "Python" }
+        ]
+      },
+      {
+        "name": "Skills",
+        "type": "text",
+        "label": "Skills",
+        "id": "skill",
+        "placeholder": "Skill",
+        "inputClass": "",
+        "containerClass": "",
+        "validations": [],
+        "displayWhen": {
+          "conditions": [
+            {
+              "name": "Position_Applied_For",
+              "value": "reactjs",
+              "condition": "=="
+            }
+          ],
+          "displayWhenRelation": "OR"
+        },
+        "haveValidations": "false",
+        "haveDisplayOptions": "true",
+        "callback": "",
+        "callbackUrl": "",
+        "inputToChange": "",
+        "minDateSelector": "",
+        "maxDateSelector": "",
+        "disabled": false,
+        "isMulti": false,
+        "allowedUsers": [],
+        "fieldsToReset": [],
+        "fieldLayout": { "label": "1 Column", "value": "1column" },
+        "fields": [],
+        "optionCallback": "",
+        "options": []
+      }
+    ],
+    "allowedUsers": [],
+    "sectionLayout": "1column"
+  },
+  {
+    "sectionName": "basicinformation",
+    "sectionTitle": "Basic Information",
+    "layout": { "label": "2 Column", "value": "2column" },
+    "containerClass": "basicInformation",
+    "displaySection": true,
+    "displaySectionTitle": true,
+    "fields": [
+      {
+        "name": "hobby",
+        "type": "checkbox",
+        "label": "Hobby",
+        "id": "hobby",
+        "placeholder": "",
+        "inputClass": "",
+        "containerClass": "",
+        "validations": [],
+        "displayWhen": {},
+        "haveValidations": "false",
+        "haveDisplayOptions": "false",
+        "callback": "",
+        "callbackUrl": "",
+        "inputToChange": "",
+        "minDateSelector": "",
+        "maxDateSelector": "",
+        "disabled": false,
+        "isMulti": false,
+        "allowedUsers": [],
+        "fieldsToReset": [],
+        "fieldLayout": { "label": "1 Column", "value": "1column" },
+        "fields": [],
+        "optionCallback": "",
+        "options": [
+          { "value": "cricket", "label": "Cricket" },
+          { "value": "readingBooks", "label": "Reading Books" },
+          { "value": "travling", "label": "Travling" }
+        ]
+      },
+      {
+        "name": "favoritePlayer",
+        "type": "text",
+        "label": "Favorite Player",
+        "id": "favoritePlayer",
+        "placeholder": "Enter favorite player",
+        "inputClass": "",
+        "containerClass": "",
+        "validations": [],
+        "displayWhen": {
+          "conditions": [
+            { "name": "hobby", "value": "cricket", "condition": "==" }
+          ],
+          "displayWhenRelation": "OR"
+        },
+        "haveValidations": "false",
+        "haveDisplayOptions": "true",
+        "callback": "",
+        "callbackUrl": "",
+        "inputToChange": "",
+        "minDateSelector": "",
+        "maxDateSelector": "",
+        "disabled": false,
+        "isMulti": false,
+        "allowedUsers": [],
+        "fieldsToReset": [],
+        "fieldLayout": { "label": "1 Column", "value": "1column" },
+        "fields": [],
+        "optionCallback": "",
+        "options": []
+      }
+    ],
+    "allowedUsers": [],
+    "sectionLayout": "2column"
+  }
+]
