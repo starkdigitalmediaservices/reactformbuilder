@@ -1,0 +1,230 @@
+[
+    {
+        "sectionName": "personaldetails",
+        "sectionTitle": "Personal Details",
+        "layout": {
+            "label": "2 Column",
+            "value": "2column"
+        },
+        "containerClass": "",
+        "displaySection": true,
+        "displaySectionTitle": true,
+        "fields": [
+            {
+                "name": "name",
+                "type": "text",
+                "label": "Name",
+                "id": "name",
+                "placeholder": "Enter Name",
+                "inputClass": "",
+                "containerClass": "",
+                "validations": [
+                    {
+                        "type": "required|alpha_space",
+                        "applyWhen": [],
+                        "applyWhenRelation": "OR"
+                    }
+                ],
+                "displayWhen": {},
+                "haveValidations": "true",
+                "haveDisplayOptions": "false",
+                "callback": "",
+                "callbackUrl": "",
+                "inputToChange": "",
+                "minDateSelector": "",
+                "maxDateSelector": "",
+                "disabled": false,
+                "isMulti": false,
+                "allowedUsers": [],
+                "fieldsToReset": [],
+                "fieldLayout": {
+                    "label": "1 Column",
+                    "value": "1column"
+                },
+                "fields": [],
+                "optionCallback": "",
+                "options": [],
+                "maxLength": ""
+            },
+            {
+                "name": "email",
+                "type": "email",
+                "label": "Email",
+                "id": "",
+                "placeholder": "Enter Email",
+                "inputClass": "",
+                "containerClass": "",
+                "validations": [
+                    {
+                        "type": "email",
+                        "applyWhen": [],
+                        "applyWhenRelation": "OR"
+                    }
+                ],
+                "displayWhen": {},
+                "haveValidations": "true",
+                "haveDisplayOptions": "false",
+                "callback": "",
+                "callbackUrl": "",
+                "inputToChange": "",
+                "minDateSelector": "",
+                "maxDateSelector": "",
+                "disabled": false,
+                "isMulti": false,
+                "allowedUsers": [],
+                "fieldsToReset": [],
+                "fieldLayout": {
+                    "label": "1 Column",
+                    "value": "1column"
+                },
+                "fields": [],
+                "optionCallback": "",
+                "options": []
+            },
+            {
+                "name": "hr_mobile",
+                "type": "number",
+                "label": "Contact No",
+                "id": "",
+                "placeholder": "Contact No",
+                "inputClass": "",
+                "containerClass": "",
+                "validations": [],
+                "displayWhen": {},
+                "haveValidations": "false",
+                "haveDisplayOptions": "false",
+                "callback": "",
+                "callbackUrl": "",
+                "inputToChange": "",
+                "minDateSelector": "",
+                "maxLength": "10",
+                "minLength": "10",
+                "maxDateSelector": "",
+                "disabled": false,
+                "isMulti": false,
+                "allowedUsers": [],
+                "fieldsToReset": [],
+                "fieldLayout": {
+                    "label": "1 Column",
+                    "value": "1column"
+                },
+                "fields": [],
+                "options": []
+            }
+        ],
+        "allowedUsers": [],
+        "sectionLayout": "2column"
+    },
+    {
+        "sectionName": "address",
+        "sectionTitle": "Address",
+        "layout": {
+            "label": "2 Column",
+            "value": "2column"
+        },
+        "containerClass": "",
+        "displaySection": true,
+        "displaySectionTitle": true,
+        "fields": [
+            {
+                "name": "country",
+                "type": "select",
+                "label": "Country",
+                "id": "",
+                "placeholder": "",
+                "inputClass": "",
+                "containerClass": "",
+                "validations": [],
+                "displayWhen": {},
+                "haveValidations": "false",
+                "haveDisplayOptions": "false",
+                "callback": "onCountryChange",
+                "callbackUrl": "getStateList",
+                "inputToChange": {
+                    "label": "State",
+                    "value": "state"
+                },
+                "minDateSelector": "",
+                "maxDateSelector": "",
+                "disabled": false,
+                "isMulti": false,
+                "allowedUsers": [],
+                "fieldsToReset": [
+                    "title"
+                ],
+                "fieldLayout": {
+                    "label": "1 Column",
+                    "value": "1column"
+                },
+                "fields": [],
+                "optionCallback": "getCountries",
+                "optionsCallbackUrl": "countryList",
+                "options": []
+            },
+            {
+                "name": "state",
+                "type": "select",
+                "label": "State",
+                "id": "state",
+                "placeholder": "state",
+                "inputClass": "",
+                "containerClass": "",
+                "validations": [],
+                "displayWhen": {},
+                "haveValidations": "false",
+                "haveDisplayOptions": "false",
+                "callback": "getcity",
+                "callbackUrl": "getCityList",
+                "inputToChange": {
+                    "label": "title",
+                    "value": "title"
+                },
+                "minDateSelector": "",
+                "maxDateSelector": "",
+                "disabled": false,
+                "isMulti": false,
+                "allowedUsers": [],
+                "fieldsToReset": [],
+                "fieldLayout": {
+                    "label": "1 Column",
+                    "value": "1column"
+                },
+                "fields": [],
+                "optionCallback": "getStates",
+                "optionsCallbackUrl": "StateList",
+                "options": []
+            },
+            {
+                "name": "city",
+                "type": "select",
+                "label": "City",
+                "id": "",
+                "placeholder": "",
+                "inputClass": "",
+                "containerClass": "",
+                "validations": [],
+                "displayWhen": {},
+                "haveValidations": "false",
+                "haveDisplayOptions": "false",
+                "callback": "",
+                "callbackUrl": "",
+                "inputToChange": "",
+                "minDateSelector": "",
+                "maxDateSelector": "",
+                "disabled": false,
+                "isMulti": false,
+                "allowedUsers": [],
+                "fieldsToReset": [],
+                "fieldLayout": {
+                    "label": "1 Column",
+                    "value": "1column"
+                },
+                "fields": [],
+                "optionCallback": "getTitle",
+                "options": []
+            }
+        ],
+        "allowedUsers": [],
+        "sectionLayout": "2column"
+    }
+]

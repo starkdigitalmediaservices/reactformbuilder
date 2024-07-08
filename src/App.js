@@ -9,15 +9,15 @@ import conditionalSchema from "./components/StarkFormBuilder/conditionalBasedFor
 import FormSchema05 from "./components/StarkFormBuilder/FormSchema05.json";
 import newFormSchema from "./components/StarkFormBuilder/newFormSchema.json";
 import axios from "axios";
+import dummyjson from './components/StarkFormBuilder/dummyschema.json';
 
 let formOptions = {};
 
 function App() {
   // Variable declarations
   const [defaultValues, updateDefaultValues] = useState({});
-  console.log("🚀 ~ App ~ defaultValues:", defaultValues);
+  const [updatedValues, setUpdateFormValues] = useState([]);
   const [options, updateOptions] = useState({});
-  console.log("🚀 ~ App ~ options:", options);
   const [currentUser, updateCurrentUser] = useState(0);
   const step = [{}];
   // Get user role
@@ -90,52 +90,90 @@ function App() {
     getUsers();
   }, []);
 
-  const getClasses = async () => {
-    axios.get("https://jsonplaceholder.typicode.com/users/").then((res) => {
-      console.log("res", res);
-      const data = res.data;
+  const getCountries = async () => {
+    axios.get("https://countriesnow.space/api/v0.1/countries").then((res) => {
+      const data = res.data?.data;
       const dpOptions = [];
       data.map((op) => {
         // Change appropriate keys
-        dpOptions.push({ label: op.name, value: op.id });
+        dpOptions.push({ label: op.country, value: op.country });
         return op;
       });
       const allOptions = {
         ...formOptions,
         ...options,
         country: dpOptions,
+        state: {
+          label: null,
+          value: null
+        },
+        city: {
+          label: null,
+          value: null
+        }
       };
       formOptions = { ...allOptions };
+      // console.log("def", defaultValues);
       updateOptions(allOptions);
     });
   };
 
-  const getStates = (val) => {
-    axios.get("https://jsonplaceholder.typicode.com/users/").then((res) => {
-      console.log("res", res);
-      const data = res.data;
+  const getstates = (val) => {
+    console.log('val --->', val);
+    axios.post("https://countriesnow.space/api/v0.1/countries/states", { country: val?.value }).then((res) => {
+      const data = res.data?.data?.states;
       const dpOptions = [];
       data.map((op) => {
         // Change appropriate keys
-        dpOptions.push({ label: op.name, value: op.id });
+        dpOptions.push({ label: op.name, value: op.name });
         return op;
       });
       const allOptions = {
         ...formOptions,
         ...options,
         state: dpOptions,
+        city: []
       };
       formOptions = { ...allOptions };
       updateOptions(allOptions);
-      updateDefaultValues({
-        state: null,
-      });
+      setUpdateFormValues(["state", "city"]);
+      // updateDefaultValues({
+      //   ...defaultValues,
+      //   city: null,
+      // });
     });
   };
 
   useEffect(() => {
-    getClasses();
+    getCountries();
   }, []);
+
+  const getCity = (val) => {
+    //     axios.post("https://countriesnow.space/api/v0.1/countries/states", { country: 'Afganistan' }).then((res) => {
+    //       const data = res.data?.data?.states;
+    const dpOptions = [];
+    // data.map((op) => {
+    //   // Change appropriate keys
+    //   // dpOptions.push({ label: op.name, value: op.name });
+    //   return op;
+    // });
+    const allOptions = {
+      ...formOptions,
+      ...options,
+      city: [
+        {
+          "label": "Shegaon",
+          "value": "Shegaon"
+        }
+      ],
+    };
+    formOptions = { ...allOptions };
+    updateOptions(allOptions);
+    // updateDefaultValues({
+    //   state: null,
+    // });
+    // });
+  };
 
   return (
     <Card className="App">
@@ -144,22 +182,26 @@ function App() {
           containerClass=""
           formClass=""
           formHeaderClass=""
-          formSections={/* FormSections */ Schema /* FormSchema05 *//* newFormSchema */}
+          formSections={/* FormSections */ /* Schema */ dummyjson /* FormSchema05 *//* newFormSchema */}
           // formSections={conditionalSchema}
           formHeading="Registration"
+          onTextInputChange={(value, formValues) => {
+            //  updateDefaultValues(formValues)
+          }} // runtime onchange values and formValues
           onFormSubmit={(formValues) => {
-            console.log("234234");
             submitForm(formValues);
           }}
           onFormDraft={(formValues) => {
-            console.log("234234");
             submitForm(formValues);
           }}
           options={options}
+          removeValues={updatedValues}
           callbacks={{
             onCountryChange: (val) => {
-              console.log("val", val);
-              getStates(val);
+              getstates(val);
+            },
+            getcity: (val) => {
+              getCity(val);
             },
           }}
           defaultFormValues={defaultValues}
@@ -192,6 +234,9 @@ function App() {
           }}
           addMoreAddCallback={() => {
             console.log("Add more field add callback");
+          }}
+          getFormValues={(formValues) => {
+            console.log()
           }}
         />
       </Card.Body>

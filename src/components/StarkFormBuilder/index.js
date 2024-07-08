@@ -29,6 +29,8 @@ export default function StarkFormBuilder(props) {
     showBtnClass,
     addMoreRemoveCallback,
     addMoreAddCallback,
+    onTextInputChange,
+    removeValues
   } = props;
   return (
     <>
@@ -40,8 +42,14 @@ export default function StarkFormBuilder(props) {
           <hr />
           <FormRenderer
             formElements={formInputs}
+            removeValues={removeValues}
             sections={formSections}
             onFormSubmit={onFormSubmit}
+            onTextInputChange={(e, f)=>{
+              if(onTextInputChange){
+                onTextInputChange(e, f);
+              }
+            }}
             callbacks={callbacks}
             options={options}
             defaultFormValues={defaultFormValues}
