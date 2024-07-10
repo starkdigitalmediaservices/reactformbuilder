@@ -9,15 +9,20 @@ import conditionalSchema from "./components/StarkFormBuilder/conditionalBasedFor
 import FormSchema05 from "./components/StarkFormBuilder/FormSchema05.json";
 import newFormSchema from "./components/StarkFormBuilder/newFormSchema.json";
 import axios from "axios";
+import dummyjson from './components/StarkFormBuilder/dummyschema.json';
 
 let formOptions = {};
 
 function App() {
   // Variable declarations
   const [defaultValues, updateDefaultValues] = useState({});
+  const [updatedValues, setUpdateFormValues] = useState([]);
   const [options, updateOptions] = useState({});
   const [currentUser, updateCurrentUser] = useState(0);
+  const [runtimeFormValues,setRunTimeFormValues]= useState({})
   const step = [{}];
+
+
   // Get user role
   const getUserRole = async () => {
     const roleId = await localStorage.getItem("role");
@@ -85,49 +90,94 @@ function App() {
     getUsers();
   }, []);
 
-  const getClasses = async () => {
-    axios.get("https://jsonplaceholder.typicode.com/users/").then((res) => {
-      const data = res.data;
+  const getCountries = async () => {
+    axios.get("https://countriesnow.space/api/v0.1/countries").then((res) => {
+      const data = res.data?.data;
       const dpOptions = [];
       data.map((op) => {
         // Change appropriate keys
-        dpOptions.push({ label: op.name, value: op.id });
+        dpOptions.push({ label: op.country, value: op.country });
         return op;
       });
       const allOptions = {
         ...formOptions,
         ...options,
         country: dpOptions,
+        state: {
+          label: null,
+          value: null
+        },
+        city: {
+          label: null,
+          value: null
+        }
       };
       formOptions = { ...allOptions };
+      // console.log("def", defaultValues);
       updateOptions(allOptions);
     });
   };
 
-  const getStates = (val) => {
-    axios.get("https://jsonplaceholder.typicode.com/users/").then((res) => {
-      const data = res.data;
+  const getstates = (val) => {
+    axios.post("https://countriesnow.space/api/v0.1/countries/states", { country: val?.value }).then((res) => {
+      const data = res.data?.data?.states;
       const dpOptions = [];
       data.map((op) => {
         // Change appropriate keys
-        dpOptions.push({ label: op.name, value: op.id });
+        dpOptions.push({ label: op.name, value: op.name });
         return op;
       });
       const allOptions = {
         ...formOptions,
         ...options,
         state: dpOptions,
+        city: []
       };
       formOptions = { ...allOptions };
       updateOptions(allOptions);
-      updateDefaultValues({
-        state: null,
-      });
+      setUpdateFormValues(["state", "city"]);
+      // updateDefaultValues({
+      //   ...defaultValues,
+      //   city: null,
+      // });
     });
   };
 
+
+  const getCities = async (val) => {
+    console.log("runtimeFormValues",runtimeFormValues);
+
+    if (!runtimeFormValues?.country?.value && !runtimeFormValues?.state?.value ){
+        return
+    }
+    const payload = {
+      country: runtimeFormValues?.country?.value,
+      state: val?.value,
+    };
+  
+    try {
+      const {data} = await axios.post("https://countriesnow.space/api/v0.1/countries/state/cities", payload);
+      const dpOptions = [];
+      data?.data?.map((op) => {
+        // Change appropriate keys
+        dpOptions?.push({ label: op, value: op });
+        return op;
+      });
+      const allOptions = {
+        ...formOptions,
+        ...options,
+        city: dpOptions
+      };
+      formOptions = { ...allOptions };
+      updateOptions(allOptions);
+    } catch (error) {
+      console.error("Error fetching cities:", error);
+    }
+  };
+
   useEffect(() => {
-    getClasses();
+    getCountries();
+    getCities()
   }, []);
 
 
@@ -161,22 +211,27 @@ function App() {
           containerClass=""
           formClass=""
           formHeaderClass=""
-          formSections={/* FormSections */ Schema /* FormSchema05 *//* newFormSchema */}
+          formSections={/* FormSections */ /* Schema */ dummyjson /* FormSchema05 *//* newFormSchema */}
           // formSections={conditionalSchema}
           formHeading="Registration"
+          onTextInputChange={(value, formValues) => {
+            //  updateDefaultValues(formValues)
+            setRunTimeFormValues(formValues)
+          }} // runtime onchange values and formValues
           onFormSubmit={(formValues) => {
-            console.log("234234");
             submitForm(formValues);
           }}
           onFormDraft={(formValues) => {
-            console.log("234234");
             submitForm(formValues);
           }}
           options={options}
-          callbacks={{
+          removeValues={updatedValues}
+          callbacks={{  
             onCountryChange: (val) => {
-              console.log("val", val);
-              getStates(val);
+              getstates(val);
+            },
+            onStateChange: (val) => {
+              getCities(val);
             },
           }}
           defaultFormValues={defaultValues}
@@ -216,6 +271,9 @@ function App() {
           }}
           addMoreAddCallback={() => {
             console.log("Add more field add callback");
+          }}
+          getFormValues={(formValues) => {
+            console.log()
           }}
         />
       </Card.Body>

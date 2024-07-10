@@ -39,9 +39,19 @@ export default function InputComponent(props) {
         <Form.Control
           id={id}
           value={inputValue}
+          // onChange={(e) => {
+          //   setInputValue(e.target.value);
+          //   if (onChange) onChange(e.target.value);
+          // }}
           onChange={(e) => {
-            setInputValue(e.target.value);
-            if (onChange) onChange(e.target.value);
+            const newValue = e?.target?.value;
+            if (newValue?.length <= maxLength) {  // Optional check to enforce maxLength in the onChange handler
+              setInputValue(newValue);
+              if (onChange) onChange(newValue);
+            }else{
+              setInputValue(newValue);
+              if (onChange) onChange(newValue);
+            }
           }}
           name={name}
           type={type}

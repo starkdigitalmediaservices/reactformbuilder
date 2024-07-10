@@ -34,7 +34,9 @@ export default function FormRenderer(props) {
     addMoreRemoveCallback,
     addMoreAddCallback,
     sectionButtonCallBacks,
-    addMoreButtonsSchema
+    addMoreButtonsSchema,
+    onTextInputChange,
+    removeValues
   } = props;
 
 
@@ -82,7 +84,7 @@ export default function FormRenderer(props) {
           }
           const amFields =
             allFormValues[field.name] &&
-            typeof allFormValues[field.name] === "object"
+              typeof allFormValues[field.name] === "object"
               ? allFormValues[field.name]
               : [];
           // addMoreFields[field.name] = [field.fields];
@@ -113,7 +115,13 @@ export default function FormRenderer(props) {
 
   const updateFormValues = (e, field, fieldIndex = 0, aField = {}) => {
     if (!CustomFunctions.checkIfEmpty(callbacks, "O")) {
-      if (callbacks[field.callback]) callbacks[field.callback](e);
+      if (callbacks[field.callback]) {
+        callbacks[field.callback](e);
+        formValues[removeValues] = "";
+        removeValues && removeValues.map((ele) => {
+          return formValues[ele] = ""
+        })
+      }
     }
     const allValues = formValues;
     if (field.type === "addmore") {
@@ -257,7 +265,7 @@ export default function FormRenderer(props) {
     const filteredResult = conditionResults.filter((condition) => condition);
 
     switch (
-      CustomFunctions.toLowerCase(field.displayWhen.displayWhenRelation)
+    CustomFunctions.toLowerCase(field.displayWhen.displayWhenRelation)
     ) {
       case "and":
         if (filteredResult.length !== conditionResults.length)
@@ -425,7 +433,7 @@ export default function FormRenderer(props) {
     const filteredResult = conditionResults.filter((condition) => condition);
 
     switch (
-      CustomFunctions.toLowerCase(field.displayWhen.displayWhenRelation)
+    CustomFunctions.toLowerCase(field.displayWhen.displayWhenRelation)
     ) {
       case "and":
         if (filteredResult.length !== conditionResults.length)
@@ -728,6 +736,9 @@ export default function FormRenderer(props) {
                               field={{ ...bField }}
                               column={col}
                               onChange={(e) => {
+                                if (onTextInputChange) {
+                                  onTextInputChange(e, formValues);
+                                }
                                 updateFormValues(e, field, fieldIndex, bField);
                               }}
                               isAddMore
@@ -776,6 +787,9 @@ export default function FormRenderer(props) {
               field={{ ...field }}
               column={col}
               onChange={(e) => {
+                if (onTextInputChange) {
+                  onTextInputChange(e, formValues);
+                }
                 updateFormValues(e, field);
               }}
             />
@@ -801,12 +815,15 @@ export default function FormRenderer(props) {
     if (!displaySection || !isPermittedUser) return <></>;
     let columns = getFieldLayout(sectionLayout);
     const sectionButtonProps = {...buttonProps,onClick:sectionButtonCallBacks[secIndex]}
+    const { type, variant, name } = buttonProps || {};
+
+    const hasRequiredKeys = type !== undefined &&   name !== undefined;
 
     return (
       <>
         <div className={containerClass}>
           {displaySectionTitle && <RenderSectionTitle title={sectionTitle} />}
-          {RenderSectionButton(sectionButtonProps)}
+         
           <Row>
             {fields.map((field, fieldIndex) => (
               <>
@@ -821,6 +838,7 @@ export default function FormRenderer(props) {
               </>
             ))}
           </Row>
+          { hasRequiredKeys ? <RenderSectionButton {...sectionButtonProps} /> : null }
         </div>
       </>
     );
@@ -992,13 +1010,11 @@ export default function FormRenderer(props) {
             </>
           ) : (
             <>
-              <Button variant="primary" className="mr-5" type="submit">{`${
-                submitBtnText || "Submit"
-              }`}</Button>{" "}
+              <Button variant="primary" className="mr-5" type="submit">{`${submitBtnText || "Submit"
+                }`}</Button>{" "}
               {showResetBtn && (
-                <Button variant="secondary" className="mr-5" type="reset">{`${
-                  resetBtnText || "Reset"
-                }`}</Button>
+                <Button variant="secondary" className="mr-5" type="reset">{`${resetBtnText || "Reset"
+                  }`}</Button>
               )}{" "}
               {showDraftBtn && (
                 <Button
