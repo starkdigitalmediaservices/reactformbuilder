@@ -8,6 +8,7 @@ import CheckboxInput from './checkbox.component';
 import DropdownInput from './selectDropdown.component';
 import DateTimePicker from './datepicker.component';
 import PhoneInputComponent from './phoneNumber.component';
+import ButtonComponent from './button.component';
 
 export {
   TextInput,
@@ -18,4 +19,5 @@ export {
   DropdownInput,
   DateTimePicker,
   PhoneInputComponent,
+  ButtonComponent
 };

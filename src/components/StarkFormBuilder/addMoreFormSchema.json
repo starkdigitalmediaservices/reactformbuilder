@@ -6,7 +6,17 @@
     "containerClass": "",
     "displaySection": true,
     "displaySectionTitle": true,
+    "buttonProps": {
+      "type":"link",
+      "name": "test",
+      "variant":"primary",
+      "className":"m-0",
+      "href":"",
+      "target":"",
+      "containerClass":""
+    },
     "fields": [
+ 
       {
         "name": "Developer",
         "type": "select",
@@ -43,7 +53,7 @@
         "name": "Top Skill",
         "type": "text",
         "label": "Top Skill",
-        "id": "skill",
+        "id": "skill",  
         "placeholder": "Top Skill",
         "inputClass": "",
         "containerClass": "",
@@ -85,7 +95,16 @@
     "containerClass": "basicInformation",
     "displaySection": true,
     "displaySectionTitle": true,
+    "buttonProps": {
+      "type":"link",
+      "name": "test 2",
+      "variant":"button",
+      "className":"m-0",
+      "href":"",
+      "target":""
+    },
     "fields": [
+  
       {
         "name": "Test hobby",
         "type": "checkbox",
@@ -157,7 +176,17 @@
     "containerClass": "mt-4 ps-4",
     "displaySection": true,
     "displaySectionTitle": true,
+    "buttonProps": {
+      "type":"button",
+      "name": "test 3",
+      "variant":"link",
+      "className":"m-0",
+      "href":"",
+      "target":"",
+      "disable":""
+    },
     "fields": [
+ 
       {
         "name": "History Data",
         "type": "addmore",

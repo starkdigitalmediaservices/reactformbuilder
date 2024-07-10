@@ -43,7 +43,7 @@
     "simple-react-validator": "^1.6.2",
     "stark-form-builder-updated": "^0.4.2",
     "sweetalert": "^2.1.2",
-    "sweetalert2": "^11.12.1",
+    "sweetalert2": "^11.12.2",
     "web-vitals": "^4.2.0"
   },
   "scripts": {

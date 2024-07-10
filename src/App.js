@@ -15,9 +15,7 @@ let formOptions = {};
 function App() {
   // Variable declarations
   const [defaultValues, updateDefaultValues] = useState({});
-  console.log("🚀 ~ App ~ defaultValues:", defaultValues);
   const [options, updateOptions] = useState({});
-  console.log("🚀 ~ App ~ options:", options);
   const [currentUser, updateCurrentUser] = useState(0);
   const step = [{}];
   // Get user role
@@ -32,7 +30,6 @@ function App() {
 
   // Submit Form
   const submitForm = async (formValues) => {
-    console.log("formValues 123", formValues);
 
     // const { data } = await AuthApi.postDataToServer(Api.addStudent, formValues);
     // if (!data) {
@@ -44,7 +41,6 @@ function App() {
 
   const getStocks = async () => {
     axios.get("https://jsonplaceholder.typicode.com/users/").then((res) => {
-      console.log("res", res);
       const data = res.data;
       const dpOptions = [];
       data.map((op) => {
@@ -68,7 +64,6 @@ function App() {
 
   const getUsers = async () => {
     axios.get("https://jsonplaceholder.typicode.com/users/").then((res) => {
-      console.log("res", res);
       const data = res.data;
       const dpOptions = [];
       data.map((op) => {
@@ -92,7 +87,6 @@ function App() {
 
   const getClasses = async () => {
     axios.get("https://jsonplaceholder.typicode.com/users/").then((res) => {
-      console.log("res", res);
       const data = res.data;
       const dpOptions = [];
       data.map((op) => {
@@ -112,7 +106,6 @@ function App() {
 
   const getStates = (val) => {
     axios.get("https://jsonplaceholder.typicode.com/users/").then((res) => {
-      console.log("res", res);
       const data = res.data;
       const dpOptions = [];
       data.map((op) => {
@@ -136,6 +129,30 @@ function App() {
   useEffect(() => {
     getClasses();
   }, []);
+
+
+
+  const addMoreButtonsSchema = [{
+    "label":"external link",
+    "type":"link",
+    "name": "test no",
+    "variant":"link",
+    "className":"mb-6",
+    "href":"https://www.npmjs.com/",
+    "target":"_blank",
+    "disable":"true",
+    "onClick":()=>console.log("laxi")
+  },      {
+    "label":"external link 2",
+    "type":"link",
+    "name": "test yes",
+    "variant":"link",
+    "className":"mb-6",
+    "href":"https://www.npmjs.com/",
+    "target":"_blank",
+    "disable":"true",
+    "onClick":()=>console.log("shweta")
+  }] 
 
   return (
     <Card className="App">
@@ -170,6 +187,13 @@ function App() {
           showDraftBtn
           resetBtnText="Reset"
           btnContainerClass="form-submit-buttons"
+          sectionButtonCallBacks={[
+            () => window.open('https://www.google.com', '_blank'),
+            () => console.log('Button 2 clicked'),
+            () => console.log('Button 3 clicked'),
+            () => console.log('Button 4 clicked'),
+          ]}
+          addMoreButtonsSchema={addMoreButtonsSchema}
           onFormReset={() => {
             console.log("form reset callback");
           }}

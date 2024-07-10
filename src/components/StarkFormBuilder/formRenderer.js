@@ -7,6 +7,7 @@ import FormElementRenderer from "./formElementRenderer";
 import CustomFunctions from "./helper/customFunctions";
 import swal from "sweetalert";
 import Swal from "sweetalert2";
+import { ButtonComponent } from "./FormElements";
 
 export default function FormRenderer(props) {
   const simpleValidator = useRef(new SimpleReactValidator());
@@ -32,7 +33,11 @@ export default function FormRenderer(props) {
     showBtnClass,
     addMoreRemoveCallback,
     addMoreAddCallback,
+    sectionButtonCallBacks,
+    addMoreButtonsSchema
   } = props;
+
+
   const stepperProps = stepFormProps || {};
   const [formValues, setFormValues] = useState({});
   const [allFormFields, setAllFormFields] = useState([]);
@@ -357,6 +362,10 @@ export default function FormRenderer(props) {
           conditionResults = !checkboxValue.includes(condition.value);
           break;
         }
+        if (fieldType.type === "radio") {
+          conditionResults = !radioValue.includes(condition.value);
+          break;
+        }
         if (fieldType.type === "select") {
           if (fieldType.isMulti) {
             const values = [...dropdownValue].map((v) => v.value);
@@ -525,6 +534,14 @@ export default function FormRenderer(props) {
     );
   };
 
+  const RenderSectionButton = (buttonProps) => {
+    return (
+      <> 
+    <ButtonComponent {...buttonProps}/>
+      </>
+    );
+  };
+
   const getFieldLayout = (layout = "1column") => {
     let columns = 1;
     switch (layout) {
@@ -604,6 +621,7 @@ export default function FormRenderer(props) {
               parentField
             ),
           }}
+          
         />
       </>
     );
@@ -612,6 +630,7 @@ export default function FormRenderer(props) {
   const addField = (field) => {
     if (addMoreAddCallback) addMoreAddCallback();
     const fields = allAddMoreFields[field.name];
+    
     const foundFields = allFormFields.filter(
       (f) => f.type === "addmore" && f.name === field.name
     );
@@ -683,16 +702,19 @@ export default function FormRenderer(props) {
       ? 12 / getFieldLayout(field.fieldLayout)
       : col;
 
+
+
     let addMoreDisplayField;
+
     return (
-      <>
+      <> 
         <Col md={col}>
           {isAddMoreField ? (
             <Row className={field.sectionClass}>
               <Form.Label>{field.label}</Form.Label>
               {addMoreFields.map((aField, fieldIndex) => {
                 return (
-                  <>
+                  <>    
                     {aField.map(
                       (bField) => (
                         (addMoreDisplayField = checkAddMoreDisplayConditions(
@@ -716,6 +738,12 @@ export default function FormRenderer(props) {
                         ) : null
                       )
                     )}
+                     <Row>
+                    
+                     <Col> { 
+                       addMoreButtonsSchema?.[fieldIndex] ? RenderSectionButton(addMoreButtonsSchema?.[fieldIndex]):null
+                     }</Col>
+                     </Row>
                     <Col md={12} className="mb-3">
                       <div className="btn-group addMoreBtnContainer">
                         {addMoreFields?.length > 1 && (
@@ -757,7 +785,9 @@ export default function FormRenderer(props) {
     );
   };
 
-  const RenderSection = ({ section }) => {
+
+
+  const RenderSection = ({ section,secIndex }) => {
     const {
       displaySection,
       sectionTitle,
@@ -765,15 +795,18 @@ export default function FormRenderer(props) {
       fields,
       sectionLayout,
       containerClass,
+      buttonProps
     } = section;
     const isPermittedUser = checkPermittedUser(section.allowedUsers);
     if (!displaySection || !isPermittedUser) return <></>;
     let columns = getFieldLayout(sectionLayout);
+    const sectionButtonProps = {...buttonProps,onClick:sectionButtonCallBacks[secIndex]}
 
     return (
       <>
         <div className={containerClass}>
           {displaySectionTitle && <RenderSectionTitle title={sectionTitle} />}
+          {RenderSectionButton(sectionButtonProps)}
           <Row>
             {fields.map((field, fieldIndex) => (
               <>
@@ -888,6 +921,13 @@ export default function FormRenderer(props) {
   }, [stepCounter]);
 
   simpleValidator.current.purgeFields();
+
+
+
+  
+
+
+  
   return (
     <>
       <Form
@@ -907,8 +947,13 @@ export default function FormRenderer(props) {
           allFormSections.map((section, secIndex) => {
             return (
               <React.Fragment key={secIndex}>
+
                 {((isStepForm && secIndex === currentStepIndex) ||
-                  !isStepForm) && <RenderSection section={section} />}
+                  !isStepForm) && <>  
+                   <RenderSection section={section} secIndex={secIndex} />
+                  </>
+                  }          
+                 
               </React.Fragment>
             );
           })}

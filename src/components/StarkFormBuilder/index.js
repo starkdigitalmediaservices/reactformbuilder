@@ -29,7 +29,11 @@ export default function StarkFormBuilder(props) {
     showBtnClass,
     addMoreRemoveCallback,
     addMoreAddCallback,
+    sectionButtonCallBacks,
+    addMoreButtonsSchema
   } = props;
+
+
   return (
     <>
       <Container>
@@ -61,6 +65,8 @@ export default function StarkFormBuilder(props) {
             showBtnClass={showBtnClass}
             addMoreRemoveCallback={addMoreRemoveCallback}
             addMoreAddCallback={addMoreAddCallback}
+            sectionButtonCallBacks={sectionButtonCallBacks}
+            addMoreButtonsSchema={addMoreButtonsSchema}
           />
         </div>
       </Container>
