@@ -145,7 +145,6 @@ function App() {
 
 
   const getCities = async (val) => {
-    console.log("runtimeFormValues",runtimeFormValues);
 
     if (!runtimeFormValues?.country?.value && !runtimeFormValues?.state?.value ){
         return
