@@ -32,7 +32,8 @@ export default function StarkFormBuilder(props) {
     sectionButtonCallBacks,
     addMoreButtonsSchema,
     onTextInputChange,
-    removeValues
+    removeValues,
+    onDemandValues
   } = props;
 
 
@@ -75,6 +76,7 @@ export default function StarkFormBuilder(props) {
             addMoreAddCallback={addMoreAddCallback}
             sectionButtonCallBacks={sectionButtonCallBacks}
             addMoreButtonsSchema={addMoreButtonsSchema}
+            onDemandValues={onDemandValues}
           />
         </div>
       </Container>

@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from "react";
 import { Form, InputGroup, OverlayTrigger, Tooltip } from "react-bootstrap";
 
-
 export default function InputComponent(props) {
   const {
     label,
@@ -45,10 +44,13 @@ export default function InputComponent(props) {
           // }}
           onChange={(e) => {
             const newValue = e?.target?.value;
-            if (newValue?.length <= maxLength) {  // Optional check to enforce maxLength in the onChange handler
-              setInputValue(newValue);
-              if (onChange) onChange(newValue);
-            }else{
+            
+            if (maxLength) {
+              if (newValue?.length <= maxLength) {
+                setInputValue(newValue);
+                if (onChange) onChange(newValue); // Optional check to enforce maxLength in the onChange handler
+              }
+            } else {
               setInputValue(newValue);
               if (onChange) onChange(newValue);
             }
@@ -100,7 +102,7 @@ export default function InputComponent(props) {
         {inputIcon && <>{inputIcon}</>}
         {inputVarible ? (
           <InputGroup>
-              <InputGroup.Text>{inputVarible}</InputGroup.Text>
+            <InputGroup.Text>{inputVarible}</InputGroup.Text>
             {renderInput()}
           </InputGroup>
         ) : (

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect ,useId} from "react";
 import { Form, OverlayTrigger, Tooltip } from "react-bootstrap";
 
 export default function CheckboxComponent(props) {
@@ -21,6 +21,7 @@ export default function CheckboxComponent(props) {
     tooltipClass,
   } = props;
 
+  const keyId = useId()
   const [selectedValues, setSelectedValues] = useState([]);
 
   useEffect(() => {
@@ -66,6 +67,7 @@ export default function CheckboxComponent(props) {
             options.map((op, opi) => (
               <Form.Check
                 type={type}
+                key={keyId}
                 name={name}
                 id={`${name}-${op.value}-${opi}`}
                 value={op.value}

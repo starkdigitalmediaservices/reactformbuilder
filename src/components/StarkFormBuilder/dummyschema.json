@@ -10,10 +10,10 @@
     "displaySection": true,
     "displaySectionTitle": true,
     "buttonProps": {
-      "type": "link",
+      "type": "button",
       "variant": "link",
       "label": "External link",
-      "name": "test",
+      "name": "Google Meet",
       "className": "m-0"
     },
     "fields": [

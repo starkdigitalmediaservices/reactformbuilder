@@ -1,5 +1,5 @@
 /* eslint-disable */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useCallback,memo } from "react";
 import { Card } from "react-bootstrap";
 import StarkFormBuilder from "./components/StarkFormBuilder";
 // import StarkFormBuilder from "stark-form-builder-updated"
@@ -176,32 +176,42 @@ function App() {
 
   useEffect(() => {
     getCountries();
-    getCities()
   }, []);
 
 
 
   const addMoreButtonsSchema = [{
     "label":"external link",
-    "type":"link",
-    "name": "test no",
+    "type":"button",
+    "name": "test 1",
     "variant":"link",
     "className":"mb-6",
-    "href":"https://www.npmjs.com/",
-    "target":"_blank",
-    "disable":"true",
-    "onClick":()=>console.log("laxi")
+    "disable":false,
+    "onClick":()=>console.log("test 1")
   },      {
     "label":"external link 2",
-    "type":"link",
-    "name": "test yes",
+    "type":"button",
+    "name": "test 2",
     "variant":"link",
     "className":"mb-6",
-    "href":"https://www.npmjs.com/",
-    "target":"_blank",
-    "disable":"true",
-    "onClick":()=>console.log("shweta")
+    "disable":false,
+    "onClick":()=>console.log("test 2")
+  },
+  {
+    "label":"external link 2",
+    "type":"button",
+    "name": "test 3",
+    "variant":"link",
+    "className":"mb-6",
+    "disable":false,
+    "onClick":()=>console.log("test 3")
   }] 
+
+  const onTextInputChange = (value,formValues) => {
+    let tempData = {...formValues}
+    console.log("🚀 ~ onTextInputChange ~ tempData:", tempData)
+    // setRunTimeFormValues(formValues);
+  }
 
   return (
     <Card className="App">
@@ -210,16 +220,14 @@ function App() {
           containerClass=""
           formClass=""
           formHeaderClass=""
-          formSections={/* FormSections */ /* Schema */ dummyjson /* FormSchema05 *//* newFormSchema */}
+          formSections={/* FormSections */ /* dummyjson */ Schema /* FormSchema05 *//* newFormSchema */}
           // formSections={conditionalSchema}
           formHeading="Registration"
-          onTextInputChange={(value, formValues) => {
-            //  updateDefaultValues(formValues)
-            setRunTimeFormValues(formValues)
-          }} // runtime onchange values and formValues
+          // onTextInputChange={onTextInputChange} // runtime onchange values and formValues
           onFormSubmit={(formValues) => {
             submitForm(formValues);
           }}
+          
           onFormDraft={(formValues) => {
             submitForm(formValues);
           }}
@@ -230,7 +238,7 @@ function App() {
               getstates(val);
             },
             onStateChange: (val) => {
-              getCities(val);
+              // getCities(val);
             },
           }}
           defaultFormValues={defaultValues}
@@ -241,13 +249,10 @@ function App() {
           showDraftBtn
           resetBtnText="Reset"
           btnContainerClass="form-submit-buttons"
-          sectionButtonCallBacks={[
-            () => window.open('https://www.google.com', '_blank'),
-            () => console.log('Button 2 clicked'),
-            () => console.log('Button 3 clicked'),
-            () => console.log('Button 4 clicked'),
-          ]}
-          addMoreButtonsSchema={addMoreButtonsSchema}
+          // sectionButtonCallBacks={[
+          //   () => window.open('https://www.google.com', '_blank')
+          // ]}
+          // addMoreButtonsSchema={addMoreButtonsSchema}
           onFormReset={() => {
             console.log("form reset callback");
           }}
@@ -258,7 +263,7 @@ function App() {
                 label: "first",
               },
               userdetails: {
-                label: "sectond",
+                label: "second",
               },
             },
             containerClass: "stark-stepper-container",
@@ -270,9 +275,6 @@ function App() {
           }}
           addMoreAddCallback={() => {
             console.log("Add more field add callback");
-          }}
-          getFormValues={(formValues) => {
-            console.log()
           }}
         />
       </Card.Body>

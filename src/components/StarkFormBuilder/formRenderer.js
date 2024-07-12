@@ -1,5 +1,5 @@
 /* eslint-disable */
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState,useId } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import Stepper from "react-stepper-horizontal";
 import SimpleReactValidator from "simple-react-validator";
@@ -36,10 +36,10 @@ export default function FormRenderer(props) {
     sectionButtonCallBacks,
     addMoreButtonsSchema,
     onTextInputChange,
-    removeValues
+    removeValues,
   } = props;
 
-
+  const keyId = useId()
   const stepperProps = stepFormProps || {};
   const [formValues, setFormValues] = useState({});
   const [allFormFields, setAllFormFields] = useState([]);
@@ -531,10 +531,10 @@ export default function FormRenderer(props) {
     }
   };
 
-  const RenderSectionTitle = ({ title }) => {
+  const RenderSectionTitle = ({ title ,secIndex}) => {
     return (
       <>
-        <div className={``}>
+        <div className={``} key={keyId}>
           <h5>{title}</h5>
         </div>
         <hr />
@@ -731,7 +731,7 @@ export default function FormRenderer(props) {
                           field?.name
                         )),
                         addMoreDisplayField ? (
-                          <Col md={fieldCol}>
+                          <Col md={fieldCol} key={keyId}>
                             <RenderFormField
                               field={{ ...bField }}
                               column={col}
@@ -814,15 +814,15 @@ export default function FormRenderer(props) {
     const isPermittedUser = checkPermittedUser(section.allowedUsers);
     if (!displaySection || !isPermittedUser) return <></>;
     let columns = getFieldLayout(sectionLayout);
-    const sectionButtonProps = {...buttonProps,onClick:sectionButtonCallBacks[secIndex]}
+    const sectionButtonProps = sectionButtonCallBacks ?  {...buttonProps, onClick:sectionButtonCallBacks[secIndex]}:{...buttonProps};
     const { type, variant, name } = buttonProps || {};
 
     const hasRequiredKeys = type !== undefined &&   name !== undefined;
 
     return (
       <>
-        <div className={containerClass}>
-          {displaySectionTitle && <RenderSectionTitle title={sectionTitle} />}
+        <div className={containerClass } key={keyId}>
+          {displaySectionTitle && <RenderSectionTitle title={sectionTitle} secIndex={secIndex} />}
          
           <Row>
             {fields.map((field, fieldIndex) => (
@@ -964,7 +964,7 @@ export default function FormRenderer(props) {
         {allFormSections &&
           allFormSections.map((section, secIndex) => {
             return (
-              <React.Fragment key={secIndex}>
+              <React.Fragment key={keyId}>
 
                 {((isStepForm && secIndex === currentStepIndex) ||
                   !isStepForm) && <>  

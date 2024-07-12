@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useId } from "react";
 import { Form, OverlayTrigger, Tooltip } from "react-bootstrap";
 
 export default function RadioComponent(props) {
@@ -21,6 +21,8 @@ export default function RadioComponent(props) {
     tooltipClass,
   } = props;
 
+
+  const keyId = useId()
   const [inputValue, setInputValue] = useState("");
 
   useEffect(() => {
@@ -66,6 +68,7 @@ export default function RadioComponent(props) {
               <Form.Check
                 type={type}
                 name={name}
+                key={keyId}
                 id={`${name}-${op.value}-${opi}`}
                 value={op.value}
                 onChange={(e) => {
