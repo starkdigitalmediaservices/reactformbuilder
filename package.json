@@ -1,6 +1,6 @@
 {
   "name": "stark-form-builder-next",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": false,
   "author": "stark-digital",
   "keywords": [
@@ -22,30 +22,30 @@
     "type": "git",
     "url": "git+https://github.com/starkdigitalmediaservices/reactformbuilder.git"
   },
-  "dependencies": {
-    "@babel/polyfill": "^7.12.1",
-    "@testing-library/jest-dom": "^6.4.6",
-    "@testing-library/react": "^16.0.0",
-    "@testing-library/user-event": "^14.5.2",
-    "axios": "^1.7.2",
-    "bootstrap": "^5.3.3",
-    "bootstrap-icons": "^1.11.3",
-    "core-js": "^3.37.1",
-    "react": "^18.3.1",
-    "react-bootstrap": "^2.10.3",
-    "react-datepicker": "^7.2.0",
-    "react-dom": "^18.3.1",
-    "react-phone-input-2": "^2.15.1",
-    "react-phone-number-input": "^3.4.3",
-    "react-scripts": "5.0.1",
-    "react-select": "^5.8.0",
-    "react-stepper-horizontal": "^1.0.11",
-    "simple-react-validator": "^1.6.2",
-    "stark-form-builder-updated": "^0.4.2",
-    "sweetalert": "^2.1.2",
-    "sweetalert2": "^11.12.2",
-    "web-vitals": "^4.2.0"
-  },
+ "dependencies": {
+  "@babel/polyfill": "^7.12.1",
+  "@testing-library/jest-dom": "^6.4.6",
+  "@testing-library/react": "^16.0.0",
+  "@testing-library/user-event": "^14.5.2",
+  "axios": "^1.7.2",
+  "bootstrap": "^5.3.3",
+  "bootstrap-icons": "^1.11.3",
+  "core-js": "^3.37.1",
+  "react": "^18.3.1",
+  "react-bootstrap": "^2.10.4",
+  "react-datepicker": "^7.3.0",
+  "react-dom": "^18.3.1",
+  "react-phone-input-2": "^2.15.1",
+  "react-phone-number-input": "^3.4.3",
+  "react-scripts": "5.0.1",
+  "react-select": "^5.8.0",
+  "react-stepper-horizontal": "^1.0.11",
+  "simple-react-validator": "^1.6.2",
+  "stark-form-builder-updated": "^0.4.5",
+  "sweetalert": "^2.1.2",
+  "sweetalert2": "^11.12.2",
+  "web-vitals": "^4.2.1"
+},
   "scripts": {
     "start": "react-scripts start",
     "build": "rm -rf dist && NODE_ENV=production babel src/components/StarkFormBuilder --out-dir dist --copy-files",
@@ -70,9 +70,9 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {
-    "@babel/cli": "^7.24.7",
-    "@babel/core": "^7.24.7",
-    "@babel/preset-env": "^7.24.7"
-  }
+"devDependencies": {
+  "@babel/cli": "^7.24.8",
+  "@babel/core": "^7.24.9",
+  "@babel/preset-env": "^7.24.8"
+}
 }
