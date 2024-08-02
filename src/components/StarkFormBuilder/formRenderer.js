@@ -5,7 +5,7 @@ import Stepper from "react-stepper-horizontal";
 import SimpleReactValidator from "simple-react-validator";
 import FormElementRenderer from "./formElementRenderer";
 import CustomFunctions from "./helper/customFunctions";
-
+import Swal from "sweetalert2";
 export default function FormRenderer(props) {
   const simpleValidator = useRef(new SimpleReactValidator());
   const {
@@ -448,16 +448,18 @@ export default function FormRenderer(props) {
   };
 
   const removeField = (field, fieldIndex) => {
-    swal({
+    Swal.fire({
       title: "Are you sure?",
-      text: "Are you sure you want to remove field?",
+      text: "Do you want to remove field?",
       icon: "warning",
-      dangerMode: true,
-      buttons: true,
-      closeOnClickOutside: false,
-      allowOutsideClick: false,
+      showCancelButton: true,
+      confirmButtonColor: "#0E6DFC",
+      cancelButtonColor: "#6c757d",
+      reverseButtons: true,
+      cancelButtonText: "No",
+      confirmButtonText: "Yes",
     }).then(async (result) => {
-      if (result) {
+      if (result?.isConfirmed) {
         const fields = allAddMoreFields[field.name];
         fields.splice(fieldIndex, 1);
         const allVals = formValues;
@@ -600,7 +602,6 @@ export default function FormRenderer(props) {
       }
       return field;
     });
-    console.log("finalFormValues", finalFormValues);
     if (onFormSubmit) onFormSubmit(finalFormValues);
   };
 
@@ -611,7 +612,6 @@ export default function FormRenderer(props) {
 
   const submitForm = (e) => {
     e.preventDefault();
-    console.log("submitForm");
     updateSubmitCount(submitCount + 1);
   };
 

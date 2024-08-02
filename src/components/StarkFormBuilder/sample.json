@@ -1,273 +1,839 @@
 [
   {
-    "sectionName": "userinfo",
-    "sectionTitle": "User info",
-    "containerClass": "user-section",
+    "sectionName": "basicinfo",
+    "sectionTitle": "Basic Info",
+    "layout": { "label": "1 Column", "value": "1column" },
+    "containerClass": "",
     "displaySection": true,
     "displaySectionTitle": true,
+    "buttonProps":{
+      "label":"external link 1",
+      "type":"button",
+      "name": "section-link",
+      "variant":"link",
+      "className":"mb-6",
+      "disable":false
+    },
     "fields": [
       {
-        "name": "name",
-        "type": "text",
-        "label": "User Name",
-        "id": "asd",
+        "name": "Developer",
+        "type": "select",
+        "label": "Developer",
+        "id": "Developer",
         "placeholder": "",
-        "tooltip": "text input",
-        "tooltipIcon": "fa-regular fa-circle-question",
-        "tooltipText": "",
-        "tooltipClass": "",
         "inputClass": "",
         "containerClass": "",
         "validations": [
-          {
-            "type": "required",
-            "applyWhen": [],
-            "applyWhenRelation": "OR"
-          }
+          { "type": "required", "applyWhen": [], "applyWhenRelation": "OR" }
         ],
         "displayWhen": {},
+        "haveValidations": "true",
+        "haveDisplayOptions": "false",
+        "callback": "",
+        "callbackUrl": "",
+        "inputToChange": "",
+        "minDateSelector": "",
+        "maxDateSelector": "",
         "disabled": false,
-        "allowedUsers": []
-      },
-      {
-        "name": "phone",
-        "type": "phonenumber",
-        "tooltipText": "",
-        "label": "Phone Number",
-        "tooltip": "phone input",
-        "tooltipIcon": "fa-regular fa-circle-question",
-        "tooltipClass": "",
-        "id": "asd",
-        "placeholder": "",
-        "inputClass": "",
-        "containerClass": "",
-        "limitMaxLength": "true",
-        "defaultCountry": "us",
-        "validations": [],
-        "displayWhen": {},
-        "disabled": false,
+        "isMulti": false,
         "allowedUsers": [],
-
-        "countryCodeEditable": false,
-        "enableSearch": true,
-        "disableSearchIcon": false
+        "fieldsToReset": [],
+        "fieldLayout": { "label": "1 Column", "value": "1column" },
+        "fields": [],
+        "optionCallback": "getPosition Applied For",
+        "options": [
+          { "value": "reactjs", "label": "React Js" },
+          { "value": "nodejs", "label": "Node Js" },
+          { "value": "python", "label": "Python" }
+        ]
       },
       {
-        "name": "email",
-        "type": "email",
-        "label": "Email",
-        "id": "",
-        "placeholder": "",
-        "tooltip": "email input",
-        "tooltipIcon": "fa-regular fa-circle-question",
-        "tooltipClass": "",
-        "tooltipText": "",
+        "name": "Top Skill",
+        "type": "text",
+        "label": "Top Skill",
+        "id": "skill",  
+        "placeholder": "Top Skill",
         "inputClass": "",
         "containerClass": "",
-        "validations": [
-          {
-            "type": "required",
-            "applyWhen": [],
-            "applyWhenRelation": "OR"
-          },
-          {
-            "type": "email",
-            "applyWhen": [],
-            "applyWhenRelation": "OR"
-          }
-        ],
-        "disabled": false
-      },
-      {
-        "id": "gender",
-        "name": "gender",
-        "label": "Gender",
-        "tooltip": "Radio input",
-        "tooltipClass": "",
-        "tooltipText": "",
-        "tooltipIcon": "fa-regular fa-circle-question",
-        "containerClass": "stark-frmmobile",
-        "type": "radio",
-        "placeholder": "",
-        "inputClass": "",
-        "validations": [
-          {
-            "type": "required",
-            "applyWhen": [],
-            "applyWhenRelation": "OR"
-          }
-        ],
-        "options": [
-          {
-            "value": "female",
-            "label": "Female"
-          },
-          {
-            "value": "male",
-            "label": "Male"
-          }
-        ],
-        "disabled": false
-      },
-      {
-        "id": "choices",
-        "name": "choices",
-        "label": "Choices",
-        "tooltip": "Checkbox input",
-        "tooltipIcon": "fa-regular fa-circle-question",
-        "tooltipText": "",
-        "tooltipClass": "",
-        "containerClass": "stark-frmmobile",
-        "type": "checkbox",
-        "placeholder": "",
-        "inputClass": "",
-        "validations": [
-          {
-            "type": "required",
-            "applyWhen": [],
-            "applyWhenRelation": "OR"
-          }
-        ],
-        "options": [
-          {
-            "value": "fb",
-            "label": "Facebook"
-          },
-          {
-            "value": "insta",
-            "label": "Instagram"
-          }
-        ],
+        "validations": [  {
+          "type": "required|alpha_space",
+          "applyWhen": [],
+          "applyWhenRelation": "OR"
+        }],
         "displayWhen": {
           "conditions": [
             {
-              "name": "gender",
-              "value": "female",
+              "name": "Developer",
+              "value": "reactjs",
               "condition": "=="
             }
           ],
-          "displayWhenRelation": "AND"
+          "displayWhenRelation": "OR"
         },
-        "disabled": false
-      },
-      {
-        "id": "stock",
-        "name": "stock",
-        "label": "Stock",
-        "tooltip": "dropdown input",
-        "tooltipIcon": "fa-regular fa-circle-question",
-        "tooltipText": "",
-        "tooltipClass": "",
-        "containerClass": "stark-frmmobile",
-        "type": "select",
-        "placeholder": "",
-        "inputClass": "",
-        "validations": [
-          {
-            "type": "required",
-            "applyWhen": [],
-            "applyWhenRelation": "OR"
-          }
-        ],
-        "options": [],
-        "isMulti": false,
-        "disabled": false
-      },
-      {
-        "id": "users",
-        "name": "users",
-        "label": "Users",
-        "tooltip": "dropdown input",
-        "tooltipIcon": "fa-regular fa-circle-question",
-        "tooltipText": "",
-        "containerClass": "stark-frmmobile",
-        "tooltipClass": "",
-        "type": "select",
-        "placeholder": "",
-        "inputClass": "",
-        "validations": [
-          {
-            "type": "required",
-            "applyWhen": [],
-            "applyWhenRelation": "OR"
-          }
-        ],
-        "options": [],
-        "isMulti": false,
-        "disabled": false
-      },
-      {
-        "id": "country",
-        "name": "country",
-        "label": "Country",
-        "tooltip": "dropdown input",
-        "tooltipIcon": "fa-regular fa-circle-question",
-        "tooltipClass": "",
-        "tooltipText": "",
-        "containerClass": "stark-frmmobile",
-        "type": "select",
-        "placeholder": "Select country",
-        "inputClass": "",
-        "validations": [
-          {
-            "type": "required",
-            "applyWhen": [],
-            "applyWhenRelation": "OR"
-          }
-        ],
-        "options": [],
-        "isMulti": false,
+        "haveValidations": "false",
+        "haveDisplayOptions": "true",
+        "callback": "",
+        "callbackUrl": "",
+        "inputToChange": "",
+        "minDateSelector": "",
+        "maxDateSelector": "",
         "disabled": false,
-        "isSearchable": false,
-        "callback": "onCountryChange",
-        "fieldsToReset": ["users", "state"]
-      },
-      {
-        "id": "state",
-        "name": "state",
-        "label": "State",
-        "tooltipText": "",
-        "tooltipClass": "",
-        "tooltipIcon": "fa-regular fa-circle-question",
-        "containerClass": "stark-frmmobile",
-        "type": "select",
-        "placeholder": "",
-        "inputClass": "",
-        "validations": [
-          {
-            "type": "required",
-            "applyWhen": [],
-            "applyWhenRelation": "OR"
-          }
-        ],
-        "options": [],
         "isMulti": false,
-        "disabled": false
-      },
-      {
-        "id": "startdate",
-        "name": "startdate",
-        "label": "Start date",
-        "tooltip": "date input",
-        "tooltipIcon": "fa-regular fa-circle-question",
-        "tooltipText": "",
-        "tooltipClass": "",
-        "containerClass": "stark-frmmobile",
-        "type": "date",
-        "placeholder": "YYYY-MM-DD",
-        "inputClass": "",
-        "validations": [
-          {
-            "type": "required",
-            "applyWhen": [],
-            "applyWhenRelation": "OR"
-          }
-        ],
-        "options": [],
-        "isMulti": false,
-        "disabled": false
+        "allowedUsers": [],
+        "fieldsToReset": [],
+        "fieldLayout": { "label": "1 Column", "value": "1column" },
+        "fields": [],
+        "optionCallback": "",
+        "options": []
       }
     ],
+    "allowedUsers": [],
+    "sectionLayout": "2column"
+  },
+  {
+    "sectionName": "basicinformation",
+    "sectionTitle": "Basic Information",
+    "layout": { "label": "2 Column", "value": "2column" },
+    "containerClass": "basicInformation",
+    "displaySection": true,
+    "displaySectionTitle": true,
+    "buttonProps":{
+      "label":"external link 2",
+      "type":"button",
+      "name": "section-link",
+      "variant":"link",
+      "className":"mb-6",
+      "disable":false
+    },
+    "fields": [
+  
+      {
+        "name": "Test hobby",
+        "type": "checkbox",
+        "label": "Hobby",
+        "id": "hobby",
+        "placeholder": "",
+        "inputClass": "",
+        "containerClass": "",
+        "validations": [],
+        "displayWhen": {},
+        "haveValidations": "false",
+        "haveDisplayOptions": "false",
+        "callback": "",
+        "callbackUrl": "",
+        "inputToChange": "",
+        "minDateSelector": "",
+        "maxDateSelector": "",
+        "disabled": false,
+        "isMulti": false,
+        "allowedUsers": [],
+        "fieldsToReset": [],
+        "fieldLayout": { "label": "1 Column", "value": "1column" },
+        "fields": [],
+        "optionCallback": "",
+        "options": [
+          { "value": "cricket", "label": "Cricket" },
+          { "value": "readingBooks", "label": "Reading Books" },
+          { "value": "travling", "label": "Travling" }
+        ]
+      },
+      {
+        "name": "favoritePlayer",
+        "type": "text",
+        "label": "Favorite Player",
+        "id": "favoritePlayer",
+        "placeholder": "Enter favorite player",
+        "inputClass": "",
+        "containerClass": "",
+        "validations": [  {
+          "type": "required|alpha_space",
+          "applyWhen": [],
+          "applyWhenRelation": "OR"
+        }],
+        "displayWhen": {
+          "conditions": [
+            { "name": "Test hobby", "value": "cricket", "condition": "==" }
+          ],
+          "displayWhenRelation": "OR"
+        },
+        "haveValidations": "false",
+        "haveDisplayOptions": "true",
+        "callback": "",
+        "callbackUrl": "",
+        "inputToChange": "",
+        "minDateSelector": "",
+        "maxDateSelector": "",
+        "disabled": false,
+        "isMulti": false,
+        "allowedUsers": [],
+        "fieldsToReset": [],
+        "fieldLayout": { "label": "1 Column", "value": "1column" },
+        "fields": [],
+        "optionCallback": "",
+        "options": []
+      }
+    ],
+    "allowedUsers": [],
+    "sectionLayout": "2column"
+  },
+  {
+    "sectionName": "history",
+    "sectionTitle": "History",
+    "containerClass": "mt-4 ps-4",
+    "displaySection": true,
+    "displaySectionTitle": true,
+    "fields": [
+ 
+      {
+        "name": "History Data",
+        "type": "addmore",
+        "label": "",
+        "id": "",
+        "placeholder": "",
+        "inputClass": "",
+        "containerClass": "",
+        "validations": [],
+        "displayWhen": {},
+        "haveValidations": "false",
+        "haveDisplayOptions": "false",
+        "callback": "",
+        "callbackUrl": "",
+        "inputToChange": "",
+        "minDateSelector": "",
+        "maxDateSelector": "",
+        "disabled": false,
+        "isMulti": false,
+        "allowedUsers": [],
+        "fieldsToReset": [],
+        "fieldLayout": "2column",
+        "fields": [
+          {
+            "name": "company_name",
+            "type": "text",
+            "label": "Company Name",
+            "maxLength":10,
+            "id": "",
+            "placeholder": "Company Name",
+            "inputClass": "",
+            "containerClass": "",
+            "validations": [
+              {
+                "type": "required|alpha_space",
+                "applyWhen": [],
+                "applyWhenRelation": "OR"
+              }
+            ],
+            "displayWhen": {},
+            "haveValidations": "true",
+            "haveDisplayOptions": "false",
+            "callback": "",
+            "callbackUrl": "",
+            "inputToChange": "",
+            "minDateSelector": "",
+            "maxDateSelector": "",
+            "disabled": false,
+            "isMulti": false,
+            "allowedUsers": [],
+            "fieldsToReset": [],
+            "fieldLayout": { "label": "2 Column", "value": "2column" },
+            "options": [],
+            "fields": []
+          },
+          {
+            "name": "designation",
+            "type": "text",
+            "label": "Designation",
+            "id": "",
+            "placeholder": "Designation",
+            "inputClass": "",
+            "containerClass": "",
+            "validations": [
+              {
+                "type": "required|alpha_space",
+                "applyWhen": [],
+                "applyWhenRelation": "OR"
+              }
+            ],
+            "displayWhen": {},
+            "haveValidations": "true",
+            "haveDisplayOptions": "false",
+            "callback": "",
+            "callbackUrl": "",
+            "inputToChange": "",
+            "minDateSelector": "",
+            "maxDateSelector": "",
+            "disabled": false,
+            "isMulti": false,
+            "allowedUsers": [],
+            "fieldsToReset": [],
+            "fieldLayout": { "label": "1 Column", "value": "1column" },
+            "fields": [],
+            "options": []
+          },
+          {
+            "name": "start_date",
+            "type": "date",
+            "label": "Start Date",
+            "id": "",
+            "dateFormat": "dd/MM/yyyy",
+            "placeholder": "Start Date",
+            "inputClass": "",
+            "containerClass": "",
+            "validations": [
+              {
+                "type": "required",
+                "applyWhen": [],
+                "applyWhenRelation": "OR"
+              },
+              {
+                "type": "",
+                "applyWhen": [
+                  {
+                    "name": "end_date",
+                    "value": "end_date",
+                    "condition": "!empty"
+                  }
+                ],
+                "applyWhenRelation": "OR"
+              }
+            ],
+            "displayWhen": {},
+            "haveValidations": "true",
+            "haveDisplayOptions": "false",
+            "callback": "",
+            "callbackUrl": "",
+            "inputToChange": "",
+            "minDateSelector": "",
+            "maxDateSelector": "",
+            "disabled": false,
+            "isMulti": false,
+            "allowedUsers": [],
+            "fieldsToReset": [],
+            "fieldLayout": { "label": "1 Column", "value": "1column" },
+            "fields": [],
+            "options": []
+          },
+          {
+            "name": "end_date",
+            "type": "date",
+            "label": "End Date",
+            "id": "",
+            "dateFormat": "dd/MM/yyyy",
+            "placeholder": "End Date",
+            "inputClass": "",
+            "containerClass": "",
+            "validations": [
+              {
+                "type": "required",
+                "applyWhen": [
+                  {
+                    "name": "start_date",
+                    "value": "start_date",
+                    "condition": "!empty"
+                  }
+                ],
+                "applyWhenRelation": "OR"
+              }
+            ],
+            "displayWhen": {},
+            "haveValidations": "true",
+            "haveDisplayOptions": "false",
+            "callback": "",
+            "callbackUrl": "",
+            "inputToChange": "",
+            "minDateSelector": "start_date",
+            "maxDateSelector": "",
+            "disabled": false,
+            "isMulti": false,
+            "allowedUsers": [],
+            "fieldsToReset": [],
+            "fieldLayout": { "label": "1 Column", "value": "1column" },
+            "fields": [],
+            "options": []
+          },
+          {
+            "name": "duration",
+            "type": "text",
+            "label": "Duration",
+            "id": "",
+            "placeholder": "Duration",
+            "inputClass": "",
+            "containerClass": "",
+            "validations": [  {
+              "type": "required|alpha_space",
+              "applyWhen": [],
+              "applyWhenRelation": "OR"
+            }],
+            "displayWhen": {},
+            "haveValidations": "true",
+            "haveDisplayOptions": "false",
+            "callback": "",
+            "callbackUrl": "",
+            "inputToChange": "",
+            "minDateSelector": "",
+            "maxDateSelector": "",
+            "disabled": true,
+            "isMulti": false,
+            "allowedUsers": [],
+            "fieldsToReset": [],
+            "fieldLayout": { "label": "1 Column", "value": "1column" },
+            "fields": [],
+            "options": []
+          },
+          {
+            "name": "company_url",
+            "type": "text",
+            "label": "Company Url",
+            "id": "",
+            "placeholder": "Company Url",
+            "inputClass": "",
+            "containerClass": "",
+            "validations": [
+              {
+                "type": "required",
+                "applyWhen": [],
+                "applyWhenRelation": "OR"
+              },
+
+              { "type": "url", "applyWhen": [], "applyWhenRelation": "OR" }
+            ],
+            "displayWhen": {},
+            "haveValidations": "true",
+            "haveDisplayOptions": "false",
+            "callback": "",
+            "callbackUrl": "",
+            "inputToChange": "",
+            "minDateSelector": "",
+            "maxDateSelector": "",
+            "disabled": false,
+            "isMulti": false,
+            "allowedUsers": [],
+            "fieldsToReset": [],
+            "fieldLayout": { "label": "1 Column", "value": "1column" },
+            "fields": [],
+            "options": []
+          },
+          {
+            "name": "location",
+            "type": "text",
+            "label": "Location",
+            "id": "",
+            "placeholder": "Location",
+            "inputClass": "",
+            "containerClass": "",
+            "validations": [
+              {
+                "type": "required|alpha_space",
+                "applyWhen": [],
+                "applyWhenRelation": "OR"
+              }
+            ],
+            "displayWhen": {},
+            "haveValidations": "true",
+            "haveDisplayOptions": "false",
+            "callback": "",
+            "callbackUrl": "",
+            "inputToChange": "",
+            "minDateSelector": "",
+            "maxDateSelector": "",
+            "disabled": false,
+            "isMulti": false,
+            "allowedUsers": [],
+            "fieldsToReset": [],
+            "fieldLayout": { "label": "1 Column", "value": "1column" },
+            "fields": [],
+            "options": []
+          },
+          {
+            "name": "reporting_person_hr",
+            "type": "text",
+            "label": "Hr Name",
+            "id": "",
+            "placeholder": "HR Name",
+            "inputClass": "",
+            "containerClass": "",
+            "validations": [  {
+              "type": "required|alpha_space",
+              "applyWhen": [],
+              "applyWhenRelation": "OR"
+            }],
+            "displayWhen": {},
+            "haveValidations": "true",
+            "haveDisplayOptions": "false",
+            "callback": "",
+            "callbackUrl": "",
+            "inputToChange": "",
+            "minDateSelector": "",
+            "maxDateSelector": "",
+            "disabled": false,
+            "isMulti": false,
+            "allowedUsers": [],
+            "fieldsToReset": [],
+            "fieldLayout": { "label": "1 Column", "value": "1column" },
+            "options": [],
+            "fields": []
+          },
+          {
+            "name": "hr_email",
+            "type": "email",
+            "label": "HR Email",
+            "id": "",
+            "placeholder": "HR Email",
+            "inputClass": "",
+            "containerClass": "",
+            "validations": [],
+            "displayWhen": {},
+            "haveValidations": "false",
+            "haveDisplayOptions": "false",
+            "callback": "",
+            "callbackUrl": "",
+            "inputToChange": "",
+            "minDateSelector": "",
+            "maxDateSelector": "",
+            "disabled": false,
+            "isMulti": false,
+            "allowedUsers": [],
+            "fieldsToReset": [],
+            "fieldLayout": { "label": "1 Column", "value": "1column" },
+            "fields": [],
+            "options": []
+          },
+          {
+            "name": "hr_mobile",
+            "type": "number",
+            "label": "HR Contact No",
+            "id": "",
+            "placeholder": "HR Contact No",
+            "inputClass": "",
+            "containerClass": "",
+            "maxLength":10,
+            "validations": [],
+            "displayWhen": {},
+            "haveValidations": "false",
+            "haveDisplayOptions": "false",
+            "callback": "",
+            "callbackUrl": "",
+            "inputToChange": "",
+            "minDateSelector": "",
+            "maxDateSelector": "",
+            "disabled": false,
+            "isMulti": false,
+            "allowedUsers": [],
+            "fieldsToReset": [],
+            "fieldLayout": { "label": "1 Column", "value": "1column" },
+            "fields": [],
+            "options": []
+          },
+          {
+            "name": "reporting_person_manager",
+            "type": "text",
+            "label": "Manager Name",
+            "id": "",
+            "placeholder": "Manager Name",
+            "inputClass": "",
+            "containerClass": "",
+            "validations": [  {
+              "type": "required|alpha_space",
+              "applyWhen": [],
+              "applyWhenRelation": "OR"
+            }],
+            "displayWhen": {},
+            "haveValidations": "true",
+            "haveDisplayOptions": "false",
+            "callback": "",
+            "callbackUrl": "",
+            "inputToChange": "",
+            "minDateSelector": "",
+            "maxDateSelector": "",
+            "disabled": false,
+            "isMulti": false,
+            "allowedUsers": [],
+            "fieldsToReset": [],
+            "fieldLayout": { "label": "1 Column", "value": "1column" },
+            "options": [],
+            "fields": []
+          },
+          {
+            "name": "manager_email",
+            "type": "email",
+            "label": "Manager Email",
+            "id": "",
+            "placeholder": "Manager Email",
+            "inputClass": "",
+            "containerClass": "",
+            "validations": [],
+            "displayWhen": {},
+            "haveValidations": "false",
+            "haveDisplayOptions": "false",
+            "callback": "",
+            "callbackUrl": "",
+            "inputToChange": "",
+            "minDateSelector": "",
+            "maxDateSelector": "",
+            "disabled": false,
+            "isMulti": false,
+            "allowedUsers": [],
+            "fieldsToReset": [],
+            "fieldLayout": { "label": "1 Column", "value": "1column" },
+            "fields": [],
+            "options": []
+          },
+          {
+            "name": "manager_mobile",
+            "type": "number",
+            "label": "Manager Contact No",
+            "id": "",
+            "placeholder": "Manager Contact No",
+            "inputClass": "",
+            "maxLength":10,
+            "containerClass": "",
+            "validations": [
+            
+            ],
+            "displayWhen": {},
+            "haveValidations": "false",
+            "haveDisplayOptions": "false",
+            "callback": "",
+            "callbackUrl": "",
+            "inputToChange": "",
+            "minDateSelector": "",
+            "maxDateSelector": "",
+            "disabled": false,
+            "isMulti": false,
+            "allowedUsers": [],
+            "fieldsToReset": [],
+            "fieldLayout": { "label": "1 Column", "value": "1column" },
+            "fields": [],
+            "options": []
+          },
+          {
+            "name": "is_fresher",
+            "type": "radio",
+            "label": "Work Status",
+            "id": "",
+            "placeholder": "",
+            "inputClass": "",
+            "containerClass": "mt-1",
+            "inline": "true",
+            "validations": [
+              {
+                "type": "required",
+                "applyWhen": [],
+                "applyWhenRelation": "OR"
+              }
+            ],
+            "displayWhen": {},
+            "haveValidations": "true",
+            "haveDisplayOptions": "false",
+            "callback": "",
+            "callbackUrl": "",
+            "inputToChange": "",
+            "minDateSelector": "",
+            "maxDateSelector": "",
+            "disabled": false,
+            "isMulti": false,
+            "allowedUsers": [],
+            "fieldsToReset": [],
+            "fieldLayout": {
+              "label": "1 Column",
+              "value": "1 column"
+            },
+            "fields": [],
+            "optionCallback": "handleIsFresherChange",
+            "options": [
+              { "label": "Fresher", "value": "1" },
+              { "label": "Experience", "value": "0" }
+            ]
+          },
+          {
+            "name": "reason_job_change",
+            "type": "text",
+            "label": "Reason for job change",
+            "id": "",
+            "placeholder": "",
+            "inputClass": "",
+            "containerClass": "",
+            "validations": [
+              
+                {
+                  "type": "required|alpha_space",
+                  "applyWhen": [],
+                  "applyWhenRelation": "OR"
+                }
+              
+            ],
+            "displayWhen": {
+              "conditions": [
+                {
+                  "name": "is_fresher",
+                  "value": "0",
+                  "condition": "=="
+                }
+              ],
+              "displayWhenRelation": "OR"
+            },
+            "haveValidations": "false",
+            "haveDisplayOptions": "false",
+            "callback": "",
+            "callbackUrl": "",
+            "inputToChange": "",
+            "minDateSelector": "",
+            "maxDateSelector": "",
+            "disabled": false,
+            "isMulti": false,
+            "allowedUsers": [],
+            "fieldsToReset": [],
+            "fieldLayout": {
+              "label": "1 Column",
+              "value": "1column"
+            },
+            "fields": [],
+            "optionCallback": "",
+            "options": []
+          },
+
+          {
+            "name": "Position_Applied_For",
+            "type": "select",
+            "label": "Position Applied For",
+            "id": "PositionAppliedFor",
+            "placeholder": "",
+            "inputClass": "",
+            "containerClass": "",
+            "validations": [
+              { "type": "required", "applyWhen": [], "applyWhenRelation": "OR" }
+            ],
+            "displayWhen": {},
+            "haveValidations": "true",
+            "haveDisplayOptions": "false",
+            "callback": "",
+            "callbackUrl": "",
+            "inputToChange": "",
+            "minDateSelector": "",
+            "maxDateSelector": "",
+            "disabled": false,
+            "isMulti": false,
+            "allowedUsers": [],
+            "fieldsToReset": [],
+            "fieldLayout": { "label": "1 Column", "value": "1column" },
+            "fields": [],
+            "optionCallback": "getPosition Applied For",
+            "options": [
+              { "value": "reactjs", "label": "React Js" },
+              { "value": "nodejs", "label": "Node Js" },
+              { "value": "python", "label": "Python" }
+            ]
+          },
+          {
+            "name": "Skills",
+            "type": "text",
+            "label": "Skills",
+            "id": "skill",
+            "placeholder": "Skill",
+            "inputClass": "",
+            "containerClass": "",
+            "validations": [  {
+              "type": "required|alpha_space",
+              "applyWhen": [],
+              "applyWhenRelation": "OR"
+            }],
+            "displayWhen": {
+              "conditions": [
+                {
+                  "name": "Position_Applied_For",
+                  "value": "reactjs",
+                  "condition": "=="
+                }
+              ],
+              "displayWhenRelation": "OR"
+            },
+            "haveValidations": "false",
+            "haveDisplayOptions": "true",
+            "callback": "",
+            "callbackUrl": "",
+            "inputToChange": "",
+            "minDateSelector": "",
+            "maxDateSelector": "",
+            "disabled": false,
+            "isMulti": false,
+            "allowedUsers": [],
+            "fieldsToReset": [],
+            "fieldLayout": { "label": "1 Column", "value": "1column" },
+            "fields": [],
+            "optionCallback": "",
+            "options": []
+          },
+          {
+            "name": "hobby",
+            "type": "checkbox",
+            "label": "Hobby",
+            "id": "hobby",
+            "placeholder": "",
+            "inputClass": "",
+            "containerClass": "",
+            "validations": [],
+            "displayWhen": {},
+            "haveValidations": "false",
+            "haveDisplayOptions": "false",
+            "callback": "",
+            "callbackUrl": "",
+            "inputToChange": "",
+            "minDateSelector": "",
+            "maxDateSelector": "",
+            "disabled": false,
+            "isMulti": false,
+            "allowedUsers": [],
+            "fieldsToReset": [],
+            "fieldLayout": { "label": "1 Column", "value": "1column" },
+            "fields": [],
+            "optionCallback": "",
+            "options": [
+              { "value": "cricket", "label": "Cricket" },
+              { "value": "readingBooks", "label": "Reading Books" },
+              { "value": "travling", "label": "Travling" }
+            ]
+          },
+          {
+            "name": "favoritePlayer",
+            "type": "text",
+            "label": "Favorite Player",
+            "id": "favoritePlayer",
+            "placeholder": "Enter favorite player",
+            "inputClass": "",
+            "containerClass": "",
+            "validations": [  {
+              "type": "required | alpha_space",
+              "applyWhen": [],
+              "applyWhenRelation": "OR"
+            }],
+            "displayWhen": {
+              "conditions": [
+                { "name": "hobby", "value": "cricket", "condition": "==" }
+              ],
+              "displayWhenRelation": "OR"
+            },
+            "haveValidations": "false",
+            "haveDisplayOptions": "true",
+            "callback": "",
+            "callbackUrl": "",
+            "inputToChange": "",
+            "minDateSelector": "",
+            "maxDateSelector": "",
+            "disabled": false,
+            "isMulti": false,
+            "allowedUsers": [],
+            "fieldsToReset": [],
+            "fieldLayout": { "label": "1 Column", "value": "1column" },
+            "fields": [],
+            "optionCallback": "",
+            "options": []
+          }
+        ],
+        "optionCallback": "",
+        "options": []
+      }
+    ],
+    "allowedUsers": [],
     "sectionLayout": "1column"
   }
 ]
