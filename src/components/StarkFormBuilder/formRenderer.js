@@ -668,6 +668,7 @@ export default function FormRenderer(props) {
       text: "Do you want to remove field?",
       icon: "warning",
       showCancelButton: true,
+      reverseButtons: true,
       confirmButtonColor: "#3E8855",
       cancelButtonColor: "#d33",
       cancelButtonText: "No",

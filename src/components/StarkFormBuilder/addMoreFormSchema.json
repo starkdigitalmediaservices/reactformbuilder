@@ -7,9 +7,9 @@
     "displaySection": true,
     "displaySectionTitle": true,
     "buttonProps":{
-      "label":"external link 2",
+      "label":"external link 1",
       "type":"button",
-      "name": "test yes",
+      "name": "section-link",
       "variant":"link",
       "className":"mb-6",
       "disable":false
@@ -97,6 +97,14 @@
     "containerClass": "basicInformation",
     "displaySection": true,
     "displaySectionTitle": true,
+    "buttonProps":{
+      "label":"external link 2",
+      "type":"button",
+      "name": "section-link",
+      "variant":"link",
+      "className":"mb-6",
+      "disable":false
+    },
     "fields": [
   
       {

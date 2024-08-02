@@ -1,5 +1,5 @@
 /* eslint-disable */
-import React, { useState, useEffect,useCallback,memo } from "react";
+import React, { useState, useEffect, useCallback, memo } from "react";
 import { Card } from "react-bootstrap";
 import StarkFormBuilder from "./components/StarkFormBuilder";
 // import StarkFormBuilder from "stark-form-builder-updated"
@@ -9,7 +9,7 @@ import conditionalSchema from "./components/StarkFormBuilder/conditionalBasedFor
 import FormSchema05 from "./components/StarkFormBuilder/FormSchema05.json";
 import newFormSchema from "./components/StarkFormBuilder/newFormSchema.json";
 import axios from "axios";
-import dummyjson from './components/StarkFormBuilder/dummyschema.json';
+import dummyjson from "./components/StarkFormBuilder/dummyschema.json";
 
 let formOptions = {};
 
@@ -19,9 +19,8 @@ function App() {
   const [updatedValues, setUpdateFormValues] = useState([]);
   const [options, updateOptions] = useState({});
   const [currentUser, updateCurrentUser] = useState(0);
-  const [runtimeFormValues,setRunTimeFormValues]= useState({})
+  const [runtimeFormValues, setRunTimeFormValues] = useState({});
   const step = [{}];
-
 
   // Get user role
   const getUserRole = async () => {
@@ -35,7 +34,6 @@ function App() {
 
   // Submit Form
   const submitForm = async (formValues) => {
-
     // const { data } = await AuthApi.postDataToServer(Api.addStudent, formValues);
     // if (!data) {
     //   // show error
@@ -105,12 +103,12 @@ function App() {
         country: dpOptions,
         state: {
           label: null,
-          value: null
+          value: null,
         },
         city: {
           label: null,
-          value: null
-        }
+          value: null,
+        },
       };
       formOptions = { ...allOptions };
       // console.log("def", defaultValues);
@@ -119,43 +117,51 @@ function App() {
   };
 
   const getstates = (val) => {
-    axios.post("https://countriesnow.space/api/v0.1/countries/states", { country: val?.value }).then((res) => {
-      const data = res.data?.data?.states;
-      const dpOptions = [];
-      data.map((op) => {
-        // Change appropriate keys
-        dpOptions.push({ label: op.name, value: op.name });
-        return op;
+    axios
+      .post("https://countriesnow.space/api/v0.1/countries/states", {
+        country: val?.value,
+      })
+      .then((res) => {
+        const data = res.data?.data?.states;
+        const dpOptions = [];
+        data.map((op) => {
+          // Change appropriate keys
+          dpOptions.push({ label: op.name, value: op.name });
+          return op;
+        });
+        const allOptions = {
+          ...formOptions,
+          ...options,
+          state: dpOptions,
+          city: [],
+        };
+        formOptions = { ...allOptions };
+        updateOptions(allOptions);
+        setUpdateFormValues(["state", "city"]);
+        // updateDefaultValues({
+        //   ...defaultValues,
+        //   city: null,
+        // });
       });
-      const allOptions = {
-        ...formOptions,
-        ...options,
-        state: dpOptions,
-        city: []
-      };
-      formOptions = { ...allOptions };
-      updateOptions(allOptions);
-      setUpdateFormValues(["state", "city"]);
-      // updateDefaultValues({
-      //   ...defaultValues,
-      //   city: null,
-      // });
-    });
   };
 
-
   const getCities = async (val) => {
-
-    if (!runtimeFormValues?.country?.value && !runtimeFormValues?.state?.value ){
-        return
+    if (
+      !runtimeFormValues?.country?.value &&
+      !runtimeFormValues?.state?.value
+    ) {
+      return;
     }
     const payload = {
       country: runtimeFormValues?.country?.value,
       state: val?.value,
     };
-  
+
     try {
-      const {data} = await axios.post("https://countriesnow.space/api/v0.1/countries/state/cities", payload);
+      const { data } = await axios.post(
+        "https://countriesnow.space/api/v0.1/countries/state/cities",
+        payload
+      );
       const dpOptions = [];
       data?.data?.map((op) => {
         // Change appropriate keys
@@ -165,7 +171,7 @@ function App() {
       const allOptions = {
         ...formOptions,
         ...options,
-        city: dpOptions
+        city: dpOptions,
       };
       formOptions = { ...allOptions };
       updateOptions(allOptions);
@@ -178,40 +184,41 @@ function App() {
     getCountries();
   }, []);
 
+  const addMoreButtonsSchema = [
+    {
+      label: "external link",
+      type: "button",
+      name: "test 1",
+      variant: "link",
+      className: "mb-6",
+      disable: false,
+      onClick: () => window.open("https://www.npmjs.com/~starkreact", "_blank"),
+    },
+    {
+      label: "external link 2",
+      type: "button",
+      name: "test 2",
+      variant: "link",
+      className: "mb-6",
+      disable: false,
+      onClick: () => console.log("test 2"),
+    },
+    {
+      label: "external link 2",
+      type: "button",
+      name: "test 3",
+      variant: "link",
+      className: "mb-6",
+      disable: false,
+      onClick: () => console.log("test 3"),
+    },
+  ];
 
-
-  const addMoreButtonsSchema = [{
-    "label":"external link",
-    "type":"button",
-    "name": "test 1",
-    "variant":"link",
-    "className":"mb-6",
-    "disable":false,
-    "onClick":()=>console.log("test 1")
-  },      {
-    "label":"external link 2",
-    "type":"button",
-    "name": "test 2",
-    "variant":"link",
-    "className":"mb-6",
-    "disable":false,
-    "onClick":()=>console.log("test 2")
-  },
-  {
-    "label":"external link 2",
-    "type":"button",
-    "name": "test 3",
-    "variant":"link",
-    "className":"mb-6",
-    "disable":false,
-    "onClick":()=>console.log("test 3")
-  }] 
-
-  const onTextInputChange = (value,formValues) => {
-    let tempData = {...formValues}
-    console.log("🚀 ~ onTextInputChange ~ tempData:", tempData)
+  const onTextInputChange = (value, formValues) => {
+    let tempData = { ...formValues };
+    console.log("🚀 ~ onTextInputChange ~ tempData:", tempData);
     // setRunTimeFormValues(formValues);
-  }
+  };
 
   return (
     <Card className="App">
@@ -220,20 +227,21 @@ function App() {
           containerClass=""
           formClass=""
           formHeaderClass=""
-          formSections={/* FormSections */ /* dummyjson */ Schema /* FormSchema05 *//* newFormSchema */}
+          formSections={
+            /* FormSections */ /* dummyjson */ Schema /* FormSchema05 */ /* newFormSchema */
+          }
           // formSections={conditionalSchema}
           formHeading="Registration"
           // onTextInputChange={onTextInputChange} // runtime onchange values and formValues
           onFormSubmit={(formValues) => {
             submitForm(formValues);
           }}
-          
           onFormDraft={(formValues) => {
             submitForm(formValues);
           }}
           options={options}
           removeValues={updatedValues}
-          callbacks={{  
+          callbacks={{
             onCountryChange: (val) => {
               getstates(val);
             },
@@ -249,9 +257,10 @@ function App() {
           showDraftBtn
           resetBtnText="Reset"
           btnContainerClass="form-submit-buttons"
-          // sectionButtonCallBacks={[
-          //   () => window.open('https://www.google.com', '_blank')
-          // ]}
+          sectionButtonCallBacks={[
+            () => window.open('https://www.google.com', '_blank'),
+            () => window.open('https://docs.google.com/spreadsheets/d/1qzBFZBvuJOk4nVlIqpgGajZs7U_K0peH6Kbgchd1NzE/edit?gid=0#gid=0', '_blank')
+          ]}
           // addMoreButtonsSchema={addMoreButtonsSchema}
           onFormReset={() => {
             console.log("form reset callback");
