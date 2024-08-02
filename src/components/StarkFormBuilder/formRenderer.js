@@ -475,7 +475,7 @@ export default function FormRenderer(props) {
         });
         if (addMoreRemoveCallback) addMoreRemoveCallback(fieldIndex);
       } else {
-        swal.close();
+        // swal.close();
       }
     });
   };
