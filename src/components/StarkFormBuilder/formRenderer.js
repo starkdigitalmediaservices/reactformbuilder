@@ -5,7 +5,7 @@ import Stepper from "react-stepper-horizontal";
 import SimpleReactValidator from "simple-react-validator";
 import FormElementRenderer from "./formElementRenderer";
 import CustomFunctions from "./helper/customFunctions";
-import swal from "sweetalert";
+// import swal from "sweetalert";
 import Swal from "sweetalert2";
 import { ButtonComponent } from "./FormElements";
 
