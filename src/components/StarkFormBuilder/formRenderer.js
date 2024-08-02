@@ -516,7 +516,7 @@ export default function FormRenderer(props) {
                         />
                       </Col>
                     ))}
-                    <Col md={12} className="mb-3">
+                    <Col md={12} className="mt-3 mb-3">
                       <div className="btn-group addMoreBtnContainer">
                         <Button
                           className="btn btn-primary btn-width mr-5"

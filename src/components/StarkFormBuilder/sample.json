@@ -1,18 +1,290 @@
 [
   {
+    "sectionName": "userinfo",
+    "sectionTitle": "User info",
+    "containerClass": "user-section",
+    "displaySection": true,
+    "displaySectionTitle": true,
+    "fields": [
+      {
+        "name": "name",
+        "type": "text",
+        "label": "User Name",
+        "id": "asd",
+        "placeholder": "",
+        "tooltip": "text input",
+        "tooltipIcon": "fa-regular fa-circle-question",
+        "tooltipText": "",
+        "tooltipClass": "",
+        "inputClass": "",
+        "containerClass": "",
+        "validations": [
+          {
+            "type": "required",
+            "applyWhen": [],
+            "applyWhenRelation": "OR"
+          }
+        ],
+        "displayWhen": {},
+        "disabled": false,
+        "allowedUsers": []
+      },
+      {
+        "name": "phone",
+        "type": "phonenumber",
+        "tooltipText": "",
+        "label": "Phone Number",
+        "tooltip": "phone input",
+        "tooltipIcon": "fa-regular fa-circle-question",
+        "tooltipClass": "",
+        "id": "asd",
+        "placeholder": "",
+        "inputClass": "",
+        "containerClass": "",
+        "limitMaxLength": "true",
+        "defaultCountry": "us",
+        "validations": [],
+        "displayWhen": {},
+        "disabled": false,
+        "allowedUsers": [],
+
+        "countryCodeEditable": false,
+        "enableSearch": true,
+        "disableSearchIcon": false
+      },
+      {
+        "name": "email",
+        "type": "email",
+        "label": "Email",
+        "id": "",
+        "placeholder": "",
+        "tooltip": "email input",
+        "tooltipIcon": "fa-regular fa-circle-question",
+        "tooltipClass": "",
+        "tooltipText": "",
+        "inputClass": "",
+        "containerClass": "",
+        "validations": [
+          {
+            "type": "required",
+            "applyWhen": [],
+            "applyWhenRelation": "OR"
+          },
+          {
+            "type": "email",
+            "applyWhen": [],
+            "applyWhenRelation": "OR"
+          }
+        ],
+        "disabled": false
+      },
+      {
+        "id": "gender",
+        "name": "gender",
+        "label": "Gender",
+        "tooltip": "Radio input",
+        "tooltipClass": "",
+        "tooltipText": "",
+        "tooltipIcon": "fa-regular fa-circle-question",
+        "containerClass": "stark-frmmobile",
+        "type": "radio",
+        "placeholder": "",
+        "inputClass": "",
+        "validations": [
+          {
+            "type": "required",
+            "applyWhen": [],
+            "applyWhenRelation": "OR"
+          }
+        ],
+        "options": [
+          {
+            "value": "female",
+            "label": "Female"
+          },
+          {
+            "value": "male",
+            "label": "Male"
+          }
+        ],
+        "disabled": false
+      },
+      {
+        "id": "choices",
+        "name": "choices",
+        "label": "Choices",
+        "tooltip": "Checkbox input",
+        "tooltipIcon": "fa-regular fa-circle-question",
+        "tooltipText": "",
+        "tooltipClass": "",
+        "containerClass": "stark-frmmobile",
+        "type": "checkbox",
+        "placeholder": "",
+        "inputClass": "",
+        "validations": [
+          {
+            "type": "required",
+            "applyWhen": [],
+            "applyWhenRelation": "OR"
+          }
+        ],
+        "options": [
+          {
+            "value": "fb",
+            "label": "Facebook"
+          },
+          {
+            "value": "insta",
+            "label": "Instagram"
+          }
+        ],
+        "displayWhen": {
+          "conditions": [
+            {
+              "name": "gender",
+              "value": "female",
+              "condition": "=="
+            }
+          ],
+          "displayWhenRelation": "AND"
+        },
+        "disabled": false
+      },
+      {
+        "id": "stock",
+        "name": "stock",
+        "label": "Stock",
+        "tooltip": "dropdown input",
+        "tooltipIcon": "fa-regular fa-circle-question",
+        "tooltipText": "",
+        "tooltipClass": "",
+        "containerClass": "stark-frmmobile",
+        "type": "select",
+        "placeholder": "",
+        "inputClass": "",
+        "validations": [
+          {
+            "type": "required",
+            "applyWhen": [],
+            "applyWhenRelation": "OR"
+          }
+        ],
+        "options": [],
+        "isMulti": false,
+        "disabled": false
+      },
+      {
+        "id": "users",
+        "name": "users",
+        "label": "Users",
+        "tooltip": "dropdown input",
+        "tooltipIcon": "fa-regular fa-circle-question",
+        "tooltipText": "",
+        "containerClass": "stark-frmmobile",
+        "tooltipClass": "",
+        "type": "select",
+        "placeholder": "",
+        "inputClass": "",
+        "validations": [
+          {
+            "type": "required",
+            "applyWhen": [],
+            "applyWhenRelation": "OR"
+          }
+        ],
+        "options": [],
+        "isMulti": false,
+        "disabled": false
+      },
+      {
+        "id": "country",
+        "name": "country",
+        "label": "Country",
+        "tooltip": "dropdown input",
+        "tooltipIcon": "fa-regular fa-circle-question",
+        "tooltipClass": "",
+        "tooltipText": "",
+        "containerClass": "stark-frmmobile",
+        "type": "select",
+        "placeholder": "Select country",
+        "inputClass": "",
+        "validations": [
+          {
+            "type": "required",
+            "applyWhen": [],
+            "applyWhenRelation": "OR"
+          }
+        ],
+        "options": [],
+        "isMulti": false,
+        "disabled": false,
+        "isSearchable": false,
+        "callback": "onCountryChange",
+        "fieldsToReset": ["users", "state"]
+      },
+      {
+        "id": "state",
+        "name": "state",
+        "label": "State",
+        "tooltipText": "",
+        "tooltipClass": "",
+        "tooltipIcon": "fa-regular fa-circle-question",
+        "containerClass": "stark-frmmobile",
+        "type": "select",
+        "placeholder": "",
+        "inputClass": "",
+        "validations": [
+          {
+            "type": "required",
+            "applyWhen": [],
+            "applyWhenRelation": "OR"
+          }
+        ],
+        "options": [],
+        "isMulti": false,
+        "disabled": false
+      },
+      {
+        "id": "startdate",
+        "name": "startdate",
+        "label": "Start date",
+        "tooltip": "date input",
+        "tooltipIcon": "fa-regular fa-circle-question",
+        "tooltipText": "",
+        "tooltipClass": "",
+        "containerClass": "stark-frmmobile",
+        "type": "date",
+        "placeholder": "YYYY-MM-DD",
+        "inputClass": "",
+        "validations": [
+          {
+            "type": "required",
+            "applyWhen": [],
+            "applyWhenRelation": "OR"
+          }
+        ],
+        "options": [],
+        "isMulti": false,
+        "disabled": false
+      }
+    ],
+    "sectionLayout": "1column"
+  },
+
+  {
     "sectionName": "basicinfo",
     "sectionTitle": "Basic Info",
     "layout": { "label": "1 Column", "value": "1column" },
     "containerClass": "",
     "displaySection": true,
     "displaySectionTitle": true,
-    "buttonProps":{
-      "label":"external link 1",
-      "type":"button",
+    "buttonProps": {
+      "label": "external link 1",
+      "type": "button",
       "name": "section-link",
-      "variant":"link",
-      "className":"mb-6",
-      "disable":false
+      "variant": "link",
+      "className": "mb-6",
+      "disable": false
     },
     "fields": [
       {
@@ -51,15 +323,17 @@
         "name": "Top Skill",
         "type": "text",
         "label": "Top Skill",
-        "id": "skill",  
+        "id": "skill",
         "placeholder": "Top Skill",
         "inputClass": "",
         "containerClass": "",
-        "validations": [  {
-          "type": "required|alpha_space",
-          "applyWhen": [],
-          "applyWhenRelation": "OR"
-        }],
+        "validations": [
+          {
+            "type": "required|alpha_space",
+            "applyWhen": [],
+            "applyWhenRelation": "OR"
+          }
+        ],
         "displayWhen": {
           "conditions": [
             {
@@ -97,16 +371,15 @@
     "containerClass": "basicInformation",
     "displaySection": true,
     "displaySectionTitle": true,
-    "buttonProps":{
-      "label":"external link 2",
-      "type":"button",
+    "buttonProps": {
+      "label": "external link 2",
+      "type": "button",
       "name": "section-link",
-      "variant":"link",
-      "className":"mb-6",
-      "disable":false
+      "variant": "link",
+      "className": "mb-6",
+      "disable": false
     },
     "fields": [
-  
       {
         "name": "Test hobby",
         "type": "checkbox",
@@ -145,11 +418,13 @@
         "placeholder": "Enter favorite player",
         "inputClass": "",
         "containerClass": "",
-        "validations": [  {
-          "type": "required|alpha_space",
-          "applyWhen": [],
-          "applyWhenRelation": "OR"
-        }],
+        "validations": [
+          {
+            "type": "required|alpha_space",
+            "applyWhen": [],
+            "applyWhenRelation": "OR"
+          }
+        ],
         "displayWhen": {
           "conditions": [
             { "name": "Test hobby", "value": "cricket", "condition": "==" }
@@ -183,7 +458,6 @@
     "displaySection": true,
     "displaySectionTitle": true,
     "fields": [
- 
       {
         "name": "History Data",
         "type": "addmore",
@@ -211,7 +485,7 @@
             "name": "company_name",
             "type": "text",
             "label": "Company Name",
-            "maxLength":10,
+            "maxLength": 10,
             "id": "",
             "placeholder": "Company Name",
             "inputClass": "",
@@ -359,11 +633,13 @@
             "placeholder": "Duration",
             "inputClass": "",
             "containerClass": "",
-            "validations": [  {
-              "type": "required|alpha_space",
-              "applyWhen": [],
-              "applyWhenRelation": "OR"
-            }],
+            "validations": [
+              {
+                "type": "required|alpha_space",
+                "applyWhen": [],
+                "applyWhenRelation": "OR"
+              }
+            ],
             "displayWhen": {},
             "haveValidations": "true",
             "haveDisplayOptions": "false",
@@ -452,11 +728,13 @@
             "placeholder": "HR Name",
             "inputClass": "",
             "containerClass": "",
-            "validations": [  {
-              "type": "required|alpha_space",
-              "applyWhen": [],
-              "applyWhenRelation": "OR"
-            }],
+            "validations": [
+              {
+                "type": "required|alpha_space",
+                "applyWhen": [],
+                "applyWhenRelation": "OR"
+              }
+            ],
             "displayWhen": {},
             "haveValidations": "true",
             "haveDisplayOptions": "false",
@@ -506,7 +784,7 @@
             "placeholder": "HR Contact No",
             "inputClass": "",
             "containerClass": "",
-            "maxLength":10,
+            "maxLength": 10,
             "validations": [],
             "displayWhen": {},
             "haveValidations": "false",
@@ -532,11 +810,13 @@
             "placeholder": "Manager Name",
             "inputClass": "",
             "containerClass": "",
-            "validations": [  {
-              "type": "required|alpha_space",
-              "applyWhen": [],
-              "applyWhenRelation": "OR"
-            }],
+            "validations": [
+              {
+                "type": "required|alpha_space",
+                "applyWhen": [],
+                "applyWhenRelation": "OR"
+              }
+            ],
             "displayWhen": {},
             "haveValidations": "true",
             "haveDisplayOptions": "false",
@@ -585,11 +865,9 @@
             "id": "",
             "placeholder": "Manager Contact No",
             "inputClass": "",
-            "maxLength":10,
+            "maxLength": 10,
             "containerClass": "",
-            "validations": [
-            
-            ],
+            "validations": [],
             "displayWhen": {},
             "haveValidations": "false",
             "haveDisplayOptions": "false",
@@ -654,13 +932,11 @@
             "inputClass": "",
             "containerClass": "",
             "validations": [
-              
-                {
-                  "type": "required|alpha_space",
-                  "applyWhen": [],
-                  "applyWhenRelation": "OR"
-                }
-              
+              {
+                "type": "required|alpha_space",
+                "applyWhen": [],
+                "applyWhenRelation": "OR"
+              }
             ],
             "displayWhen": {
               "conditions": [
@@ -732,11 +1008,13 @@
             "placeholder": "Skill",
             "inputClass": "",
             "containerClass": "",
-            "validations": [  {
-              "type": "required|alpha_space",
-              "applyWhen": [],
-              "applyWhenRelation": "OR"
-            }],
+            "validations": [
+              {
+                "type": "required|alpha_space",
+                "applyWhen": [],
+                "applyWhenRelation": "OR"
+              }
+            ],
             "displayWhen": {
               "conditions": [
                 {
@@ -801,11 +1079,13 @@
             "placeholder": "Enter favorite player",
             "inputClass": "",
             "containerClass": "",
-            "validations": [  {
-              "type": "required | alpha_space",
-              "applyWhen": [],
-              "applyWhenRelation": "OR"
-            }],
+            "validations": [
+              {
+                "type": "required | alpha_space",
+                "applyWhen": [],
+                "applyWhenRelation": "OR"
+              }
+            ],
             "displayWhen": {
               "conditions": [
                 { "name": "hobby", "value": "cricket", "condition": "==" }
