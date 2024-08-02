@@ -20,6 +20,9 @@ Install dependent libraries
 - react-datepicker
 - simple-react-validator
 - react-stepper-horizontal
+- sweetalert2
+- react-phone-input-2
+- react-phone-number-input
 
 ```
 npm i --save bootstrap react-bootstrap react-select react-datepicker simple-react-validator react-stepper-horizontal
